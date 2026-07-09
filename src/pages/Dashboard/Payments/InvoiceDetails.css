@@ -1,0 +1,439 @@
+/* Premium InvoiceDetails Stylesheet */
+
+.invoice-detailed-view-page {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  font-family: 'Inter', sans-serif;
+}
+
+.id-detailed-grid {
+  display: grid;
+  grid-template-columns: 1fr 320px;
+  gap: 32px;
+  align-items: start;
+}
+
+/* Printable Bill Card */
+.billing-sheet-card {
+  background: #ffffff;
+  border: 1px solid #eef2f7;
+  border-radius: 24px;
+  box-shadow: 0 10px 25px rgba(15, 23, 42, 0.03);
+  padding: 44px;
+  position: relative;
+  overflow: hidden;
+}
+
+.billing-stripe {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 6px;
+  background: linear-gradient(90deg, #10b981 0%, #0f8a8f 100%);
+}
+
+.billing-sheet-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  flex-wrap: wrap;
+  gap: 24px;
+  margin-top: 10px;
+}
+
+.hospital-details {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.hospital-details .brand-logo-text {
+  font-size: 24px;
+  font-weight: 800;
+  color: #1e293b;
+  letter-spacing: -0.02em;
+}
+
+.hospital-details .brand-teal {
+  color: #0f8a8f;
+}
+
+.hospital-details .hosp-name {
+  font-size: 15px;
+  font-weight: 700;
+  color: #334155;
+  margin-top: 4px;
+}
+
+.hospital-details .hosp-address,
+.hospital-details .hosp-contact {
+  font-size: 12px;
+  color: #64748b;
+}
+
+.invoice-basic-meta {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 6px;
+}
+
+.statement-lbl {
+  font-size: 10px;
+  font-weight: 800;
+  color: #94a3b8;
+  letter-spacing: 0.08em;
+}
+
+.invoice-id-mono-box {
+  font-family: 'Courier New', Courier, monospace;
+  font-size: 16px;
+  font-weight: 800;
+  color: #334155;
+  background: #f8fafc;
+  border: 1px solid #cbd5e1;
+  padding: 4px 12px;
+  border-radius: 8px;
+}
+
+.details-status-pill {
+  border-radius: 20px;
+  font-weight: 750;
+  padding: 3px 12px;
+  font-size: 11px;
+  margin: 0;
+}
+
+.sheet-divider.ant-divider {
+  margin: 28px 0;
+  border-color: #f1f5f9;
+}
+
+/* Patient / Doctor Row */
+.sheet-stakeholders-row {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 24px;
+}
+
+.stakeholder-block {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.section-label {
+  font-size: 10px;
+  font-weight: 700;
+  color: #94a3b8;
+  letter-spacing: 0.05em;
+  margin-bottom: 6px;
+}
+
+.stakeholder-name {
+  font-size: 15px;
+  font-weight: 700;
+  color: #1e293b;
+  margin: 0 0 2px 0;
+}
+
+.stakeholder-sub {
+  font-size: 13px;
+  color: #64748b;
+}
+
+.date-row-item {
+  display: flex;
+  justify-content: space-between;
+  font-size: 13px;
+}
+
+.date-row-item .date-lbl {
+  color: #94a3b8;
+  font-weight: 600;
+}
+
+.date-row-item .date-val {
+  color: #334155;
+  font-weight: 650;
+}
+
+.date-row-item .date-val-bold {
+  color: #0f8a8f;
+  font-weight: 750;
+}
+
+/* Itemized services table */
+.section-subtitle {
+  font-size: 13px;
+  font-weight: 700;
+  color: #1e293b;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  margin: 0 0 16px 0;
+}
+
+.billing-items-table-header {
+  display: grid;
+  grid-template-columns: 1fr 60px 100px 100px;
+  gap: 12px;
+  background: #f8fafc;
+  padding: 12px 20px;
+  border-radius: 10px;
+  font-size: 11px;
+  font-weight: 700;
+  color: #94a3b8;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  text-align: right;
+}
+
+.billing-items-table-header .th-desc-name {
+  text-align: left;
+}
+
+.billing-items-rows {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  margin-top: 10px;
+}
+
+.billing-item-row-cell {
+  display: grid;
+  grid-template-columns: 1fr 60px 100px 100px;
+  gap: 12px;
+  padding: 16px 20px;
+  border-bottom: 1px solid #f8fafc;
+  font-size: 14px;
+  color: #334155;
+  text-align: right;
+  align-items: center;
+}
+
+.billing-item-row-cell .row-desc {
+  text-align: left;
+}
+
+.item-name-bold {
+  font-weight: 600;
+  color: #1e293b;
+}
+
+.row-qty-val,
+.row-price-val {
+  font-weight: 550;
+  color: #64748b;
+}
+
+.row-total-val {
+  font-weight: 700;
+  color: #1e293b;
+}
+
+/* Footer elements: QR Code and Math */
+.billing-summary-footer-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  flex-wrap: wrap;
+  gap: 32px;
+}
+
+.qr-code-placeholder-wrap {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  background: rgba(15, 138, 143, 0.03);
+  border: 1px solid rgba(15, 138, 143, 0.1);
+  padding: 14px 20px;
+  border-radius: 16px;
+}
+
+.qr-box {
+  background: #ffffff;
+  padding: 6px;
+  border-radius: 12px;
+  border: 1px solid #eef2f7;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.02);
+}
+
+.qr-desc {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  max-width: 140px;
+}
+
+.qr-title-text {
+  font-size: 13px;
+  font-weight: 700;
+  color: #1e293b;
+}
+
+.qr-subtitle-text {
+  font-size: 11px;
+  color: #94a3b8;
+  line-height: 1.4;
+}
+
+.invoice-math-totals {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  width: 100%;
+  max-width: 320px;
+}
+
+.math-row {
+  display: flex;
+  justify-content: space-between;
+  font-size: 14px;
+  color: #64748b;
+}
+
+.math-row.discount {
+  color: #ef4444;
+}
+
+.math-inner-divider.ant-divider {
+  margin: 10px 0;
+  border-color: #f1f5f9;
+}
+
+.math-row.grand-total {
+  font-size: 16px;
+  font-weight: 800;
+  color: #1e293b;
+}
+
+.math-row.grand-total .math-val-bold {
+  color: #0f8a8f;
+  font-size: 20px;
+}
+
+.billing-guarantee-row {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  background: rgba(16, 185, 129, 0.05);
+  border: 1px solid rgba(16, 185, 129, 0.15);
+  border-radius: 12px;
+  padding: 10px;
+  font-size: 11px;
+  color: #047857;
+  font-weight: 600;
+  margin-top: 32px;
+}
+
+.guarantee-check {
+  color: #10b981;
+}
+
+/* Sidebar action panel */
+.sidebar-actions-card-panel {
+  background: #ffffff;
+  border: 1px solid #eef2f7;
+  border-radius: 20px;
+  padding: 24px;
+  box-shadow: 0 10px 25px rgba(15, 23, 42, 0.03);
+}
+
+.sidebar-card-title {
+  font-size: 15px;
+  font-weight: 700;
+  color: #1e293b;
+  margin: 0 0 20px 0;
+}
+
+.sidebar-action-stack {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.btn-sidebar-option.ant-btn {
+  height: 44px;
+  border-radius: 10px;
+  font-weight: 600;
+  width: 100%;
+}
+
+.btn-sidebar-option.primary-teal {
+  background-color: #0f8a8f !important;
+  border-color: #0f8a8f !important;
+  color: #ffffff;
+}
+
+.btn-sidebar-option.primary-teal:hover {
+  background-color: #0d797d !important;
+}
+
+.btn-sidebar-option.secondary-outline {
+  border-color: #cbd5e1;
+  color: #475569;
+}
+
+.btn-sidebar-option.secondary-outline:hover {
+  border-color: #0f8a8f;
+  color: #0f8a8f;
+}
+
+/* Responsive adjust */
+@media screen and (max-width: 991px) {
+  .id-detailed-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media screen and (max-width: 767px) {
+  .sheet-stakeholders-row {
+    grid-template-columns: 1fr;
+    gap: 16px;
+  }
+  .billing-sheet-card {
+    padding: 24px;
+  }
+  .billing-items-table-header {
+    display: none;
+  }
+  .billing-item-row-cell {
+    grid-template-columns: 1fr 1fr;
+    gap: 8px;
+    padding: 12px 0;
+    text-align: right;
+  }
+  .billing-item-row-cell .row-desc {
+    grid-column: 1 / span 2;
+    text-align: left;
+    margin-bottom: 4px;
+  }
+  .row-qty-val::before {
+    content: 'Qty: ';
+    float: left;
+    color: #94a3b8;
+  }
+  .row-price-val::before {
+    content: 'Price: ';
+    float: left;
+    color: #94a3b8;
+  }
+  .row-total-val::before {
+    content: 'Total: ';
+    float: left;
+    color: #94a3b8;
+  }
+  .billing-summary-footer-row {
+    flex-direction: column;
+    align-items: stretch;
+  }
+  .invoice-math-totals {
+    max-width: 100%;
+  }
+}

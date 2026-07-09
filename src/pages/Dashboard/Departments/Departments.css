@@ -1,0 +1,479 @@
+/* Departments Dashboard Stylesheet */
+
+.departments-dash-container {
+  display: flex;
+  flex-direction: column;
+  gap: var(--section-gap, 24px);
+  width: 100%;
+}
+
+/* Hero Header */
+.departments-hero-banner {
+  background: linear-gradient(135deg, #0f8a8f 0%, #085e62 100%);
+  border-radius: 24px;
+  padding: 32px 40px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  position: relative;
+  overflow: hidden;
+  box-shadow: 0 10px 30px rgba(15, 138, 143, 0.15);
+}
+
+.departments-hero-banner::before {
+  content: '';
+  position: absolute;
+  top: -50px;
+  right: -50px;
+  width: 250px;
+  height: 250px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.05);
+  pointer-events: none;
+}
+
+.departments-hero-banner .hero-left {
+  max-width: 70%;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.departments-hero-banner .hero-badge-tag {
+  background: rgba(255, 255, 255, 0.15);
+  color: #ffffff;
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  padding: 4px 12px;
+  border-radius: 50px;
+  width: fit-content;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.departments-hero-banner .hero-title {
+  color: #ffffff;
+  font-size: 32px;
+  font-weight: 800;
+  margin: 0;
+  letter-spacing: -0.5px;
+}
+
+.departments-hero-banner .hero-desc {
+  color: rgba(255, 255, 255, 0.85);
+  font-size: 14px;
+  margin: 0;
+  line-height: 1.5;
+}
+
+.departments-hero-banner .hero-right-icon {
+  font-size: 72px;
+  color: rgba(255, 255, 255, 0.08);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  pointer-events: none;
+}
+
+/* KPI Stats cards */
+.dept-stats-grid {
+  width: 100%;
+}
+
+.dept-stat-card {
+  border-radius: 20px !important;
+  background: #ffffff !important;
+  box-shadow: 0 4px 20px rgba(15, 23, 42, 0.02) !important;
+  border: 1px solid #eef2f7 !important;
+  padding: 8px 4px !important;
+}
+
+.stat-card-flex {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.stat-meta {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.stat-lbl {
+  font-size: 12px;
+  font-weight: 700;
+  color: #94a3b8;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.stat-value {
+  font-size: 24px;
+  font-weight: 850;
+  color: #1e293b;
+  margin: 0;
+  letter-spacing: -0.5px;
+}
+
+.stat-icon {
+  width: 44px;
+  height: 44px;
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 18px;
+}
+
+.stat-icon.depts { background-color: rgba(15, 138, 143, 0.05); color: #0f8a8f; }
+.stat-icon.docs { background-color: #f5f3ff; color: #8b5cf6; }
+.stat-icon.services { background-color: #ecfdf5; color: #10b981; }
+.stat-icon.patients { background-color: #fffbeb; color: #f59e0b; }
+
+/* Toolbar filters */
+.departments-filter-toolbar {
+  background: #ffffff;
+  border-radius: 20px;
+  padding: 20px 24px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  border: 1px solid #eef2f7;
+  box-shadow: 0 4px 20px rgba(15, 23, 42, 0.02);
+}
+
+.filter-left-lbl {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-weight: 700;
+  color: #334155;
+  font-size: 15px;
+}
+
+.filter-controls-row {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex: 1;
+  justify-content: flex-end;
+  flex-wrap: wrap;
+}
+
+.dept-search {
+  max-width: 260px;
+  width: 100%;
+}
+
+.dept-search input {
+  height: 40px;
+  border-radius: 10px !important;
+  border-color: #cbd5e1 !important;
+  font-size: 13px;
+}
+
+.dept-search .ant-input-affix-wrapper-focused,
+.dept-search .ant-input-affix-wrapper:focus {
+  border-color: #0f8a8f !important;
+  box-shadow: 0 0 0 2px rgba(15, 138, 143, 0.1) !important;
+}
+
+.dept-select {
+  width: 140px;
+}
+
+.dept-select.category { width: 150px; }
+.dept-select.availability { width: 150px; }
+.dept-select.sort { width: 170px; }
+
+.dept-select .ant-select-selector {
+  border-radius: 10px !important;
+  border-color: #cbd5e1 !important;
+  height: 40px !important;
+  display: flex !important;
+  align-items: center !important;
+  font-weight: 600 !important;
+  color: #475569 !important;
+  font-size: 13px !important;
+}
+
+.dept-select.ant-select-focused .ant-select-selector {
+  border-color: #0f8a8f !important;
+  box-shadow: 0 0 0 2px rgba(15, 138, 143, 0.1) !important;
+}
+
+/* Department Grid Feed */
+.departments-grid-wrapper {
+  background: #ffffff;
+  border-radius: 24px;
+  padding: 32px;
+  border: 1px solid #eef2f7;
+  box-shadow: 0 4px 20px rgba(15, 23, 42, 0.02);
+}
+
+.list-meta-summary {
+  font-size: 14px;
+  color: #64748b;
+  font-weight: 600;
+  margin-bottom: 24px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.list-meta-summary::before {
+  content: '';
+  width: 4px;
+  height: 16px;
+  background-color: #0f8a8f;
+  border-radius: 4px;
+}
+
+.departments-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 24px;
+}
+
+.dept-grid-card {
+  background: #ffffff;
+  border: 1px solid #f1f5f9;
+  border-radius: 24px;
+  padding: 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  position: relative;
+  transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+  overflow: hidden;
+}
+
+.dept-grid-card::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 5px;
+}
+
+/* Color codes for 10 departments */
+.dept-cardiology::after { background-color: #ef4444; }
+.dept-neurology::after { background-color: #8b5cf6; }
+.dept-orthopedics::after { background-color: #f59e0b; }
+.dept-pediatrics::after { background-color: #10b981; }
+.dept-dermatology::after { background-color: #ec4899; }
+.dept-gynecology::after { background-color: #14b8a6; }
+.dept-ent::after { background-color: #06b6d4; }
+.dept-ophthalmology::after { background-color: #3b82f6; }
+.dept-radiology::after { background-color: #6366f1; }
+.dept-general::after { background-color: #64748b; }
+
+.dept-card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.dept-icon-ring {
+  width: 44px;
+  height: 44px;
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 20px;
+  background-color: rgba(15, 138, 143, 0.05);
+  color: #0f8a8f;
+}
+
+/* Mapped theme colors */
+.dept-cardiology .dept-icon-ring { background-color: #fef2f2; color: #ef4444; }
+.dept-neurology .dept-icon-ring { background-color: #f5f3ff; color: #8b5cf6; }
+.dept-orthopedics .dept-icon-ring { background-color: #fffbeb; color: #f59e0b; }
+.dept-pediatrics .dept-icon-ring { background-color: #ecfdf5; color: #10b981; }
+.dept-dermatology .dept-icon-ring { background-color: #fdf2f8; color: #ec4899; }
+.dept-gynecology .dept-icon-ring { background-color: #f0fdfa; color: #14b8a6; }
+.dept-ent .dept-icon-ring { background-color: #ecfeff; color: #06b6d4; }
+.dept-ophthalmology .dept-icon-ring { background-color: #eff6ff; color: #3b82f6; }
+.dept-radiology .dept-icon-ring { background-color: #e0e7ff; color: #6366f1; }
+
+.availability-tag {
+  font-size: 10px !important;
+  font-weight: 700 !important;
+  border-radius: 4px !important;
+}
+
+.dept-card-body {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  flex: 1;
+}
+
+.dept-title-text {
+  font-size: 18px;
+  font-weight: 800;
+  color: #1e293b;
+  margin: 0;
+  letter-spacing: -0.3px;
+}
+
+.dept-desc-text {
+  font-size: 13px;
+  color: #475569;
+  line-height: 1.6;
+  margin: 0;
+}
+
+/* Info metrics */
+.dept-card-info-metrics {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 6px;
+  background-color: #f8fafc;
+  border-radius: 12px;
+  padding: 10px;
+}
+
+.metric-pill {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-size: 11px;
+  font-weight: 700;
+  color: #475569;
+  text-align: center;
+}
+
+.metric-pill .count {
+  margin-top: 2px;
+}
+
+.rating-star {
+  font-size: 12px;
+  color: #f59e0b !important;
+}
+
+.rating-value {
+  font-size: 11px;
+  font-weight: 700;
+  color: #1e293b;
+  margin-top: 2px;
+}
+
+.dept-card-footer {
+  border-top: 1px solid #f1f5f9;
+  padding-top: 14px;
+  margin-top: 4px;
+  display: flex;
+  justify-content: space-between;
+  gap: 8px;
+}
+
+.btn-book-appoint {
+  height: 36px !important;
+  border-radius: 8px !important;
+  font-weight: 700 !important;
+  color: #0f8a8f !important;
+  border-color: #cbd5e1 !important;
+  flex: 1;
+}
+
+.btn-book-appoint:hover {
+  border-color: #0f8a8f !important;
+  color: #0f8a8f !important;
+  background-color: rgba(15, 138, 143, 0.02) !important;
+}
+
+.btn-explore-specialty {
+  height: 36px !important;
+  border-radius: 8px !important;
+  font-weight: 700 !important;
+  background-color: #0f8a8f !important;
+  border-color: #0f8a8f !important;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
+  flex: 2;
+}
+
+.btn-explore-specialty:hover {
+  background-color: #0b666a !important;
+  border-color: #0b666a !important;
+}
+
+.dept-empty-wrapper {
+  grid-column: span 3;
+  padding: 60px 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* ───────────────────────────────────────────────────────────────
+   RESPONSIVE DESIGN SYSTEM
+   ─────────────────────────────────────────────────────────────── */
+
+@media screen and (max-width: 1200px) {
+  .departments-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  .dept-empty-wrapper {
+    grid-column: span 2;
+  }
+}
+
+@media screen and (max-width: 991px) {
+  .departments-hero-banner {
+    padding: 24px 32px;
+  }
+  .departments-hero-banner .hero-title {
+    font-size: 28px;
+  }
+  .departments-filter-toolbar {
+    flex-direction: column;
+    align-items: stretch;
+    padding: 20px;
+    gap: 16px;
+  }
+  .filter-controls-row {
+    justify-content: flex-start;
+  }
+  .dept-search {
+    max-width: 100%;
+  }
+  .dept-select {
+    flex: 1;
+    min-width: 120px;
+  }
+}
+
+@media screen and (max-width: 767px) {
+  .departments-hero-banner {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 20px;
+    padding: 20px;
+  }
+  .departments-hero-banner .hero-left {
+    max-width: 100%;
+  }
+  .departments-hero-banner .hero-right-icon {
+    display: none;
+  }
+  .departments-grid {
+    grid-template-columns: 1fr;
+  }
+  .dept-empty-wrapper {
+    grid-column: span 1;
+  }
+  .departments-grid-wrapper {
+    padding: 20px;
+  }
+}

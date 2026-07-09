@@ -1,0 +1,303 @@
+/* Departments Section Styling */
+
+.departments-section {
+  position: relative;
+  background-color: #f3f8fe;
+  /* Soft blue background */
+  padding: var(--section-padding) 0;
+  overflow: hidden;
+  font-family: 'Inter', sans-serif;
+  border-top: 1px solid rgba(226, 232, 240, 0.5);
+}
+
+.departments-bg-accent {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: radial-gradient(circle at 10% 20%, rgba(15, 138, 143, 0.04) 0%, rgba(255, 255, 255, 0) 60%),
+    radial-gradient(circle at 90% 80%, rgba(74, 144, 226, 0.03) 0%, rgba(255, 255, 255, 0) 60%);
+  pointer-events: none;
+  z-index: 1;
+}
+
+.departments-container {
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 0 24px;
+  position: relative;
+  z-index: 2;
+}
+
+.departments-grid-row {
+  width: 100%;
+}
+
+.dept-card-wrapper {
+  height: 100%;
+}
+
+/* Department Card Layout with Hover Effects */
+.dept-card {
+  background-color: #ffffff;
+  border-radius: 20px;
+  padding: 40px 32px 32px 32px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.02);
+  border: 1px solid rgba(226, 232, 240, 0.8);
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  position: relative;
+  text-align: left;
+}
+
+/* Hover glow & lift border transition */
+.dept-card-wrapper:hover .dept-card {
+  box-shadow: 0 20px 45px rgba(15, 138, 143, 0.12);
+  border-color: rgba(15, 138, 143, 0.35);
+}
+
+/* Available Today Status Badge */
+.dept-status-badge {
+  position: absolute;
+  top: 24px;
+  right: 24px;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background-color: rgba(46, 204, 113, 0.08);
+  color: #2ecc71;
+  padding: 4px 12px;
+  border-radius: 50px;
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.status-dot {
+  width: 6px;
+  height: 6px;
+  background-color: #2ecc71;
+  border-radius: 50%;
+  display: inline-block;
+  box-shadow: 0 0 6px #2ecc71;
+}
+
+/* Gradient Icon Wrapper circles */
+.dept-icon-wrapper {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 56px;
+  height: 56px;
+  border-radius: 14px;
+  font-size: 24px;
+  margin-bottom: 24px;
+  transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.dept-card-wrapper:hover .dept-icon-wrapper {
+  transform: scale(1.1);
+}
+
+/* Department Gradient Themes */
+.dept-cardiology {
+  background: linear-gradient(135deg, rgba(231, 76, 60, 0.12) 0%, rgba(231, 76, 60, 0.03) 100%);
+  color: #e74c3c;
+}
+
+.dept-neurology {
+  background: linear-gradient(135deg, rgba(155, 89, 182, 0.12) 0%, rgba(155, 89, 182, 0.03) 100%);
+  color: #9b59b6;
+}
+
+.dept-orthopedics {
+  background: linear-gradient(135deg, rgba(243, 156, 18, 0.12) 0%, rgba(243, 156, 18, 0.03) 100%);
+  color: #f39c12;
+}
+
+.dept-pediatrics {
+  background: linear-gradient(135deg, rgba(46, 204, 113, 0.12) 0%, rgba(46, 204, 113, 0.03) 100%);
+  color: #2ecc71;
+}
+
+.dept-dermatology {
+  background: linear-gradient(135deg, rgba(26, 188, 156, 0.12) 0%, rgba(26, 188, 156, 0.03) 100%);
+  color: #1abc9c;
+}
+
+.dept-general {
+  background: linear-gradient(135deg, rgba(52, 152, 219, 0.12) 0%, rgba(52, 152, 219, 0.03) 100%);
+  color: #3498db;
+}
+
+/* Typography Details */
+.dept-title {
+  font-size: 20px;
+  font-weight: 700;
+  color: var(--text-dark);
+  margin-bottom: 8px;
+}
+
+.dept-description {
+  font-size: 14.5px;
+  color: var(--text-muted);
+  line-height: 1.6;
+  margin-bottom: 20px;
+  font-weight: 500;
+}
+
+/* Meta Data Row: Doctors & Ratings */
+.dept-meta-row {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  margin-bottom: 24px;
+  width: 100%;
+}
+
+.dept-doc-count {
+  font-size: 13.5px;
+  font-weight: 700;
+  color: var(--primary-color);
+  background-color: rgba(15, 138, 143, 0.06);
+  padding: 4px 10px;
+  border-radius: 6px;
+}
+
+.dept-rating-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  font-size: 13.5px;
+  font-weight: 700;
+  color: #f1c40f;
+  background-color: rgba(241, 196, 15, 0.08);
+  padding: 4px 10px;
+  border-radius: 6px;
+}
+
+.rating-star-icon {
+  font-size: 12px;
+}
+
+/* Card Button Override & Hover Glow */
+.dept-card .btn-dept-card.pranacore-btn-secondary {
+  width: 100% !important;
+  height: 42px !important;
+  font-size: 14px !important;
+  margin-top: auto;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+}
+
+.dept-card-wrapper:hover .btn-dept-card.pranacore-btn-secondary {
+  border-color: var(--primary-color) !important;
+  color: var(--primary-color) !important;
+  box-shadow: 0 0 12px rgba(15, 138, 143, 0.2) !important;
+}
+
+/* Highlights Feature Strip */
+.feature-strip-container {
+  margin-top: 80px;
+  width: 100%;
+}
+
+.feature-strip {
+  background-color: #ffffff;
+  border-radius: 20px;
+  padding: 30px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.02);
+  border: 1px solid rgba(226, 232, 240, 0.8);
+  width: 100%;
+}
+
+.strip-item {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding: 10px;
+}
+
+.strip-icon-wrapper {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 48px;
+  height: 48px;
+  border-radius: 12px;
+  font-size: 20px;
+  background-color: rgba(15, 138, 143, 0.08);
+  color: var(--primary-color);
+  flex-shrink: 0;
+}
+
+.strip-text-wrapper {
+  display: flex;
+  flex-direction: column;
+  text-align: left;
+}
+
+.strip-text-wrapper h4 {
+  font-size: 16px;
+  font-weight: 700;
+  color: var(--text-dark);
+  margin-bottom: 4px;
+}
+
+.strip-text-wrapper p {
+  font-size: 13px;
+  color: var(--text-muted);
+  margin: 0;
+  font-weight: 500;
+}
+
+/* --- Media Queries --- */
+
+/* Tablet Spacing Adjustments (768px - 991px) */
+@media (max-width: 991px) {
+  .departments-section {
+    padding: 90px 0;
+  }
+
+  .feature-strip-container {
+    margin-top: 60px;
+  }
+
+  .feature-strip {
+    padding: 24px;
+  }
+
+  .strip-item {
+    justify-content: center;
+    flex-direction: column;
+    gap: 12px;
+    text-align: center;
+  }
+
+  .strip-text-wrapper {
+    text-align: center;
+    align-items: center;
+  }
+}
+
+/* Mobile Screen Layout (< 768px) */
+@media (max-width: 767px) {
+  .departments-section {
+    padding: 70px 0;
+  }
+
+  .feature-strip-container {
+    margin-top: 40px;
+  }
+
+  .dept-card {
+    border-radius: 16px;
+    padding: 36px 24px 24px 24px;
+  }
+}

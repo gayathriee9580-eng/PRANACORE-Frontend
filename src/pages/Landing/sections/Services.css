@@ -1,0 +1,165 @@
+/* Services Component Styling */
+
+.services-section {
+  position: relative;
+  background-color: #ffffff;
+  padding: var(--section-padding) 0;
+  overflow: hidden;
+  font-family: 'Inter', sans-serif;
+  border-top: 1px solid rgba(226, 232, 240, 0.5);
+}
+
+.services-bg-accent {
+  position: absolute;
+  pointer-events: none;
+  z-index: 1;
+}
+
+.services-bg-accent-1 {
+  top: 15%;
+  right: -5%;
+  width: 400px;
+  height: 400px;
+  background: radial-gradient(circle, rgba(15, 138, 143, 0.04) 0%, rgba(255, 255, 255, 0) 70%);
+  filter: blur(35px);
+}
+
+.services-bg-accent-2 {
+  bottom: 15%;
+  left: -5%;
+  width: 400px;
+  height: 400px;
+  background: radial-gradient(circle, rgba(74, 144, 226, 0.03) 0%, rgba(255, 255, 255, 0) 70%);
+  filter: blur(35px);
+}
+
+.services-container {
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 0 24px;
+  position: relative;
+  z-index: 2;
+}
+
+/* Header Section */
+.services-header {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  margin-bottom: 60px;
+}
+
+.services-badge {
+  display: inline-flex;
+  align-items: center;
+  background-color: rgba(15, 138, 143, 0.08);
+  border: 1px solid rgba(15, 138, 143, 0.15);
+  color: var(--primary-color);
+  padding: 6px 16px;
+  border-radius: 50px;
+  font-size: 13px;
+  font-weight: 600;
+  letter-spacing: 0.8px;
+  text-transform: uppercase;
+  margin-bottom: 20px;
+}
+
+.services-badge-dot {
+  width: 8px;
+  height: 8px;
+  background-color: var(--primary-color);
+  border-radius: 50%;
+  margin-right: 8px;
+  display: inline-block;
+  box-shadow: 0 0 8px var(--primary-color);
+}
+
+.services-main-title {
+  font-size: 40px;
+  font-weight: 800;
+  color: var(--text-dark);
+  margin-bottom: 16px;
+  letter-spacing: -0.5px;
+}
+
+.services-description {
+  font-size: 17px;
+  color: var(--text-muted);
+  max-width: 700px;
+  line-height: 1.6;
+  margin: 0;
+  font-weight: 500;
+}
+
+/* Cards Grid */
+.services-cards-row {
+  width: 100%;
+}
+
+.service-card-wrapper {
+  height: 100%;
+}
+
+/* Color overrides for reusable FeatureCard inside Services */
+.reusable-feature-card.icon-find-docs .reusable-feature-card-icon-wrapper {
+  background: linear-gradient(135deg, rgba(15, 138, 143, 0.12) 0%, rgba(15, 138, 143, 0.03) 100%);
+  color: var(--primary-color);
+}
+
+.reusable-feature-card.icon-book-app .reusable-feature-card-icon-wrapper {
+  background: linear-gradient(135deg, rgba(74, 144, 226, 0.12) 0%, rgba(74, 144, 226, 0.03) 100%);
+  color: #4a90e2;
+}
+
+.reusable-feature-card.icon-med-records .reusable-feature-card-icon-wrapper {
+  background: linear-gradient(135deg, rgba(46, 204, 113, 0.12) 0%, rgba(46, 204, 113, 0.03) 100%);
+  color: #2ecc71;
+}
+
+.reusable-feature-card.icon-online-consult .reusable-feature-card-icon-wrapper {
+  background: linear-gradient(135deg, rgba(155, 89, 182, 0.12) 0%, rgba(155, 89, 182, 0.03) 100%);
+  color: #9b59b6;
+}
+
+.reusable-feature-card.icon-payments .reusable-feature-card-icon-wrapper {
+  background: linear-gradient(135deg, rgba(241, 196, 15, 0.12) 0%, rgba(241, 196, 15, 0.03) 100%);
+  color: #f1c40f;
+}
+
+.reusable-feature-card.icon-emergency .reusable-feature-card-icon-wrapper {
+  background: linear-gradient(135deg, rgba(231, 76, 60, 0.12) 0%, rgba(231, 76, 60, 0.03) 100%);
+  color: #e74c3c;
+}
+
+/* --- Media Queries --- */
+
+/* Tablet Spacing Adjustments (768px - 991px) */
+@media (max-width: 991px) {
+  .services-section {
+    padding: 90px 0;
+  }
+
+  .services-main-title {
+    font-size: 34px;
+  }
+
+  .services-description {
+    font-size: 15px;
+  }
+}
+
+/* Mobile Screen Layout (< 768px) */
+@media (max-width: 767px) {
+  .services-section {
+    padding: 70px 0;
+  }
+
+  .services-main-title {
+    font-size: 28px;
+  }
+
+  .services-header {
+    margin-bottom: 40px;
+  }
+}

@@ -1,0 +1,255 @@
+/* Newsletter Component Styling */
+
+.newsletter-section {
+  position: relative;
+  background-color: #ffffff;
+  padding: var(--section-padding) 0;
+  font-family: 'Inter', sans-serif;
+  overflow: hidden;
+}
+
+.newsletter-container {
+  max-width: 1140px;
+  /* Slightly narrower for focused card layout */
+  margin: 0 auto;
+  padding: 0 24px;
+  position: relative;
+  z-index: 2;
+}
+
+/* Premium Subscription Card */
+.newsletter-card {
+  position: relative;
+  background: linear-gradient(145deg, #f8fafc 0%, #f1f5f9 100%);
+  border: 1px solid rgba(226, 232, 240, 0.8);
+  border-radius: 24px;
+  padding: 80px 48px;
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.04), 0 1px 3px rgba(0, 0, 0, 0.05);
+  overflow: hidden;
+  text-align: center;
+}
+
+/* Decorative Background Shapes */
+.newsletter-card-bg-shape {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(60px);
+  z-index: 0;
+  pointer-events: none;
+}
+
+.shape-1 {
+  width: 400px;
+  height: 400px;
+  background: rgba(15, 138, 143, 0.06);
+  top: -100px;
+  left: -100px;
+}
+
+.shape-2 {
+  width: 500px;
+  height: 500px;
+  background: rgba(74, 144, 226, 0.05);
+  bottom: -150px;
+  right: -100px;
+}
+
+.newsletter-card-content {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+/* Adjust SectionHeader within Newsletter */
+.newsletter-card-content .section-header-container {
+  align-items: center;
+  text-align: center;
+  max-width: 700px;
+  margin: 0 auto 40px;
+}
+
+/* Subscription Form */
+.newsletter-form-wrapper {
+  width: 100%;
+  max-width: 600px;
+  margin: 0 auto 40px;
+}
+
+.form-input-group {
+  display: flex;
+  align-items: center;
+  background: #ffffff;
+  border: 1px solid rgba(226, 232, 240, 0.8);
+  border-radius: 50px;
+  padding: 8px 8px 8px 24px;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.03);
+  transition: all 0.3s ease;
+}
+
+.form-input-group:focus-within {
+  border-color: rgba(15, 138, 143, 0.4);
+  box-shadow: 0 12px 30px rgba(15, 138, 143, 0.08);
+}
+
+.newsletter-input {
+  border: none !important;
+  box-shadow: none !important;
+  background: transparent !important;
+  padding: 0 16px !important;
+  font-size: 16px !important;
+}
+
+.newsletter-input:focus,
+.newsletter-input:hover {
+  border: none !important;
+  box-shadow: none !important;
+}
+
+.input-icon {
+  color: #94a3b8;
+  font-size: 18px;
+}
+
+.btn-subscribe {
+  border-radius: 40px !important;
+  padding: 0 32px !important;
+  height: 48px !important;
+  flex-shrink: 0;
+}
+
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  border: 0;
+}
+
+/* Benefits Row */
+.newsletter-benefits {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 24px 32px;
+  margin-bottom: 48px;
+  width: 100%;
+}
+
+.benefit-item {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.benefit-check-icon {
+  color: #0f8a8f;
+  font-size: 16px;
+}
+
+.benefit-text {
+  font-size: 15px;
+  font-weight: 500;
+  color: #475569;
+}
+
+/* Social Links */
+.newsletter-socials {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 16px;
+}
+
+.social-icon-btn {
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  background: #ffffff;
+  color: #64748b;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 20px;
+  border: 1px solid rgba(226, 232, 240, 0.8);
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.02);
+  transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+.social-icon-btn:hover {
+  color: #ffffff;
+  background: #0f8a8f;
+  border-color: #0f8a8f;
+  transform: scale(1.15) rotate(5deg);
+  box-shadow: 0 10px 20px rgba(15, 138, 143, 0.3);
+}
+
+/* --- Media Queries --- */
+
+/* Tablet Layout (768px - 991px) */
+@media (max-width: 991px) {
+  .newsletter-section {
+    padding: 80px 0;
+  }
+
+  .newsletter-card {
+    padding: 64px 32px;
+  }
+
+  .newsletter-benefits {
+    gap: 16px 24px;
+  }
+}
+
+/* Mobile Screen Layout (< 768px) */
+@media (max-width: 767px) {
+  .newsletter-section {
+    padding: 60px 0;
+  }
+
+  .newsletter-card {
+    padding: 48px 20px;
+    border-radius: 20px;
+  }
+
+  .form-input-group {
+    flex-direction: column;
+    padding: 16px;
+    border-radius: 16px;
+    background: transparent;
+    border: none;
+    box-shadow: none;
+    gap: 16px;
+  }
+
+  .form-input-group:focus-within {
+    box-shadow: none;
+  }
+
+  .newsletter-input {
+    background: #ffffff !important;
+    border: 1px solid rgba(226, 232, 240, 0.8) !important;
+    border-radius: 12px !important;
+    height: 52px;
+    width: 100%;
+  }
+
+  .btn-subscribe {
+    width: 100%;
+    border-radius: 12px !important;
+    height: 52px !important;
+  }
+
+  .newsletter-benefits {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 16px;
+    max-width: 250px;
+    margin: 0 auto 40px;
+  }
+}

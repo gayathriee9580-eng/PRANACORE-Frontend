@@ -1,0 +1,81 @@
+/* FeatureCard Component Styles */
+
+.reusable-feature-card {
+  background-color: #ffffff;
+  border-radius: 20px;
+  padding: 40px 32px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.02);
+  border: 1px solid rgba(226, 232, 240, 0.6);
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  position: relative;
+  text-align: left;
+  cursor: pointer;
+  font-family: 'Inter', sans-serif;
+}
+
+.reusable-feature-card:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 20px 45px rgba(0, 0, 0, 0.06);
+  border-color: rgba(15, 138, 143, 0.2);
+}
+
+.reusable-feature-card-icon-wrapper {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 60px;
+  height: 60px;
+  border-radius: 16px;
+  font-size: 26px;
+  margin-bottom: 28px;
+  background: linear-gradient(135deg, rgba(15, 138, 143, 0.1) 0%, rgba(15, 138, 143, 0.03) 100%);
+  color: var(--primary-color);
+  transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.reusable-feature-card:hover .reusable-feature-card-icon-wrapper {
+  transform: scale(1.1);
+}
+
+.reusable-feature-card-title {
+  font-size: 20px;
+  font-weight: 700;
+  color: var(--text-dark);
+  margin-bottom: 12px;
+}
+
+.reusable-feature-card-description {
+  font-size: 14.5px;
+  color: var(--text-muted);
+  line-height: 1.6;
+  margin-bottom: 24px;
+  font-weight: 500;
+}
+
+.reusable-feature-card-link {
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--primary-color);
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  margin-top: auto;
+  transition: color 0.2s ease;
+}
+
+.reusable-feature-card:hover .reusable-feature-card-link {
+  color: var(--primary-hover);
+}
+
+.reusable-feature-card-arrow {
+  font-size: 13px;
+  transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.reusable-feature-card:hover .reusable-feature-card-arrow {
+  transform: translateX(6px);
+}

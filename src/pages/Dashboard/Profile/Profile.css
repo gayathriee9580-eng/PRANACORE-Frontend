@@ -1,0 +1,490 @@
+/* Profile Dashboard Stylesheet */
+
+.profile-dash-container {
+  display: flex;
+  flex-direction: column;
+  gap: var(--section-gap, 24px);
+  width: 100%;
+}
+
+.profile-col-stack {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+/* Profile Hero Banner */
+.profile-hero-banner {
+  background: linear-gradient(135deg, #0f8a8f 0%, #085e62 100%);
+  border-radius: 24px;
+  padding: 36px 44px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 24px;
+  box-shadow: 0 10px 30px rgba(15, 138, 143, 0.15);
+  position: relative;
+  overflow: hidden;
+}
+
+.profile-hero-banner::before {
+  content: '';
+  position: absolute;
+  top: -60px;
+  right: -60px;
+  width: 260px;
+  height: 260px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.05);
+  pointer-events: none;
+}
+
+.hero-avatar-box {
+  display: flex;
+  align-items: center;
+  gap: 24px;
+}
+
+.avatar-circle-large {
+  width: 90px;
+  height: 90px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.15);
+  border: 4px solid rgba(255, 255, 255, 0.25);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 32px;
+  font-weight: 800;
+  color: #ffffff;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.hero-patient-meta {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.hero-patient-badge {
+  background: rgba(255, 255, 255, 0.15);
+  color: #ffffff;
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  padding: 3px 12px;
+  border-radius: 50px;
+  width: fit-content;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.hero-patient-name {
+  color: #ffffff;
+  font-size: 30px;
+  font-weight: 800;
+  margin: 0;
+  letter-spacing: -0.5px;
+}
+
+.hero-patient-email {
+  color: rgba(255, 255, 255, 0.85);
+  font-size: 14px;
+  margin: 0;
+  display: flex;
+  align-items: center;
+}
+
+.hero-progress-panel {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  min-width: 240px;
+}
+
+.hero-progress-panel .progress-lbl {
+  font-size: 12px;
+  font-weight: 700;
+  color: rgba(255, 255, 255, 0.85);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.custom-hero-progress .ant-progress-text {
+  color: #ffffff !important;
+  font-weight: 800 !important;
+}
+
+/* Metrics Row styling */
+.profile-metrics-row {
+  display: grid;
+  grid-template-columns: repeat(8, 1fr);
+  gap: 12px;
+}
+
+.metric-card {
+  padding: 16px 12px !important;
+  text-align: center;
+  border-radius: 16px !important;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  align-items: center;
+  justify-content: center;
+}
+
+.metric-card.highlight {
+  background-color: rgba(15, 138, 143, 0.05);
+  border-color: rgba(15, 138, 143, 0.2);
+}
+
+.metric-card.highlight .val {
+  color: #0f8a8f;
+}
+
+.metric-card.alert-card {
+  background-color: #fff5f5;
+  border-color: #fee2e2;
+}
+
+.metric-card.alert-card .val {
+  color: #ef4444;
+}
+
+.metric-card .lbl {
+  font-size: 10px;
+  font-weight: 700;
+  color: #94a3b8;
+  text-transform: uppercase;
+}
+
+.metric-card .val {
+  font-size: 16px;
+  font-weight: 800;
+  color: #1e293b;
+  margin: 4px 0;
+}
+
+.metric-card .desc {
+  font-size: 9px;
+  color: #cbd5e1;
+  white-space: nowrap;
+}
+
+/* Info Cards */
+.profile-info-card {
+  border-radius: 24px !important;
+  background: #ffffff !important;
+  box-shadow: 0 4px 20px rgba(15, 23, 42, 0.02) !important;
+  border: 1px solid #eef2f7 !important;
+  overflow: hidden;
+  padding: 8px 12px !important;
+}
+
+.profile-info-card .ant-card-head {
+  border-bottom: 1px solid #f1f5f9 !important;
+  min-height: 56px !important;
+  padding: 0 16px !important;
+}
+
+.profile-info-card .ant-card-head-title {
+  font-size: 16px !important;
+  font-weight: 700 !important;
+  color: #1e293b !important;
+}
+
+.profile-info-card .ant-card-body {
+  padding: 24px 16px !important;
+}
+
+/* Fields Grid Layout */
+.profile-grid-fields {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 20px 32px;
+}
+
+.field-block {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.field-block.address-block {
+  grid-column: span 2;
+}
+
+.field-block .label-text {
+  font-size: 11px;
+  font-weight: 700;
+  color: #94a3b8;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.field-block .value-text {
+  font-size: 14px;
+  font-weight: 600;
+  color: #334155;
+  display: flex;
+  align-items: center;
+}
+
+/* Emergency Contact Card & Insurance Card */
+.emergency-header, .insurance-header {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.heart-icon-badge, .insurance-icon-badge {
+  font-size: 24px;
+  width: 50px;
+  height: 50px;
+  border-radius: 14px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.heart-icon-badge {
+  background: #fef2f2;
+  color: #ef4444;
+}
+
+.insurance-icon-badge {
+  background: rgba(16, 185, 129, 0.08);
+  color: #10b981;
+}
+
+.emergency-intro h4, .insurance-intro h4 {
+  font-size: 16px;
+  font-weight: 700;
+  color: #1e293b;
+  margin: 0 0 4px 0;
+}
+
+.policy-lbl {
+  font-size: 12px;
+  color: #64748b;
+  font-weight: 600;
+}
+
+.emergency-fields, .insurance-fields {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.field-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 10px;
+}
+
+.field-row .lbl {
+  font-size: 12px;
+  font-weight: 600;
+  color: #94a3b8;
+}
+
+.field-row .val {
+  font-size: 13px;
+  font-weight: 700;
+  color: #334155;
+}
+
+/* Health Dossier Section */
+.health-section-block {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.section-subtitle {
+  font-size: 11px;
+  font-weight: 700;
+  color: #94a3b8;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.condition-tags-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+.health-tag {
+  font-size: 12px !important;
+  font-weight: 700 !important;
+  padding: 4px 10px !important;
+  border-radius: 8px !important;
+  margin: 0 !important;
+}
+
+.meds-paragraph {
+  font-size: 13px;
+  color: #475569;
+  font-weight: 600;
+  margin: 0;
+  line-height: 1.5;
+  display: flex;
+  align-items: center;
+}
+
+/* Recent consultation feeds */
+.recent-list-col {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.recent-item-row {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.recent-row-icon {
+  font-size: 18px;
+  width: 36px;
+  height: 36px;
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #0f8a8f;
+  background-color: rgba(15, 138, 143, 0.05);
+  flex-shrink: 0;
+}
+
+.recent-row-icon.record {
+  color: #6366f1;
+  background-color: rgba(99, 102, 241, 0.06);
+}
+
+.recent-item-meta {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.recent-item-meta .title-txt {
+  font-size: 13px;
+  font-weight: 700;
+  color: #334155;
+}
+
+.recent-item-meta .sub-txt {
+  font-size: 11px;
+  color: #94a3b8;
+}
+
+/* Administrative Action list */
+.actions-button-vertical-grid {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.action-btn {
+  width: 100%;
+  height: 42px !important;
+  border-radius: 12px !important;
+  font-weight: 700 !important;
+  font-size: 13px !important;
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  gap: 8px !important;
+  transition: all 0.2s ease !important;
+}
+
+.action-btn.btn-teal-solid {
+  background-color: #0f8a8f !important;
+  border-color: #0f8a8f !important;
+  color: #ffffff !important;
+  box-shadow: 0 4px 10px rgba(15, 138, 143, 0.15) !important;
+}
+
+.action-btn.btn-teal-solid:hover {
+  background-color: #0b666a !important;
+  border-color: #0b666a !important;
+  transform: translateY(-1px);
+}
+
+.action-btn:not(.btn-teal-solid) {
+  background-color: #ffffff !important;
+  border-color: #cbd5e1 !important;
+  color: #475569 !important;
+}
+
+.action-btn:not(.btn-teal-solid):hover {
+  border-color: #0f8a8f !important;
+  color: #0f8a8f !important;
+}
+
+/* ───────────────────────────────────────────────────────────────
+   RESPONSIVE DESIGN SYSTEM
+   ─────────────────────────────────────────────────────────────── */
+
+@media screen and (max-width: 1366px) {
+  .profile-metrics-row {
+    grid-template-columns: repeat(4, 1fr);
+  }
+}
+
+@media screen and (max-width: 991px) {
+  .profile-hero-banner {
+    padding: 24px 32px;
+  }
+  .profile-hero-banner .hero-patient-name {
+    font-size: 26px;
+  }
+  .profile-metrics-row {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+@media screen and (max-width: 767px) {
+  .profile-hero-banner {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 20px;
+    padding: 20px;
+  }
+  .hero-avatar-box {
+    gap: 16px;
+  }
+  .avatar-circle-large {
+    width: 70px;
+    height: 70px;
+    font-size: 24px;
+  }
+  .hero-progress-panel {
+    width: 100%;
+    min-width: unset;
+  }
+  .profile-metrics-row {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 10px;
+  }
+}
+
+@media screen and (max-width: 480px) {
+  .profile-grid-fields {
+    grid-template-columns: 1fr;
+    gap: 16px;
+  }
+  .field-block.address-block {
+    grid-column: span 1;
+  }
+  .profile-metrics-row {
+    grid-template-columns: 1fr;
+  }
+}

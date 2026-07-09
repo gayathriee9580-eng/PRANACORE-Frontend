@@ -1,0 +1,110 @@
+/* ─── Card container ─────────────────────────────────────────────────────── */
+.es-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 56px 48px;
+  max-width: 420px;
+  width: 100%;
+  margin: 0 auto;
+  background: #ffffff;
+  border-radius: 24px;
+  box-shadow:
+    0 8px 32px rgba(0, 0, 0, 0.08),
+    0 2px 8px rgba(0, 0, 0, 0.05);
+  gap: 0;
+  font-family: "Inter", sans-serif;
+}
+
+/* ─── Icon badge ─────────────────────────────────────────────────────────── */
+.es-icon-wrap {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 72px;
+  height: 72px;
+  border-radius: 50%;
+  background: rgba(15, 138, 143, 0.10);
+  color: #0f8a8f;
+  font-size: 32px;
+  margin-bottom: 24px;
+  flex-shrink: 0;
+}
+
+/* Ensure Ant Design icons inside inherit the color & size */
+.es-icon-wrap .anticon {
+  font-size: 32px;
+  color: #0f8a8f;
+}
+
+/* ─── Title ──────────────────────────────────────────────────────────────── */
+.es-title {
+  font-family: "Inter", sans-serif;
+  font-size: 24px;
+  font-weight: 700;
+  color: #1a202c;
+  margin: 0 0 10px;
+  line-height: 1.3;
+}
+
+/* ─── Description ────────────────────────────────────────────────────────── */
+.es-description {
+  font-family: "Inter", sans-serif;
+  font-size: 15px;
+  font-weight: 400;
+  color: #64748b;
+  margin: 0 0 28px;
+  line-height: 1.65;
+}
+
+/* ─── Action button ──────────────────────────────────────────────────────── */
+.es-action-btn {
+  /* Let PrimaryButton control its own sizing; we only centre it */
+  align-self: center;
+}
+
+/* ─── Responsive: Tablet ─────────────────────────────────────────────────── */
+@media (max-width: 1024px) {
+  .es-card {
+    padding: 44px 36px;
+  }
+}
+
+/* ─── Responsive: Mobile ─────────────────────────────────────────────────── */
+@media (max-width: 640px) {
+  .es-card {
+    padding: 36px 24px;
+    border-radius: 18px;
+  }
+
+  .es-icon-wrap {
+    width: 60px;
+    height: 60px;
+    font-size: 26px;
+    margin-bottom: 20px;
+  }
+
+  .es-icon-wrap .anticon {
+    font-size: 26px;
+  }
+
+  .es-title {
+    font-size: 20px;
+  }
+
+  .es-description {
+    font-size: 14px;
+  }
+
+  /* Button stretches full-width on mobile */
+  .es-action-btn {
+    width: 100%;
+  }
+
+  .es-action-btn .pranacore-btn {
+    width: 100%;
+    justify-content: center;
+  }
+}

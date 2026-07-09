@@ -1,0 +1,241 @@
+/* OTP Verification Premium SaaS Styling */
+
+.otp-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 100%;
+  padding: 40px 24px;
+  background-color: #f8fafc;
+  font-family: 'Inter', sans-serif;
+}
+
+/* CARD */
+.otp-card {
+  width: 100%;
+  max-width: 460px;
+  background: #ffffff;
+  padding: 48px;
+  border-radius: 24px;
+  border: 1px solid #eef2f7;
+  box-shadow: 0 20px 50px rgba(15, 23, 42, 0.08);
+}
+
+/* HEADER */
+.otp-header {
+  margin-bottom: 32px;
+  text-align: center;
+}
+
+.otp-badge {
+  display: inline-block;
+  padding: 6px 12px;
+  background: rgba(15, 138, 143, 0.1);
+  color: #0f8a8f;
+  font-size: 13px;
+  font-weight: 600;
+  border-radius: 20px;
+  margin-bottom: 16px;
+}
+
+.otp-title {
+  font-size: 26px;
+  font-weight: 700;
+  color: #1e293b;
+  margin-bottom: 12px;
+  letter-spacing: -0.5px;
+}
+
+.otp-highlight {
+  color: #0f8a8f;
+}
+
+.otp-subtitle {
+  font-size: 14px;
+  color: #64748b;
+  line-height: 1.6;
+}
+
+/* FORM */
+.otp-form {
+  display: flex;
+  flex-direction: column;
+  gap: 32px;
+}
+
+/* OTP INPUTS */
+.otp-inputs-row {
+  display: flex;
+  justify-content: center;
+  gap: 12px;
+}
+
+/* Ant Design Input Overrides */
+.otp-single-input.ant-input {
+  width: 56px;
+  height: 56px;
+  padding: 0;
+  text-align: center;
+  font-size: 24px;
+  font-weight: 700;
+  color: #1e293b;
+  border-radius: 14px;
+  border: 1px solid #e2e8f0;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.01);
+  transition: all 0.3s ease;
+}
+
+.otp-single-input.ant-input:hover,
+.otp-single-input.ant-input:focus {
+  border-color: #0f8a8f;
+  box-shadow: 0 0 0 2px rgba(15, 138, 143, 0.1);
+}
+
+/* BUTTON */
+.btn-otp-submit {
+  width: 100%;
+  height: 52px;
+  background: #0f8a8f;
+  color: #ffffff;
+  font-size: 16px;
+  font-weight: 600;
+  border: none;
+  border-radius: 14px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 12px rgba(15, 138, 143, 0.15);
+}
+
+.btn-otp-submit:hover {
+  background: #0b666a;
+  transform: translateY(-2px);
+  box-shadow: 0 8px 20px rgba(15, 138, 143, 0.25);
+}
+
+/* RESEND SECTION */
+.otp-resend-section {
+  text-align: center;
+  margin-top: 24px;
+}
+
+.resend-text {
+  font-size: 14px;
+  color: #64748b;
+  margin-bottom: 8px;
+}
+
+.resend-link {
+  color: #0f8a8f;
+  font-weight: 600;
+  text-decoration: underline;
+  margin-left: 4px;
+  transition: color 0.3s ease;
+}
+
+.resend-link:hover {
+  color: #0b666a;
+}
+
+.resend-timer {
+  font-size: 13px;
+  color: #94a3b8;
+}
+
+.timer-highlight {
+  font-weight: 600;
+  color: #64748b;
+}
+
+/* HELP BOX */
+.otp-help-box {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  background: rgba(15, 138, 143, 0.05);
+  border: 1px solid rgba(15, 138, 143, 0.1);
+  padding: 16px;
+  border-radius: 14px;
+  margin-top: 32px;
+}
+
+.help-icon {
+  color: #0f8a8f;
+  font-size: 18px;
+  margin-top: 2px;
+}
+
+.help-text {
+  font-size: 13px;
+  color: #475569;
+  line-height: 1.5;
+  margin: 0;
+}
+
+/* BOTTOM TEXT */
+.otp-bottom {
+  margin-top: 32px;
+  text-align: center;
+}
+
+.bottom-text {
+  font-size: 14px;
+  color: #64748b;
+}
+
+.forgot-link {
+  color: #0f8a8f;
+  font-weight: 600;
+  text-decoration: none;
+  position: relative;
+  transition: color 0.3s ease;
+  margin-left: 4px;
+}
+
+.forgot-link::after {
+  content: '';
+  position: absolute;
+  width: 100%;
+  height: 1px;
+  bottom: -2px;
+  left: 0;
+  background-color: #0f8a8f;
+  transform: scaleX(0);
+  transform-origin: bottom right;
+  transition: transform 0.3s ease-out;
+}
+
+.forgot-link:hover::after {
+  transform: scaleX(1);
+  transform-origin: bottom left;
+}
+
+/* --- Responsive Layout --- */
+@media screen and (max-width: 991px) {
+  .otp-card {
+    padding: 40px;
+  }
+}
+
+@media screen and (max-width: 767px) {
+  .otp-card {
+    padding: 32px 24px;
+  }
+  
+  .otp-title {
+    font-size: 24px;
+  }
+  
+  .btn-otp-submit {
+    width: 100%;
+  }
+  
+  .otp-inputs-row {
+    gap: 8px;
+  }
+  
+  .otp-single-input.ant-input {
+    width: 46px;
+    height: 46px;
+    font-size: 20px;
+  }
+}

@@ -1,0 +1,60 @@
+/* ─── Shared card base ───────────────────────────────────────────────────── */
+.psk-card {
+  background: #ffffff;
+  border-radius: 24px;
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.06), 0 1px 4px rgba(0, 0, 0, 0.04);
+  padding: 24px;
+}
+
+/* ─── Root layout ────────────────────────────────────────────────────────── */
+.psk-root {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  width: 100%;
+  padding: 24px;
+}
+
+/* ─── Identity (avatar + name) ───────────────────────────────────────────── */
+.psk-identity {
+  min-height: 120px;
+}
+
+/* ─── KPI grid ───────────────────────────────────────────────────────────── */
+.psk-kpi-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 24px;
+}
+
+.psk-kpi {
+  min-height: 90px;
+}
+
+/* ─── Personal info section ──────────────────────────────────────────────── */
+.psk-section {
+  min-height: 200px;
+}
+
+/* ─── Health summary ─────────────────────────────────────────────────────── */
+.psk-bottom-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 24px;
+}
+
+.psk-health {
+  min-height: 160px;
+}
+
+/* ─── Responsive: Tablet ─────────────────────────────────────────────────── */
+@media (max-width: 1024px) {
+  .psk-kpi-grid    { grid-template-columns: repeat(2, 1fr); }
+  .psk-bottom-grid { grid-template-columns: 1fr; }
+}
+
+/* ─── Responsive: Mobile ─────────────────────────────────────────────────── */
+@media (max-width: 640px) {
+  .psk-root     { padding: 16px; gap: 16px; }
+  .psk-kpi-grid { grid-template-columns: 1fr; }
+}

@@ -1,0 +1,324 @@
+/* Doctors Section Styling */
+
+.doctors-section {
+  position: relative;
+  background-color: #ffffff;
+  padding: var(--section-padding) 0;
+  overflow: hidden;
+  font-family: 'Inter', sans-serif;
+  border-top: 1px solid rgba(226, 232, 240, 0.5);
+}
+
+.doctors-bg-sphere {
+  position: absolute;
+  top: -10%;
+  right: -10%;
+  width: 500px;
+  height: 500px;
+  background: radial-gradient(circle, rgba(15, 138, 143, 0.03) 0%, rgba(255, 255, 255, 0) 70%);
+  filter: blur(40px);
+  z-index: 1;
+  pointer-events: none;
+}
+
+.doctors-container {
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 0 24px;
+  position: relative;
+  z-index: 2;
+}
+
+.doctors-grid-row {
+  width: 100%;
+}
+
+.doctor-card-wrapper {
+  height: 100%;
+}
+
+/* Doctor Card Base */
+.doctor-card {
+  background-color: #ffffff;
+  border-radius: 20px;
+  overflow: hidden;
+  border: 1px solid rgba(226, 232, 240, 0.8);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.02);
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.doctor-card-wrapper:hover .doctor-card {
+  box-shadow: 0 20px 45px rgba(0, 0, 0, 0.06);
+  border-color: rgba(15, 138, 143, 0.25);
+}
+
+/* Image zoom box */
+.doctor-image-container {
+  position: relative;
+  width: 100%;
+  height: 240px;
+  overflow: hidden;
+  z-index: 1;
+}
+
+.doctor-card-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.doctor-card-wrapper:hover .doctor-card-img {
+  transform: scale(1.08);
+}
+
+/* Glassmorphic availability badge overlay */
+.doctor-availability-badge {
+  position: absolute;
+  top: 16px;
+  left: 16px;
+  z-index: 10;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background-color: rgba(255, 255, 255, 0.8);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  color: #2ecc71;
+  padding: 6px 12px;
+  border-radius: 50px;
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.4);
+}
+
+.status-indicator-dot {
+  width: 6px;
+  height: 6px;
+  background-color: #2ecc71;
+  border-radius: 50%;
+  display: inline-block;
+  box-shadow: 0 0 6px #2ecc71;
+}
+
+/* Card Content details */
+.doctor-card-content {
+  padding: 24px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  flex-grow: 1;
+  text-align: left;
+}
+
+.doctor-name-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  margin-bottom: 6px;
+}
+
+.doctor-name {
+  font-size: 19px;
+  font-weight: 700;
+  color: var(--text-dark);
+  margin: 0;
+}
+
+.doctor-verified-badge {
+  font-size: 17px;
+  color: var(--primary-color);
+  flex-shrink: 0;
+}
+
+.doctor-specialization {
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--primary-color);
+  background-color: rgba(15, 138, 143, 0.06);
+  padding: 4px 10px;
+  border-radius: 6px;
+  margin-bottom: 16px;
+  display: inline-block;
+}
+
+.doctor-info-line {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  margin-bottom: 10px;
+  width: 100%;
+}
+
+.line-icon {
+  font-size: 15px;
+  color: var(--text-muted);
+  margin-top: 3px;
+  flex-shrink: 0;
+}
+
+.line-text {
+  font-size: 13.5px;
+  color: var(--text-muted);
+  font-weight: 500;
+  line-height: 1.4;
+}
+
+.doctor-meta-grid {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  margin-bottom: 2px;
+}
+
+.doctor-meta-grid .doctor-info-line {
+  margin-bottom: 0;
+  width: auto;
+}
+
+.doctor-rating {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  font-size: 13.5px;
+  font-weight: 700;
+  color: #f1c40f;
+  background-color: rgba(241, 196, 15, 0.08);
+  padding: 2px 8px;
+  border-radius: 6px;
+  flex-shrink: 0;
+}
+
+.rating-star {
+  font-size: 12px;
+}
+
+.fee-line {
+  margin-top: 6px;
+  margin-bottom: 20px;
+  border-top: 1px solid rgba(226, 232, 240, 0.5);
+  padding-top: 12px;
+}
+
+.highlight-fee {
+  font-size: 15px;
+  font-weight: 700;
+  color: var(--text-dark);
+}
+
+.fee-muted {
+  font-size: 12px;
+  color: var(--text-muted);
+  font-weight: 500;
+}
+
+/* Button overrides & glow inside card */
+.doctor-card .btn-book-doctor.pranacore-btn-primary {
+  width: 100% !important;
+  height: 44px !important;
+  font-size: 14px !important;
+  margin-top: auto;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+}
+
+.doctor-card-wrapper:hover .btn-book-doctor.pranacore-btn-primary {
+  background-color: var(--primary-hover) !important;
+  border-color: var(--primary-hover) !important;
+  box-shadow: 0 4px 14px rgba(15, 138, 143, 0.35) !important;
+}
+
+/* Bottom CTA Area */
+.doctors-bottom-cta {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  margin-top: 60px;
+  width: 100%;
+}
+
+.cta-heading {
+  font-size: 20px;
+  font-weight: 700;
+  color: var(--text-dark);
+  margin-bottom: 20px;
+}
+
+.btn-view-all-docs.pranacore-btn-secondary {
+  height: 48px !important;
+  padding: 0 32px !important;
+}
+
+/* --- Media Queries --- */
+
+/* Tablet Spacing Adjustments (768px - 991px) */
+@media (max-width: 991px) {
+  .doctors-section {
+    padding: 90px 0;
+  }
+
+  .doctor-image-container {
+    height: 220px;
+  }
+}
+
+/* Mobile Screen Layout (< 768px) */
+@media (max-width: 767px) {
+  .doctors-section {
+    padding: 70px 0;
+  }
+
+  .doctor-card {
+    border-radius: 16px;
+  }
+
+  .doctor-image-container {
+    height: 240px;
+  }
+
+  .read-more-cta {
+  color: #0f8a8f;
+  font-weight: 600;
+  font-size: 14px;
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  cursor: pointer;
+  position: relative;
+  text-decoration: none;
+}
+.read-more-cta::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  bottom: -2px;
+  height: 1px;
+  background: #0f8a8f;
+  width: 0;
+  transition: width 0.3s ease;
+}
+.read-more-cta:hover::after {
+  width: 100%;
+}
+.read-more-cta .cta-arrow {
+  transition: transform 0.3s ease;
+}
+.read-more-cta:hover .cta-arrow {
+  transform: translateX(3px);
+}
+
+
+  .btn-view-all-docs.pranacore-btn-secondary {
+    width: 100% !important;
+  }
+}

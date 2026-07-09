@@ -1,0 +1,257 @@
+/* AppointmentList Page */
+
+.appointment-list-page {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  font-family: 'Inter', sans-serif;
+}
+
+/* ── Page Header ─────────────────────────────────────────────── */
+.page-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  gap: 16px;
+  flex-wrap: wrap;
+}
+
+.page-title {
+  font-size: 26px;
+  font-weight: 800;
+  color: #1e293b;
+  margin-bottom: 6px;
+  letter-spacing: -0.5px;
+}
+
+.page-subtitle {
+  font-size: 14px;
+  color: #64748b;
+}
+
+.btn-book-new {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  height: 44px;
+  padding: 0 24px;
+  background: #0f8a8f;
+  color: #ffffff;
+  border: none;
+  border-radius: 12px;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 12px rgba(15, 138, 143, 0.2);
+  white-space: nowrap;
+}
+
+.btn-book-new:hover {
+  background: #0b666a;
+  transform: translateY(-2px);
+  box-shadow: 0 8px 20px rgba(15, 138, 143, 0.25);
+}
+
+/* ── Filters Card ────────────────────────────────────────────── */
+.al-filters-card {
+  background: #ffffff;
+  border: 1px solid #eef2f7;
+  border-radius: 20px;
+  padding: 20px 28px;
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  box-shadow: 0 4px 20px rgba(15, 23, 42, 0.04);
+  flex-wrap: wrap;
+}
+
+.al-filter-left {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  white-space: nowrap;
+}
+
+.filter-icon {
+  color: #0f8a8f;
+  font-size: 16px;
+}
+
+.filter-label {
+  font-size: 14px;
+  font-weight: 700;
+  color: #1e293b;
+}
+
+.al-filter-controls {
+  display: flex;
+  gap: 14px;
+  flex: 1;
+  flex-wrap: wrap;
+}
+
+.al-search-input {
+  flex: 1;
+  min-width: 200px;
+  border-radius: 10px !important;
+  border-color: #e2e8f0 !important;
+  height: 40px;
+}
+
+.al-search-input:focus-within {
+  border-color: #0f8a8f !important;
+  box-shadow: 0 0 0 2px rgba(15, 138, 143, 0.1) !important;
+}
+
+.al-select {
+  width: 160px;
+  height: 40px;
+}
+
+.al-select .ant-select-selector {
+  border-radius: 10px !important;
+  border-color: #e2e8f0 !important;
+  height: 40px !important;
+  align-items: center;
+}
+
+.al-select.ant-select-focused .ant-select-selector {
+  border-color: #0f8a8f !important;
+  box-shadow: 0 0 0 2px rgba(15, 138, 143, 0.1) !important;
+}
+
+/* ── Table Card ──────────────────────────────────────────────── */
+.al-table-card {
+  background: #ffffff;
+  border: 1px solid #eef2f7;
+  border-radius: 20px;
+  padding: 28px;
+  box-shadow: 0 4px 20px rgba(15, 23, 42, 0.04);
+}
+
+.al-table-header {
+  margin-bottom: 20px;
+}
+
+.al-results-count {
+  font-size: 13px;
+  color: #94a3b8;
+  font-weight: 500;
+}
+
+/* Table Overrides */
+.al-table .ant-table-thead > tr > th {
+  background: #f8fafc;
+  color: #64748b;
+  font-size: 12px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  border-bottom: 1px solid #eef2f7;
+}
+
+.al-table .ant-table-tbody > tr > td {
+  padding: 16px;
+  border-bottom: 1px solid #f8fafc;
+}
+
+.al-table .ant-table-tbody > tr:hover > td {
+  background: #fafcff;
+}
+
+.al-doctor-cell {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.al-avatar {
+  background: rgba(15, 138, 143, 0.08);
+  color: #0f8a8f;
+  flex-shrink: 0;
+}
+
+.al-doctor-name {
+  font-size: 14px;
+  font-weight: 600;
+  color: #1e293b;
+}
+
+.al-spec {
+  font-size: 12px;
+  color: #94a3b8;
+  margin-top: 2px;
+}
+
+.al-dept-tag {
+  display: inline-block;
+  padding: 4px 12px;
+  background: rgba(99, 102, 241, 0.08);
+  color: #6366f1;
+  border-radius: 20px;
+  font-size: 12px;
+  font-weight: 600;
+}
+
+.al-hospital {
+  font-size: 13px;
+  color: #475569;
+}
+
+.al-datetime {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.al-date {
+  font-size: 13px;
+  font-weight: 600;
+  color: #1e293b;
+}
+
+.al-time {
+  font-size: 12px;
+  color: #94a3b8;
+}
+
+.al-status-badge {
+  padding: 4px 12px;
+  border-radius: 20px;
+  font-size: 12px;
+  font-weight: 600;
+  white-space: nowrap;
+}
+
+.al-actions {
+  display: flex;
+  gap: 8px;
+}
+
+.al-action-btn {
+  width: 32px;
+  height: 32px;
+  border-radius: 8px;
+  border: 1px solid #e2e8f0;
+  background: #ffffff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  font-size: 14px;
+  transition: all 0.2s ease;
+  color: #64748b;
+}
+
+.al-action-btn.view:hover   { color: #0f8a8f; border-color: #0f8a8f; background: rgba(15,138,143,0.05); }
+.al-action-btn.reschedule:hover { color: #6366f1; border-color: #6366f1; background: rgba(99,102,241,0.05); }
+.al-action-btn.cancel:hover { color: #ef4444; border-color: #ef4444; background: rgba(239,68,68,0.05); }
+.al-action-btn:disabled     { opacity: 0.35; cursor: not-allowed; }
+
+/* ── Responsive ──────────────────────────────────────────────── */
+@media screen and (max-width: 767px) {
+  .al-filters-card { flex-direction: column; align-items: stretch; }
+  .al-filter-controls { flex-direction: column; }
+  .al-search-input, .al-select { width: 100%; }
+}

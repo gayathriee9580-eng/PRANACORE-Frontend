@@ -1,0 +1,68 @@
+/* ─── Fullscreen Backdrop ────────────────────────────────────────────────── */
+.lo-backdrop {
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(255, 255, 255, 0.75);
+  backdrop-filter: blur(4px);
+  -webkit-backdrop-filter: blur(4px);
+}
+
+/* ─── Inner Container ────────────────────────────────────────────────────── */
+.lo-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 16px;
+  padding: 40px 48px;
+  background: #ffffff;
+  border-radius: 24px;
+  box-shadow:
+    0 8px 32px rgba(0, 0, 0, 0.10),
+    0 2px 8px rgba(0, 0, 0, 0.06);
+}
+
+/* ─── Ant Design Spin — teal override ───────────────────────────────────── */
+.lo-spinner .ant-spin-dot-item {
+  background-color: #0f8a8f;
+}
+
+/* Ant Design v5 uses CSS custom properties */
+.lo-spinner {
+  --antd-color-primary: #0f8a8f;
+  color: #0f8a8f;
+}
+
+/* ─── Loading Text ───────────────────────────────────────────────────────── */
+.lo-text {
+  font-family: "Inter", sans-serif;
+  font-size: 16px;
+  font-weight: 500;
+  color: #334155;
+  margin: 0;
+  letter-spacing: 0.01em;
+}
+
+/* ─── Responsive: Tablet ─────────────────────────────────────────────────── */
+@media (max-width: 1024px) {
+  .lo-container {
+    padding: 32px 40px;
+  }
+}
+
+/* ─── Responsive: Mobile ─────────────────────────────────────────────────── */
+@media (max-width: 640px) {
+  .lo-container {
+    padding: 28px 32px;
+    border-radius: 18px;
+    gap: 14px;
+  }
+
+  .lo-text {
+    font-size: 15px;
+  }
+}

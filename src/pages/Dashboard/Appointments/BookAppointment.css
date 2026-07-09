@@ -1,0 +1,341 @@
+/* Book Appointment Page */
+
+.book-appointment-page {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  font-family: 'Inter', sans-serif;
+}
+
+.page-header { margin-bottom: 4px; }
+.page-title  { font-size: 26px; font-weight: 800; color: #1e293b; margin-bottom: 6px; letter-spacing: -0.5px; }
+.page-subtitle { font-size: 14px; color: #64748b; }
+
+/* ── Stepper Card ────────────────────────────────────────────── */
+.ba-stepper-card {
+  background: #ffffff;
+  border: 1px solid #eef2f7;
+  border-radius: 20px;
+  padding: 28px 36px;
+  box-shadow: 0 4px 20px rgba(15, 23, 42, 0.04);
+  overflow-x: auto;
+}
+
+.ba-steps .ant-steps-item-process .ant-steps-item-icon {
+  background: #0f8a8f;
+  border-color: #0f8a8f;
+}
+.ba-steps .ant-steps-item-finish .ant-steps-item-icon {
+  border-color: #0f8a8f;
+}
+.ba-steps .ant-steps-item-finish .ant-steps-item-icon > .ant-steps-icon {
+  color: #0f8a8f;
+}
+.ba-steps .ant-steps-item-finish > .ant-steps-item-container > .ant-steps-item-tail::after {
+  background: #0f8a8f;
+}
+.ba-steps .ant-steps-item-title { font-size: 13px !important; font-weight: 600 !important; }
+
+/* ── Content Card ────────────────────────────────────────────── */
+.ba-content-card {
+  background: #ffffff;
+  border: 1px solid #eef2f7;
+  border-radius: 20px;
+  padding: 36px;
+  box-shadow: 0 4px 20px rgba(15, 23, 42, 0.04);
+}
+
+.step-content { min-height: 340px; }
+.step-center  { display: flex; flex-direction: column; align-items: center; }
+.step-center .step-heading, .step-center .step-sub { text-align: center; }
+
+.step-heading { font-size: 20px; font-weight: 700; color: #1e293b; margin-bottom: 8px; }
+.step-sub { font-size: 14px; color: #64748b; margin-bottom: 28px; }
+
+/* ── Department Grid ─────────────────────────────────────────── */
+.dept-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+  gap: 16px;
+}
+
+.dept-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+  padding: 20px 14px;
+  border: 2px solid #eef2f7;
+  border-radius: 16px;
+  cursor: pointer;
+  transition: all 0.25s ease;
+  text-align: center;
+  background: #ffffff;
+}
+
+.dept-card:hover    { border-color: rgba(15, 138, 143, 0.3); box-shadow: 0 8px 20px rgba(15, 23, 42, 0.06); }
+.dept-card.selected { border-color: #0f8a8f; background: rgba(15, 138, 143, 0.04); }
+
+.dept-card-icon { font-size: 28px; color: #0f8a8f; }
+.dept-card-name { font-size: 14px; font-weight: 700; color: #1e293b; }
+.dept-card-count { font-size: 12px; color: #94a3b8; }
+
+/* ── Doctor Cards Grid ───────────────────────────────────────── */
+.doctors-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(190px, 1fr));
+  gap: 16px;
+}
+
+.doctor-card {
+  padding: 20px;
+  border: 2px solid #eef2f7;
+  border-radius: 16px;
+  cursor: pointer;
+  transition: all 0.25s ease;
+  background: #ffffff;
+}
+
+.doctor-card:hover    { border-color: rgba(15, 138, 143, 0.3); box-shadow: 0 8px 20px rgba(15, 23, 42, 0.06); }
+.doctor-card.selected { border-color: #0f8a8f; background: rgba(15, 138, 143, 0.04); }
+
+.doctor-card-top {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  margin-bottom: 12px;
+}
+
+.doc-avatar { background: rgba(15, 138, 143, 0.1); color: #0f8a8f; }
+
+.available-badge {
+  font-size: 10px;
+  font-weight: 700;
+  color: #10b981;
+  background: rgba(16, 185, 129, 0.1);
+  padding: 3px 8px;
+  border-radius: 20px;
+  white-space: nowrap;
+}
+
+.doc-name { font-size: 15px; font-weight: 700; color: #1e293b; margin-bottom: 4px; }
+.doc-spec  { font-size: 12px; color: #94a3b8; margin-bottom: 10px; }
+
+.doc-meta-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 8px;
+}
+
+.doc-exp    { font-size: 12px; color: #64748b; font-weight: 500; }
+.doc-rating { font-size: 12px; color: #f59e0b; font-weight: 700; display: flex; align-items: center; gap: 4px; }
+.doc-fee    { font-size: 14px; font-weight: 700; color: #0f8a8f; }
+
+/* ── Date Step ───────────────────────────────────────────────── */
+.date-picker-wrapper { display: flex; flex-direction: column; align-items: center; gap: 20px; width: 100%; max-width: 400px; }
+
+.ba-date-picker {
+  width: 100%;
+  height: 52px;
+  border-radius: 14px !important;
+  border-color: #e2e8f0 !important;
+  font-size: 15px;
+}
+
+.ba-date-picker.ant-picker-focused { border-color: #0f8a8f !important; box-shadow: 0 0 0 2px rgba(15, 138, 143, 0.1) !important; }
+
+.selected-doc-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 20px;
+  background: rgba(15, 138, 143, 0.08);
+  color: #0f8a8f;
+  border-radius: 12px;
+  font-size: 13px;
+  font-weight: 600;
+}
+
+/* ── Time Slots ──────────────────────────────────────────────── */
+.slot-group { margin-bottom: 24px; }
+.slot-period-label {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 13px;
+  font-weight: 700;
+  color: #475569;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  margin-bottom: 12px;
+}
+.slot-period-icon { color: #0f8a8f; }
+
+.slots-row { display: flex; flex-wrap: wrap; gap: 10px; }
+
+.time-slot-chip {
+  padding: 10px 18px;
+  border-radius: 10px;
+  border: 1.5px solid #e2e8f0;
+  background: #ffffff;
+  font-size: 13px;
+  font-weight: 600;
+  color: #475569;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.time-slot-chip:hover:not(:disabled) { border-color: #0f8a8f; color: #0f8a8f; background: rgba(15, 138, 143, 0.05); }
+.time-slot-chip.selected             { border-color: #0f8a8f; background: #0f8a8f; color: #ffffff; box-shadow: 0 4px 12px rgba(15, 138, 143, 0.2); }
+.time-slot-chip.unavailable          { opacity: 0.35; cursor: not-allowed; background: #f8fafc; }
+
+/* ── Patient Form ────────────────────────────────────────────── */
+.patient-form {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  width: 100%;
+  max-width: 480px;
+}
+
+.form-group { display: flex; flex-direction: column; gap: 8px; }
+.form-label { font-size: 14px; font-weight: 600; color: #334155; }
+
+.ba-input.ant-input-affix-wrapper {
+  border-radius: 12px;
+  border-color: #e2e8f0;
+  height: 48px;
+  font-size: 15px;
+}
+.ba-input.ant-input-affix-wrapper:focus-within {
+  border-color: #0f8a8f;
+  box-shadow: 0 0 0 2px rgba(15, 138, 143, 0.1);
+}
+
+.ba-textarea {
+  border-radius: 12px !important;
+  border-color: #e2e8f0 !important;
+  font-size: 14px !important;
+  resize: none;
+}
+.ba-textarea:focus { border-color: #0f8a8f !important; box-shadow: 0 0 0 2px rgba(15, 138, 143, 0.1) !important; }
+
+.ba-select { width: 100%; }
+.ba-select .ant-select-selector { border-radius: 12px !important; border-color: #e2e8f0 !important; height: 48px !important; align-items: center; font-size: 15px; }
+.ba-select.ant-select-focused .ant-select-selector { border-color: #0f8a8f !important; box-shadow: 0 0 0 2px rgba(15, 138, 143, 0.1) !important; }
+
+/* ── Summary Card ────────────────────────────────────────────── */
+.summary-card {
+  width: 100%;
+  max-width: 480px;
+  background: #f8fafc;
+  border: 1px solid #eef2f7;
+  border-radius: 20px;
+  padding: 28px;
+}
+
+.summary-header { display: flex; align-items: center; gap: 16px; margin-bottom: 20px; }
+.summary-avatar { background: rgba(15, 138, 143, 0.1); color: #0f8a8f; }
+.summary-doctor { font-size: 18px; font-weight: 700; color: #1e293b; }
+.summary-spec   { font-size: 13px; color: #94a3b8; margin-top: 4px; }
+.summary-divider { height: 1px; background: #eef2f7; margin: 16px 0; }
+
+.summary-rows { display: flex; flex-direction: column; gap: 12px; margin-bottom: 20px; }
+.summary-row  { display: flex; justify-content: space-between; align-items: center; }
+.summary-label { font-size: 13px; color: #64748b; }
+.summary-value { font-size: 14px; font-weight: 600; color: #1e293b; }
+
+.summary-total-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-top: 16px;
+  border-top: 1px solid #eef2f7;
+  font-size: 15px;
+  font-weight: 700;
+  color: #1e293b;
+}
+.summary-total { color: #0f8a8f; font-size: 18px; }
+
+/* ── Navigation Buttons ──────────────────────────────────────── */
+.ba-nav-buttons {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 40px;
+  padding-top: 24px;
+  border-top: 1px solid #eef2f7;
+  gap: 16px;
+}
+
+.btn-ba-prev {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  height: 48px;
+  padding: 0 24px;
+  background: #ffffff;
+  color: #64748b;
+  border: 1px solid #e2e8f0;
+  border-radius: 12px;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+.btn-ba-prev:hover { border-color: #0f8a8f; color: #0f8a8f; }
+
+.btn-ba-next {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  height: 48px;
+  padding: 0 28px;
+  background: #0f8a8f;
+  color: #ffffff;
+  border: none;
+  border-radius: 12px;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 12px rgba(15, 138, 143, 0.2);
+  margin-left: auto;
+}
+.btn-ba-next:hover   { background: #0b666a; transform: translateY(-2px); box-shadow: 0 8px 20px rgba(15, 138, 143, 0.25); }
+.btn-ba-next:disabled { opacity: 0.45; cursor: not-allowed; transform: none; }
+
+.btn-ba-confirm {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  height: 48px;
+  padding: 0 32px;
+  background: linear-gradient(135deg, #0f8a8f, #10b981);
+  color: #ffffff;
+  border: none;
+  border-radius: 12px;
+  font-size: 15px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 6px 16px rgba(15, 138, 143, 0.25);
+  margin-left: auto;
+}
+.btn-ba-confirm:hover { transform: translateY(-2px); box-shadow: 0 10px 24px rgba(15, 138, 143, 0.3); }
+
+/* ── Responsive ──────────────────────────────────────────────── */
+@media screen and (max-width: 767px) {
+  .ba-stepper-card { padding: 20px 16px; }
+  .ba-content-card { padding: 24px 16px; }
+  .dept-grid       { grid-template-columns: repeat(2, 1fr); }
+  .doctors-grid    { grid-template-columns: 1fr 1fr; }
+  .ba-nav-buttons  { flex-direction: column-reverse; }
+  .btn-ba-next, .btn-ba-confirm, .btn-ba-prev { width: 100%; justify-content: center; margin-left: 0; }
+}
+
+@media screen and (max-width: 480px) {
+  .dept-grid    { grid-template-columns: 1fr 1fr; }
+  .doctors-grid { grid-template-columns: 1fr; }
+}

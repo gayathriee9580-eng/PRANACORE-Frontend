@@ -1,0 +1,48 @@
+const doctorReviewsData = [
+  {
+    id: 1,
+    doctorId: 1,
+    patient: "Michael R.",
+    avatar: null,
+    rating: 5,
+    date: "June 20, 2026",
+    title: "Outstanding cardiologist",
+    comment: "Dr. Mitchell is absolutely exceptional. She explained my heart condition in terms I could understand and crafted a treatment plan that has significantly improved my quality of life. Highly recommend.",
+    verified: true,
+  },
+  {
+    id: 2,
+    doctorId: 1,
+    patient: "Priya K.",
+    avatar: null,
+    rating: 5,
+    date: "June 14, 2026",
+    title: "Life-changing care",
+    comment: "I was very nervous about my cardiac procedure but Dr. Mitchell put me completely at ease. Her bedside manner is exceptional and the procedure went perfectly. I couldn't be more grateful.",
+    verified: true,
+  },
+  {
+    id: 3,
+    doctorId: 1,
+    patient: "Tom S.",
+    avatar: null,
+    rating: 4,
+    date: "June 5, 2026",
+    title: "Very professional",
+    comment: "Great doctor, very thorough and knowledgeable. Wait times at the clinic can be a bit long, but the quality of care more than makes up for it.",
+    verified: true,
+  },
+  {
+    id: 4,
+    doctorId: 1,
+    patient: "Fatima A.",
+    avatar: null,
+    rating: 5,
+    date: "May 28, 2026",
+    title: "Excellent and compassionate",
+    comment: "Best cardiologist I have visited. Dr. Mitchell took the time to listen to all my concerns without rushing. She is clearly passionate about her work and her patients.",
+    verified: true,
+  },
+];
+
+export default doctorReviewsData;

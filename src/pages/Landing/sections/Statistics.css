@@ -1,0 +1,210 @@
+/* Statistics Component Styling */
+
+.statistics-section {
+  position: relative;
+  background-color: #ffffff;
+  padding: var(--section-padding) 0;
+  overflow: hidden;
+  font-family: 'Inter', sans-serif;
+  border-top: 1px solid rgba(226, 232, 240, 0.5);
+}
+
+.stats-bg-circle {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 600px;
+  height: 600px;
+  background: radial-gradient(circle, rgba(15, 138, 143, 0.03) 0%, rgba(255, 255, 255, 0) 70%);
+  filter: blur(45px);
+  z-index: 1;
+  pointer-events: none;
+}
+
+.statistics-container {
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 0 24px;
+  position: relative;
+  z-index: 2;
+}
+
+/* Header Section */
+.stats-header {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  margin-bottom: 60px;
+}
+
+.stats-badge {
+  display: inline-flex;
+  align-items: center;
+  background-color: rgba(15, 138, 143, 0.08);
+  border: 1px solid rgba(15, 138, 143, 0.15);
+  color: var(--primary-color);
+  padding: 6px 16px;
+  border-radius: 50px;
+  font-size: 13px;
+  font-weight: 600;
+  letter-spacing: 0.8px;
+  text-transform: uppercase;
+  margin-bottom: 20px;
+}
+
+.stats-badge-dot {
+  width: 8px;
+  height: 8px;
+  background-color: var(--primary-color);
+  border-radius: 50%;
+  margin-right: 8px;
+  display: inline-block;
+  box-shadow: 0 0 8px var(--primary-color);
+}
+
+.stats-main-title {
+  font-size: 40px;
+  font-weight: 800;
+  color: var(--text-dark);
+  margin-bottom: 16px;
+  letter-spacing: -0.5px;
+}
+
+.stats-description {
+  font-size: 17px;
+  color: var(--text-muted);
+  max-width: 680px;
+  line-height: 1.6;
+  margin: 0;
+  font-weight: 500;
+}
+
+/* Cards Grid */
+.stats-cards-row {
+  width: 100%;
+}
+
+.stat-card {
+  background-color: #ffffff;
+  border-radius: 20px;
+  padding: 36px 28px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.02);
+  border: 1px solid rgba(226, 232, 240, 0.6);
+  text-align: center;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.stat-card:hover {
+  box-shadow: 0 15px 45px rgba(0, 0, 0, 0.06);
+  border-color: rgba(15, 138, 143, 0.2);
+}
+
+/* Gradient Icon Backgrounds */
+.stat-card-icon-wrapper {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 64px;
+  height: 64px;
+  border-radius: 50%;
+  font-size: 26px;
+  margin-bottom: 24px;
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.02);
+}
+
+.hospital-stat {
+  background: linear-gradient(135deg, rgba(15, 138, 143, 0.12) 0%, rgba(15, 138, 143, 0.03) 100%);
+  color: var(--primary-color);
+}
+
+.team-stat {
+  background: linear-gradient(135deg, rgba(46, 204, 113, 0.12) 0%, rgba(46, 204, 113, 0.03) 100%);
+  color: #2ecc71;
+}
+
+.calendar-stat {
+  background: linear-gradient(135deg, rgba(74, 144, 226, 0.12) 0%, rgba(74, 144, 226, 0.03) 100%);
+  color: #4a90e2;
+}
+
+.safety-stat {
+  background: linear-gradient(135deg, rgba(241, 196, 15, 0.12) 0%, rgba(241, 196, 15, 0.03) 100%);
+  color: #f1c40f;
+}
+
+.stat-card-number-wrapper {
+  margin-bottom: 12px;
+}
+
+.stat-counter-number {
+  font-size: 40px;
+  font-weight: 800;
+  color: var(--text-dark);
+  letter-spacing: -1px;
+}
+
+.stat-card-title {
+  font-size: 18px;
+  font-weight: 700;
+  color: var(--text-dark);
+  margin-bottom: 12px;
+}
+
+.stat-card-description {
+  font-size: 14px;
+  color: var(--text-muted);
+  line-height: 1.5;
+  margin: 0;
+  font-weight: 500;
+}
+
+/* --- Media Queries --- */
+
+/* Tablet Spacing Adjustments (768px - 991px) */
+@media (max-width: 991px) {
+  .statistics-section {
+    padding: 80px 0;
+  }
+
+  .stats-main-title {
+    font-size: 34px;
+  }
+
+  .stats-description {
+    font-size: 15px;
+  }
+
+  .stat-card {
+    padding: 30px 20px;
+  }
+
+  .stat-counter-number {
+    font-size: 34px;
+  }
+}
+
+/* Mobile Screen Layout (< 768px) */
+@media (max-width: 767px) {
+  .statistics-section {
+    padding: 60px 0;
+  }
+
+  .stats-main-title {
+    font-size: 28px;
+  }
+
+  .stats-header {
+    margin-bottom: 40px;
+  }
+
+  .stat-card {
+    padding: 36px 24px;
+    border-radius: 16px;
+  }
+}

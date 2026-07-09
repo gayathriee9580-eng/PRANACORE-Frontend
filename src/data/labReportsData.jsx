@@ -1,0 +1,73 @@
+const labReportsData = {
+  "LR-001": {
+    id: "LR-001",
+    name: "Complete Blood Count (CBC)",
+    type: "Blood Test",
+    date: "June 18, 2026",
+    status: "Normal",
+    lab: "PRANACORE Diagnostics",
+    results: [
+      { parameter: "Hemoglobin", value: "14.2 g/dL", range: "13.5–17.5 g/dL", status: "Normal" },
+      { parameter: "WBC Count",  value: "7,200 cells/µL", range: "4,500–11,000 cells/µL", status: "Normal" },
+      { parameter: "Platelets",  value: "245,000 /µL", range: "150,000–400,000 /µL", status: "Normal" },
+    ],
+  },
+  "LR-002": {
+    id: "LR-002",
+    name: "Lipid Profile",
+    type: "Blood Test",
+    date: "June 18, 2026",
+    status: "Abnormal",
+    lab: "PRANACORE Diagnostics",
+    results: [
+      { parameter: "Total Cholesterol", value: "218 mg/dL",  range: "< 200 mg/dL",   status: "High"   },
+      { parameter: "LDL Cholesterol",   value: "142 mg/dL",  range: "< 130 mg/dL",   status: "High"   },
+      { parameter: "HDL Cholesterol",   value: "48 mg/dL",   range: "> 40 mg/dL",    status: "Normal" },
+      { parameter: "Triglycerides",     value: "140 mg/dL",  range: "< 150 mg/dL",   status: "Normal" },
+    ],
+  },
+  "LR-003": {
+    id: "LR-003",
+    name: "MRI Brain",
+    type: "MRI",
+    date: "June 13, 2026",
+    status: "Normal",
+    lab: "PRANACORE Imaging Centre",
+    results: [],
+    summary: "No intracranial abnormality detected. Normal brain parenchyma. No evidence of infarct, haemorrhage, or mass lesion.",
+  },
+  "LR-004": {
+    id: "LR-004",
+    name: "X-Ray Left Knee (AP & Lateral)",
+    type: "X-Ray",
+    date: "May 28, 2026",
+    status: "Abnormal",
+    lab: "PRANACORE Imaging Centre",
+    results: [],
+    summary: "Mild joint space narrowing seen in the medial compartment of the left knee. Early osteophyte formation at tibial plateau. Consistent with Grade 1–2 osteoarthritis.",
+  },
+  "LR-005": {
+    id: "LR-005",
+    name: "Uric Acid & ESR",
+    type: "Blood Test",
+    date: "May 28, 2026",
+    status: "Normal",
+    lab: "PRANACORE Diagnostics",
+    results: [
+      { parameter: "Uric Acid", value: "5.8 mg/dL", range: "3.5–7.2 mg/dL", status: "Normal" },
+      { parameter: "ESR",       value: "18 mm/hr",  range: "< 20 mm/hr",    status: "Normal" },
+    ],
+  },
+  "LR-006": {
+    id: "LR-006",
+    name: "Pelvic Ultrasound",
+    type: "Ultrasound",
+    date: "April 22, 2026",
+    status: "Abnormal",
+    lab: "PRANACORE Imaging Centre",
+    results: [],
+    summary: "Thickened endometrium noted. Free fluid in POD. Bilateral adnexa appear bulky. Findings consistent with pelvic inflammatory disease. Clinical correlation advised.",
+  },
+};
+
+export default labReportsData;

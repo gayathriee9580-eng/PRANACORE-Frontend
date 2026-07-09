@@ -1,0 +1,63 @@
+/* FloatingCard Component Styles */
+
+.reusable-floating-card {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 12px 18px;
+  background-color: rgba(255, 255, 255, 0.85);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border-radius: 16px;
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.08);
+  border: 1px solid rgba(226, 232, 240, 0.8);
+  z-index: 10;
+  animation: pranacoreFloat 4s ease-in-out infinite;
+  font-family: 'Inter', sans-serif;
+}
+
+.reusable-floating-card-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  font-size: 16px;
+  background-color: rgba(15, 138, 143, 0.1);
+  color: var(--primary-color);
+  flex-shrink: 0;
+}
+
+.reusable-floating-card-text {
+  display: flex;
+  flex-direction: column;
+  text-align: left;
+}
+
+.reusable-floating-card-text h4 {
+  font-size: 13.5px;
+  font-weight: 700;
+  color: var(--text-dark);
+  margin: 0;
+}
+
+.reusable-floating-card-text p {
+  font-size: 11px;
+  color: var(--text-muted);
+  margin: 0;
+  font-weight: 500;
+}
+
+/* Floating animation keyframes */
+@keyframes pranacoreFloat {
+  0% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-8px);
+  }
+  100% {
+    transform: translateY(0);
+  }
+}

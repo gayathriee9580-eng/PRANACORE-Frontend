@@ -1,0 +1,70 @@
+/* SectionHeader Component Styles */
+
+.section-header-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  margin-bottom: 50px;
+  width: 100%;
+  font-family: 'Inter', sans-serif;
+}
+
+.section-header-badge {
+  display: inline-flex;
+  align-items: center;
+  background-color: rgba(15, 138, 143, 0.08);
+  border: 1px solid rgba(15, 138, 143, 0.15);
+  color: var(--primary-color);
+  padding: 6px 16px;
+  border-radius: 50px;
+  font-size: 13px;
+  font-weight: 600;
+  letter-spacing: 0.8px;
+  text-transform: uppercase;
+  margin-bottom: 16px;
+}
+
+.section-header-badge-dot {
+  width: 8px;
+  height: 8px;
+  background-color: var(--primary-color);
+  border-radius: 50%;
+  margin-right: 8px;
+  display: inline-block;
+  box-shadow: 0 0 8px var(--primary-color);
+}
+
+.section-header-title {
+  font-size: 38px;
+  font-weight: 800;
+  color: var(--text-dark);
+  margin-bottom: 16px;
+  letter-spacing: -0.5px;
+  line-height: 1.25;
+  max-width: 800px;
+}
+
+.section-title-highlight {
+  color: var(--primary-color);
+}
+
+.section-header-description {
+  font-size: 16.5px;
+  color: var(--text-muted);
+  max-width: 680px;
+  line-height: 1.6;
+  margin: 0;
+  font-weight: 500;
+}
+
+/* Responsive adjustments */
+@media (max-width: 767px) {
+  .section-header-title {
+    font-size: 28px;
+  }
+  
+  .section-header-description {
+    font-size: 15px;
+  }
+}

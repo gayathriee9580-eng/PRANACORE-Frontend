@@ -1,0 +1,61 @@
+/* ─── Shared card base ───────────────────────────────────────────────────── */
+.mrsk-card {
+  background: #ffffff;
+  border-radius: 24px;
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.06), 0 1px 4px rgba(0, 0, 0, 0.04);
+  padding: 24px;
+}
+
+/* ─── Root layout ────────────────────────────────────────────────────────── */
+.mrsk-root {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  width: 100%;
+  padding: 24px;
+}
+
+/* ─── Hero ───────────────────────────────────────────────────────────────── */
+.mrsk-hero {
+  min-height: 110px;
+}
+
+/* ─── Filter toolbar ─────────────────────────────────────────────────────── */
+.mrsk-toolbar {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+/* ─── Cards grid ─────────────────────────────────────────────────────────── */
+.mrsk-cards-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 24px;
+}
+
+/* ─── Record card internals ──────────────────────────────────────────────── */
+.mrsk-record-header {
+  margin-bottom: 16px;
+}
+
+.mrsk-record-footer {
+  display: flex;
+  gap: 10px;
+  margin-top: 16px;
+  padding-top: 16px;
+  border-top: 1px solid #f1f5f9;
+}
+
+/* ─── Responsive: Tablet ─────────────────────────────────────────────────── */
+@media (max-width: 1024px) {
+  .mrsk-cards-grid { grid-template-columns: repeat(2, 1fr); }
+}
+
+/* ─── Responsive: Mobile ─────────────────────────────────────────────────── */
+@media (max-width: 640px) {
+  .mrsk-root       { padding: 16px; gap: 16px; }
+  .mrsk-cards-grid { grid-template-columns: 1fr; }
+  .mrsk-toolbar    { gap: 8px; }
+}

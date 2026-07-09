@@ -1,0 +1,242 @@
+/* HowItWorks Component Styling */
+
+.how-section {
+  position: relative;
+  background-color: #ffffff;
+  padding: var(--section-padding) 0;
+  overflow: hidden;
+  font-family: 'Inter', sans-serif;
+}
+
+.how-bg-accent {
+  position: absolute;
+  top: -10%;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 800px;
+  height: 800px;
+  background: radial-gradient(circle, rgba(15, 138, 143, 0.03) 0%, rgba(255, 255, 255, 0) 70%);
+  filter: blur(60px);
+  z-index: 1;
+  pointer-events: none;
+}
+
+.how-container {
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 0 24px;
+  position: relative;
+  z-index: 2;
+}
+
+/* Timeline Layout */
+.how-timeline-wrapper {
+  position: relative;
+  margin-top: 64px;
+  margin-bottom: 72px;
+}
+
+.timeline-connector-line {
+  position: absolute;
+  top: 96px;
+  /* Align with the center of the step-icon-wrapper (which is 80px tall + 56px top padding offset inside card etc. - we'll adjust visually) */
+  left: 12.5%;
+  width: 75%;
+  height: 2px;
+  background: linear-gradient(90deg, rgba(15, 138, 143, 0.1) 0%, rgba(15, 138, 143, 0.6) 50%, rgba(15, 138, 143, 0.1) 100%);
+  transform-origin: left center;
+  z-index: 1;
+}
+
+.how-timeline-row {
+  position: relative;
+  z-index: 2;
+}
+
+/* Step Card */
+.how-step-card-wrapper {
+  height: 100%;
+}
+
+.how-step-card {
+  position: relative;
+  background: #ffffff;
+  border: 1px solid rgba(226, 232, 240, 0.6);
+  border-radius: 20px;
+  padding: 40px 32px;
+  text-align: center;
+  height: 100%;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.02);
+  transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  overflow: hidden;
+}
+
+.how-step-card:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 20px 40px rgba(15, 138, 143, 0.08);
+  border-color: rgba(15, 138, 143, 0.2);
+}
+
+.step-number-badge {
+  position: absolute;
+  top: -16px;
+  right: -16px;
+  font-size: 80px;
+  font-weight: 900;
+  color: rgba(15, 138, 143, 0.04);
+  line-height: 1;
+  pointer-events: none;
+  z-index: 0;
+  transition: color 0.4s ease;
+}
+
+.how-step-card:hover .step-number-badge {
+  color: rgba(15, 138, 143, 0.08);
+}
+
+.step-icon-wrapper {
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #e0f2f1 0%, #b2dfdb 100%);
+  color: #0f8a8f;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 32px;
+  margin-bottom: 24px;
+  position: relative;
+  z-index: 2;
+  box-shadow: 0 8px 16px rgba(15, 138, 143, 0.15);
+  transition: transform 0.4s ease;
+}
+
+.how-step-card:hover .step-icon-wrapper {
+  transform: scale(1.1);
+}
+
+.step-title {
+  font-size: 20px;
+  font-weight: 700;
+  color: #1e293b;
+  margin-bottom: 12px;
+  position: relative;
+  z-index: 2;
+}
+
+.step-description {
+  font-size: 15px;
+  color: #64748b;
+  line-height: 1.6;
+  position: relative;
+  z-index: 2;
+}
+
+/* Bottom CTA Layout */
+.how-bottom-cta {
+  background: #f8fafc;
+  border: 1px solid rgba(226, 232, 240, 0.8);
+  border-radius: 20px;
+  padding: 40px 48px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.02);
+}
+
+.cta-content {
+  max-width: 600px;
+}
+
+.cta-heading {
+  font-size: 28px;
+  font-weight: 700;
+  color: #1e293b;
+  margin-bottom: 8px;
+  letter-spacing: -0.5px;
+}
+
+.cta-description {
+  font-size: 16px;
+  color: #64748b;
+  margin-bottom: 0;
+}
+
+.cta-action {
+  flex-shrink: 0;
+}
+
+/* --- Media Queries --- */
+
+/* Desktop - Fine tuning connector line */
+@media (min-width: 992px) {
+  .timeline-connector-line {
+    top: 80px;
+    /* Precise vertical alignment for the 80px icon inside 40px padding */
+  }
+}
+
+/* Tablet Layout Stack (768px - 991px) */
+@media (max-width: 991px) {
+  .how-section {
+    padding: 90px 0;
+  }
+
+  .how-timeline-wrapper {
+    margin-top: 48px;
+  }
+
+  /* Hide horizontal line on tablet since cards wrap into 2 rows */
+  .timeline-connector-line {
+    display: none;
+  }
+
+  .how-bottom-cta {
+    flex-direction: column;
+    text-align: center;
+    padding: 40px 24px;
+    gap: 24px;
+  }
+
+  .cta-content {
+    margin-bottom: 0;
+  }
+}
+
+/* Mobile Screen Layout (< 768px) */
+@media (max-width: 767px) {
+  .how-section {
+    padding: 70px 0;
+  }
+
+  .how-timeline-wrapper {
+    margin-top: 32px;
+    margin-bottom: 48px;
+  }
+
+  .how-step-card {
+    padding: 32px 24px;
+  }
+
+  .step-icon-wrapper {
+    width: 64px;
+    height: 64px;
+    font-size: 28px;
+    margin-bottom: 20px;
+  }
+
+  .step-title {
+    font-size: 18px;
+  }
+
+  .cta-heading {
+    font-size: 22px;
+  }
+
+  .cta-description {
+    font-size: 15px;
+  }
+}
