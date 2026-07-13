@@ -18,6 +18,7 @@ import { useNavigate } from "react-router-dom";
 import DashboardLayout from "../../../layouts/DashboardLayout/DashboardLayout";
 import doctorsData from "../../../data/doctorsData";
 import doctorSpecializationsData from "../../../data/doctorSpecializationsData";
+import ErrorState from "../../../components/ErrorState";
 import "./Doctors.css";
 
 const { Option } = Select;
@@ -39,6 +40,7 @@ const SORT_OPTIONS = [
 
 const Doctors = () => {
   const navigate = useNavigate();
+  const [hasError, setHasError] = useState(false);
   const [search,       setSearch]       = useState("");
   const [dept,         setDept]         = useState("All Specializations");
   const [gender,       setGender]       = useState("All");
@@ -96,6 +98,24 @@ const Doctors = () => {
               allowClear
             />
           </div>
+          <button
+            onClick={() => setHasError(true)}
+            className="btn-simulate-error"
+            style={{
+              height: "52px",
+              padding: "0 20px",
+              borderRadius: "14px",
+              border: "1px solid rgba(255, 255, 255, 0.2)",
+              background: "rgba(255, 255, 255, 0.15)",
+              color: "#ffffff",
+              fontWeight: "600",
+              cursor: "pointer",
+              whiteSpace: "nowrap",
+              transition: "all 0.2s"
+            }}
+          >
+            Simulate Error
+          </button>
         </motion.div>
 
         {/* ── Body: Filters + Grid ───────────────────────────── */}
@@ -157,104 +177,114 @@ const Doctors = () => {
 
           {/* Results Column */}
           <div className="doctors-results-col">
-
-            {/* Sort + Count Row */}
-            <motion.div
-              className="results-topbar"
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              transition={{ duration: 0.4, delay: 0.15 }}
-            >
-              <span className="results-count">
-                <TeamOutlined /> {filtered.length} doctor{filtered.length !== 1 ? "s" : ""} found
-              </span>
-              <div className="sort-row">
-                <SortAscendingOutlined />
-                <Select className="sort-select" value={sort} onChange={setSort}>
-                  {SORT_OPTIONS.map(o => <Option key={o.value} value={o.value}>{o.label}</Option>)}
-                </Select>
-              </div>
-            </motion.div>
-
-            {/* Doctor Cards Grid */}
-            {filtered.length === 0 ? (
-              <div className="no-results">
-                <UserOutlined className="no-results-icon" />
-                <p>No doctors match your filters. Try adjusting your search.</p>
-              </div>
+            {hasError ? (
+              <ErrorState
+                title="Unable to Load Doctors"
+                description="Something went wrong while loading doctor information."
+                buttonText="Try Again"
+                onRetry={() => setHasError(false)}
+              />
             ) : (
-              <div className="doctors-grid">
-                {filtered.map((doctor, i) => (
-                  <motion.div
-                    key={doctor.id}
-                    className="doctor-card"
-                    custom={i}
-                    variants={fadeUp}
-                    initial="hidden"
-                    animate="visible"
-                    whileHover={{ y: -6 }}
-                    transition={{ type: "spring", stiffness: 180 }}
-                  >
-                    {/* Card Top */}
-                    <div className="doctor-card-top">
-                      <div className="doctor-avatar-wrap">
-                        <div className="doctor-avatar-circle">
-                          <UserOutlined className="doctor-avatar-icon" />
-                        </div>
-                        {doctor.verified && (
-                          <div className="verified-badge" title="Verified Doctor">
-                            <CheckCircleFilled />
+              <>
+                {/* Sort + Count Row */}
+                <motion.div
+                  className="results-topbar"
+                  initial={{ opacity: 0 }}
+                  animate={{ opacity: 1 }}
+                  transition={{ duration: 0.4, delay: 0.15 }}
+                >
+                  <span className="results-count">
+                    <TeamOutlined /> {filtered.length} doctor{filtered.length !== 1 ? "s" : ""} found
+                  </span>
+                  <div className="sort-row">
+                    <SortAscendingOutlined />
+                    <Select className="sort-select" value={sort} onChange={setSort}>
+                      {SORT_OPTIONS.map(o => <Option key={o.value} value={o.value}>{o.label}</Option>)}
+                    </Select>
+                  </div>
+                </motion.div>
+
+                {/* Doctor Cards Grid */}
+                {filtered.length === 0 ? (
+                  <div className="no-results">
+                    <UserOutlined className="no-results-icon" />
+                    <p>No doctors match your filters. Try adjusting your search.</p>
+                  </div>
+                ) : (
+                  <div className="doctors-grid">
+                    {filtered.map((doctor, i) => (
+                      <motion.div
+                        key={doctor.id}
+                        className="doctor-card"
+                        custom={i}
+                        variants={fadeUp}
+                        initial="hidden"
+                        animate="visible"
+                        whileHover={{ y: -6 }}
+                        transition={{ type: "spring", stiffness: 180 }}
+                      >
+                        {/* Card Top */}
+                        <div className="doctor-card-top">
+                          <div className="doctor-avatar-wrap">
+                            <div className="doctor-avatar-circle">
+                              <UserOutlined className="doctor-avatar-icon" />
+                            </div>
+                            {doctor.verified && (
+                              <div className="verified-badge" title="Verified Doctor">
+                                <CheckCircleFilled />
+                              </div>
+                            )}
                           </div>
-                        )}
-                      </div>
-                      {doctor.availableToday && (
-                        <span className="available-today-badge">Available Today</span>
-                      )}
-                    </div>
-
-                    {/* Card Info */}
-                    <div className="doctor-card-info">
-                      <h3 className="doctor-card-name">{doctor.name}</h3>
-                      <div className="doctor-card-spec">{doctor.specialization}</div>
-                      <div className="doctor-card-hospital">{doctor.hospital}</div>
-
-                      <div className="doctor-card-tags">
-                        <span className="meta-tag">
-                          <CalendarOutlined /> {doctor.experience} yrs exp
-                        </span>
-                        <span className="meta-tag">
-                          <TeamOutlined /> {doctor.patients.toLocaleString()} patients
-                        </span>
-                        <span className="meta-tag">
-                          <GlobalOutlined /> {doctor.languages.join(", ")}
-                        </span>
-                      </div>
-
-                      <div className="doctor-card-edu">{doctor.education}</div>
-                    </div>
-
-                    {/* Card Footer */}
-                    <div className="doctor-card-footer">
-                      <div className="doctor-rating-fee">
-                        <div className="rating-row">
-                          <StarFilled className="star-icon" />
-                          <strong>{doctor.rating}</strong>
-                          <span className="review-count">({doctor.reviewCount})</span>
+                          {doctor.availableToday && (
+                            <span className="available-today-badge">Available Today</span>
+                          )}
                         </div>
-                        <div className="doctor-fee">${doctor.fee}<span className="fee-unit">/visit</span></div>
-                      </div>
-                      <div className="doctor-card-actions">
-                        <button className="btn-card-view" onClick={() => navigate(`/dashboard/doctors/${doctor.id}`)}>
-                          <EyeOutlined /> Profile
-                        </button>
-                        <button className="btn-card-book" onClick={() => navigate("/dashboard/appointments/book")}>
-                          Book <ArrowRightOutlined />
-                        </button>
-                      </div>
-                    </div>
-                  </motion.div>
-                ))}
-              </div>
+
+                        {/* Card Info */}
+                        <div className="doctor-card-info">
+                          <h3 className="doctor-card-name">{doctor.name}</h3>
+                          <div className="doctor-card-spec">{doctor.specialization}</div>
+                          <div className="doctor-card-hospital">{doctor.hospital}</div>
+
+                          <div className="doctor-card-tags">
+                            <span className="meta-tag">
+                              <CalendarOutlined /> {doctor.experience} yrs exp
+                            </span>
+                            <span className="meta-tag">
+                              <TeamOutlined /> {doctor.patients.toLocaleString()} patients
+                            </span>
+                            <span className="meta-tag">
+                              <GlobalOutlined /> {doctor.languages.join(", ")}
+                            </span>
+                          </div>
+
+                          <div className="doctor-card-edu">{doctor.education}</div>
+                        </div>
+
+                        {/* Card Footer */}
+                        <div className="doctor-card-footer">
+                          <div className="doctor-rating-fee">
+                            <div className="rating-row">
+                              <StarFilled className="star-icon" />
+                              <strong>{doctor.rating}</strong>
+                              <span className="review-count">({doctor.reviewCount})</span>
+                            </div>
+                            <div className="doctor-fee">${doctor.fee}<span className="fee-unit">/visit</span></div>
+                          </div>
+                          <div className="doctor-card-actions">
+                            <button className="btn-card-view" onClick={() => navigate(`/dashboard/doctors/${doctor.id}`)}>
+                              <EyeOutlined /> Profile
+                            </button>
+                            <button className="btn-card-book" onClick={() => navigate("/dashboard/appointments/book")}>
+                              Book <ArrowRightOutlined />
+                            </button>
+                          </div>
+                        </div>
+                      </motion.div>
+                    ))}
+                  </div>
+                )}
+              </>
             )}
           </div>
         </div>

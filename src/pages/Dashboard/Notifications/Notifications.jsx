@@ -21,6 +21,7 @@ import {
   dateFilterOptions,
 } from "../../../data/notificationCategoriesData";
 import NotificationDetails from "./NotificationDetails";
+import EmptyState from "../../../components/EmptyState";
 import "./Notifications.css";
 
 const { Option } = Select;
@@ -258,106 +259,121 @@ const Notifications = () => {
             >
               Mark All Read
             </Button>
+            <Button
+              onClick={() => setNotifications([])}
+              className="btn-simulate-empty"
+            >
+              Simulate Empty State
+            </Button>
           </div>
         </motion.div>
 
         {/* Notification List Container */}
-        <motion.div className="notifications-list-wrapper" variants={cardVariants}>
-          <div className="list-meta-summary">
-            <span>Showing {filteredNotifications.length} notification{filteredNotifications.length !== 1 ? "s" : ""}</span>
-          </div>
+        {notifications.length === 0 ? (
+          <EmptyState
+            title="No Notifications"
+            description="You're all caught up! There are no new notifications."
+            buttonText="Refresh"
+            onClick={() => setNotifications(notificationsData)}
+          />
+        ) : (
+          <motion.div className="notifications-list-wrapper" variants={cardVariants}>
+            <div className="list-meta-summary">
+              <span>Showing {filteredNotifications.length} notification{filteredNotifications.length !== 1 ? "s" : ""}</span>
+            </div>
 
-          <div className="notifications-cards-grid">
-            <AnimatePresence>
-              {filteredNotifications.length > 0 ? (
-                filteredNotifications.map((notif) => {
-                  const colors = categoryColorMap[notif.category] || { color: "#64748b", bg: "rgba(100,116,139,0.08)" };
-                  const priorityColors = priorityConfig[notif.priority] || { color: "#64748b", bg: "rgba(100,116,139,0.08)" };
-                  const IconComponent = notif.icon || BellOutlined;
+            <div className="notifications-cards-grid">
+              <AnimatePresence>
+                {filteredNotifications.length > 0 ? (
+                  filteredNotifications.map((notif) => {
+                    const colors = categoryColorMap[notif.category] || { color: "#64748b", bg: "rgba(100,116,139,0.08)" };
+                    const priorityColors = priorityConfig[notif.priority] || { color: "#64748b", bg: "rgba(100,116,139,0.08)" };
+                    const IconComponent = notif.icon || BellOutlined;
 
-                  return (
-                    <motion.div
-                      key={notif.id}
-                      className={`notif-card ${notif.status === "Unread" ? "unread" : ""}`}
-                      initial={{ opacity: 0, y: 10 }}
-                      animate={{ opacity: 1, y: 0 }}
-                      exit={{ opacity: 0, scale: 0.95 }}
-                      transition={{ duration: 0.2 }}
-                      whileHover={{ y: -3, boxShadow: "0 10px 25px rgba(15,23,42,0.06)" }}
-                    >
-                      {/* Unread pulsing dot */}
-                      {notif.status === "Unread" && (
-                        <motion.div 
-                          className="pulse-indicator"
-                          variants={pulseVariants}
-                          animate="animate"
-                        />
-                      )}
+                    return (
+                      <motion.div
+                        key={notif.id}
+                        className={`notif-card ${notif.status === "Unread" ? "unread" : ""}`}
+                        initial={{ opacity: 0, y: 10 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        exit={{ opacity: 0, scale: 0.95 }}
+                        transition={{ duration: 0.2 }}
+                        whileHover={{ y: -3, boxShadow: "0 10px 25px rgba(15,23,42,0.06)" }}
+                      >
+                        {/* Unread pulsing dot */}
+                        {notif.status === "Unread" && (
+                          <motion.div 
+                            className="pulse-indicator"
+                            variants={pulseVariants}
+                            animate="animate"
+                          />
+                        )}
 
-                      <div className="notif-card-header">
-                        <div className="icon-badge-box" style={{ background: colors.bg, color: colors.color }}>
-                          <IconComponent />
+                        <div className="notif-card-header">
+                          <div className="icon-badge-box" style={{ background: colors.bg, color: colors.color }}>
+                            <IconComponent />
+                          </div>
+                          <div className="header-labels">
+                            <span className="notif-category-badge" style={{ background: colors.bg, color: colors.color }}>
+                              {notif.category}
+                            </span>
+                            <span className="notif-priority-badge" style={{ background: priorityColors.bg, color: priorityColors.color }}>
+                              {notif.priority}
+                            </span>
+                          </div>
+                          <div className="notif-timestamp-tag">
+                            <ClockCircleOutlined style={{ marginRight: 4 }} />
+                            {notif.timestamp}
+                          </div>
                         </div>
-                        <div className="header-labels">
-                          <span className="notif-category-badge" style={{ background: colors.bg, color: colors.color }}>
-                            {notif.category}
-                          </span>
-                          <span className="notif-priority-badge" style={{ background: priorityColors.bg, color: priorityColors.color }}>
-                            {notif.priority}
-                          </span>
-                        </div>
-                        <div className="notif-timestamp-tag">
-                          <ClockCircleOutlined style={{ marginRight: 4 }} />
-                          {notif.timestamp}
-                        </div>
-                      </div>
 
-                      <div className="notif-card-body">
-                        <h3 className="notif-title-text">{notif.title}</h3>
-                        <p className="notif-desc-text">{notif.description}</p>
-                      </div>
-
-                      <div className="notif-card-footer">
-                        <span className="sent-by-text">Hospital: {notif.hospital || "PRANACORE"}</span>
-                        <div className="footer-action-buttons">
-                          {notif.status === "Unread" && (
-                            <Tooltip title="Mark as Read">
-                              <Button
-                                type="text"
-                                icon={<CheckOutlined />}
-                                onClick={() => handleMarkRead(notif.id)}
-                                className="action-btn-mark-read"
-                              />
-                            </Tooltip>
-                          )}
-                          <Button
-                            type="link"
-                            className="btn-view-details"
-                            onClick={() => setSelectedNotificationId(notif.id)}
-                          >
-                            View Details <RightOutlined />
-                          </Button>
+                        <div className="notif-card-body">
+                          <h3 className="notif-title-text">{notif.title}</h3>
+                          <p className="notif-desc-text">{notif.description}</p>
                         </div>
-                      </div>
-                    </motion.div>
-                  );
-                })
-              ) : (
-                <div className="notif-empty-state-wrapper">
-                  <Empty
-                    image={Empty.PRESENTED_IMAGE_SIMPLE}
-                    description={
-                      <div className="empty-message-box">
-                        <h3>No Notifications Found</h3>
-                        <p>Adjust your search queries or select a different category filter to view records.</p>
-                      </div>
-                    }
-                  />
-                </div>
-              )}
-            </AnimatePresence>
-          </div>
-        </motion.div>
+
+                        <div className="notif-card-footer">
+                          <span className="sent-by-text">Hospital: {notif.hospital || "PRANACORE"}</span>
+                          <div className="footer-action-buttons">
+                            {notif.status === "Unread" && (
+                              <Tooltip title="Mark as Read">
+                                <Button
+                                  type="text"
+                                  icon={<CheckOutlined />}
+                                  onClick={() => handleMarkRead(notif.id)}
+                                  className="action-btn-mark-read"
+                                />
+                              </Tooltip>
+                            )}
+                            <Button
+                              type="link"
+                              className="btn-view-details"
+                              onClick={() => setSelectedNotificationId(notif.id)}
+                            >
+                              View Details <RightOutlined />
+                            </Button>
+                          </div>
+                        </div>
+                      </motion.div>
+                    );
+                  })
+                ) : (
+                  <div className="notif-empty-state-wrapper">
+                    <Empty
+                      image={Empty.PRESENTED_IMAGE_SIMPLE}
+                      description={
+                        <div className="empty-message-box">
+                          <h3>No Notifications Found</h3>
+                          <p>Adjust your search queries or select a different category filter to view records.</p>
+                        </div>
+                      }
+                    />
+                  </div>
+                )}
+              </AnimatePresence>
+            </div>
+          </motion.div>
+        )}
       </motion.div>
     </DashboardLayout>
   );

@@ -10,6 +10,10 @@ import {
   FallOutlined,
   UserOutlined,
   CheckCircleOutlined,
+  CalendarFilled,
+  DollarCircleFilled,
+  MedicineBoxFilled,
+  TeamOutlined,
 } from "@ant-design/icons";
 import { motion } from "framer-motion";
 import { useNavigate } from "react-router-dom";
@@ -21,6 +25,13 @@ import notificationsData from "../../../data/notificationsData";
 import healthTipsData from "../../../data/healthTipsData";
 import LoadingOverlay from "../../../components/LoadingOverlay";
 import { DashboardSkeleton } from "../../../components/Skeletons";
+import {
+  LineChart,
+  BarChart,
+  PieChart,
+  AreaChart,
+  StatCardChart,
+} from "../../../components/Charts";
 import "./DashboardHome.css";
 
 // ─── Animation Variants ─────────────────────────────────────────────────────
@@ -32,6 +43,42 @@ const fadeUp = {
     transition: { duration: 0.5, delay: i * 0.1, ease: "easeOut" },
   }),
 };
+
+// ─── Chart Mock Datasets ─────────────────────────────────────────────────────
+const appointmentsTrendData = [
+  { month: "Jan", appointments: 32 },
+  { month: "Feb", appointments: 41 },
+  { month: "Mar", appointments: 38 },
+  { month: "Apr", appointments: 50 },
+  { month: "May", appointments: 62 },
+  { month: "Jun", appointments: 58 },
+];
+
+const paymentsData = [
+  { month: "Jan", amount: 12000 },
+  { month: "Feb", amount: 18000 },
+  { month: "Mar", amount: 16000 },
+  { month: "Apr", amount: 24000 },
+  { month: "May", amount: 26000 },
+  { month: "Jun", amount: 30000 },
+];
+
+const departmentsData = [
+  { name: "Cardiology",  value: 28 },
+  { name: "Neurology",   value: 20 },
+  { name: "Orthopedics", value: 18 },
+  { name: "Pediatrics",  value: 22 },
+  { name: "Others",      value: 12 },
+];
+
+const visitorsData = [
+  { month: "Jan", visitors: 120 },
+  { month: "Feb", visitors: 180 },
+  { month: "Mar", visitors: 210 },
+  { month: "Apr", visitors: 260 },
+  { month: "May", visitors: 300 },
+  { month: "Jun", visitors: 350 },
+];
 
 const slideRight = {
   hidden: { opacity: 0, x: -24 },
@@ -328,6 +375,82 @@ const DashboardHome = () => {
             </div>
           </motion.div>
         </div>
+
+        {/* ── Analytics: StatCard Row ──────────────────────────── */}
+        <motion.div
+          className="charts-statcard-row"
+          custom={3}
+          variants={fadeUp}
+          initial="hidden"
+          animate="visible"
+        >
+          <StatCardChart
+            title="Appointments"
+            value="281"
+            icon={<CalendarFilled />}
+            trend="+12% this month"
+            trendColor="#10b981"
+          />
+          <StatCardChart
+            title="Revenue"
+            value="₹1.26L"
+            icon={<DollarCircleFilled />}
+            trend="+8% this month"
+            trendColor="#10b981"
+          />
+          <StatCardChart
+            title="Doctors"
+            value="48"
+            icon={<MedicineBoxFilled />}
+            trend="2 new this week"
+            trendColor="#6366f1"
+          />
+          <StatCardChart
+            title="Patients"
+            value="1,340"
+            icon={<TeamOutlined />}
+            trend="+5% this month"
+            trendColor="#10b981"
+          />
+        </motion.div>
+
+        {/* ── Analytics: Charts Grid ───────────────────────────── */}
+        <motion.div
+          className="charts-grid"
+          custom={4}
+          variants={fadeUp}
+          initial="hidden"
+          animate="visible"
+        >
+          <LineChart
+            title="Appointments Trend"
+            data={appointmentsTrendData}
+            dataKey="appointments"
+            xKey="month"
+            height={260}
+          />
+          <BarChart
+            title="Monthly Revenue"
+            data={paymentsData}
+            dataKey="amount"
+            xKey="month"
+            height={260}
+          />
+          <PieChart
+            title="Department Distribution"
+            data={departmentsData}
+            dataKey="value"
+            nameKey="name"
+            height={260}
+          />
+          <AreaChart
+            title="Visitor Growth"
+            data={visitorsData}
+            dataKey="visitors"
+            xKey="month"
+            height={260}
+          />
+        </motion.div>
 
         {/* ── Bottom CTA Banner ─────────────────────────────── */}
         <motion.div

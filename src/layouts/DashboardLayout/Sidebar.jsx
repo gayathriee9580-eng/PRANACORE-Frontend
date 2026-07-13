@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { 
   AppstoreOutlined, 
   CalendarOutlined, 
@@ -15,6 +15,8 @@ import {
 import { motion } from "framer-motion";
 import { Drawer, Modal } from "antd";
 import { useNavigate, useLocation } from "react-router-dom";
+import ConfirmationModal from "../../components/ConfirmationModal";
+import { useToast } from "../../context/ToastContext";
 import "./Sidebar.css";
 
 const menuItems = [
@@ -32,19 +34,11 @@ const menuItems = [
 const SidebarContent = ({ collapsed, onClose, isMobile }) => {
   const navigate = useNavigate();
   const location = useLocation();
+  const toast = useToast();
+  const [showLogoutModal, setShowLogoutModal] = useState(false);
 
   const handleLogout = () => {
-    Modal.confirm({
-      title: "Logout from portal?",
-      content: "Are you sure you want to log out of the PRANACORE Healthcare platform?",
-      okText: "Logout",
-      cancelText: "Cancel",
-      okType: "danger",
-      onOk() {
-        localStorage.removeItem("pranacore_token");
-        navigate("/login");
-      }
-    });
+    setShowLogoutModal(true);
   };
 
   const handleNavigation = (path) => {
@@ -109,6 +103,20 @@ const SidebarContent = ({ collapsed, onClose, isMobile }) => {
           {!collapsed && <span className="menu-label">Logout</span>}
         </div>
       </div>
+
+      <ConfirmationModal
+        visible={showLogoutModal}
+        type="warning"
+        title="Logout?"
+        description="Are you sure you want to logout from PRANACORE?"
+        confirmText="Logout"
+        cancelText="Cancel"
+        onConfirm={() => {
+          setShowLogoutModal(false);
+          toast.success("Logged out successfully.");
+        }}
+        onCancel={() => setShowLogoutModal(false)}
+      />
     </div>
   );
 };
