@@ -16,7 +16,7 @@ import Footer from "./sections/Footer";
 
 const LandingPage = () => {
   return (
-    <>
+    <>s
       <Navbar />
       <Hero />
       <SearchAppointment />
