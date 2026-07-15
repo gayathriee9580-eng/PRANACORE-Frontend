@@ -19,7 +19,6 @@ import {
   RightOutlined,
 } from "@ant-design/icons";
 import { motion } from "framer-motion";
-import DashboardLayout from "../../../layouts/DashboardLayout/DashboardLayout";
 import profileData from "../../../data/profileData";
 import emergencyContactsData from "../../../data/emergencyContactsData";
 import insuranceData from "../../../data/insuranceData";
@@ -98,7 +97,7 @@ const Profile = () => {
   }
 
   return (
-    <DashboardLayout>
+    <>
       <motion.div
         className="profile-dash-container"
         variants={containerVariants}
@@ -119,8 +118,8 @@ const Profile = () => {
           </div>
           <div className="hero-progress-panel">
             <span className="progress-lbl">Profile Completion</span>
-            <Progress 
-              percent={profile.completionPercentage} 
+            <Progress
+              percent={profile.completionPercentage}
               strokeColor={{ "0%": "#a7f3d0", "100%": "#10b981" }}
               trailColor="rgba(255,255,255,0.15)"
               className="custom-hero-progress"
@@ -140,10 +139,10 @@ const Profile = () => {
             { label: "BMI Ratio", value: profile.bmi, desc: "Normal Range" },
             { label: "Allergies", value: profile.allergies.split(",")[0] || "None", desc: "Drug / Food", alert: true }
           ].map((item, idx) => (
-            <motion.div 
-              key={idx} 
+            <motion.div
+              key={idx}
               className={`kpi-card metric-card ${item.highlight ? "highlight" : ""} ${item.alert ? "alert-card" : ""}`}
-              variants={cardVariants} 
+              variants={cardVariants}
               whileHover={{ y: -3 }}
             >
               <span className="lbl">{item.label}</span>
@@ -318,30 +317,30 @@ const Profile = () => {
             <motion.div variants={cardVariants}>
               <Card className="profile-info-card actions-panel-card" title="Administrative Actions" bordered={false}>
                 <div className="actions-button-vertical-grid">
-                  <Button 
-                    type="primary" 
-                    icon={<EditOutlined />} 
+                  <Button
+                    type="primary"
+                    icon={<EditOutlined />}
                     onClick={() => setIsEditing(true)}
                     className="action-btn btn-teal-solid"
                   >
                     Edit Profile Details
                   </Button>
-                  <Button 
-                    icon={<DownloadOutlined />} 
+                  <Button
+                    icon={<DownloadOutlined />}
                     onClick={handleDownloadSummary}
                     className="action-btn"
                   >
                     Download Health Summary PDF
                   </Button>
-                  <Button 
-                    icon={<FileTextOutlined />} 
+                  <Button
+                    icon={<FileTextOutlined />}
                     onClick={() => message.info("Navigating to Medical Records tab...")}
                     className="action-btn"
                   >
                     View Diagnostic Reports
                   </Button>
-                  <Button 
-                    icon={<PlusCircleOutlined />} 
+                  <Button
+                    icon={<PlusCircleOutlined />}
                     onClick={() => message.info("Opening Booking Module...")}
                     className="action-btn"
                   >
@@ -353,7 +352,7 @@ const Profile = () => {
           </Col>
         </Row>
       </motion.div>
-    </DashboardLayout>
+    </>
   );
 };
 

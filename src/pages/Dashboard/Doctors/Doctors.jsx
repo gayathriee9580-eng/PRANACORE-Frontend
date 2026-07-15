@@ -15,9 +15,9 @@ import {
 } from "@ant-design/icons";
 import { motion } from "framer-motion";
 import { useNavigate } from "react-router-dom";
-import DashboardLayout from "../../../layouts/DashboardLayout/DashboardLayout";
 import doctorsData from "../../../data/doctorsData";
 import doctorSpecializationsData from "../../../data/doctorSpecializationsData";
+import useSearch from "../../../hooks/useSearch";
 import ErrorState from "../../../components/ErrorState";
 import "./Doctors.css";
 
@@ -32,47 +32,41 @@ const fadeUp = {
 };
 
 const SORT_OPTIONS = [
-  { value: "rating",     label: "Highest Rated"    },
-  { value: "experience", label: "Most Experienced"  },
-  { value: "fee_asc",    label: "Lowest Fee"        },
-  { value: "newest",     label: "Newest"            },
+  { value: "rating", label: "Highest Rated" },
+  { value: "experience", label: "Most Experienced" },
+  { value: "fee_asc", label: "Lowest Fee" },
+  { value: "newest", label: "Newest" },
 ];
 
 const Doctors = () => {
   const navigate = useNavigate();
   const [hasError, setHasError] = useState(false);
-  const [search,       setSearch]       = useState("");
-  const [dept,         setDept]         = useState("All Specializations");
-  const [gender,       setGender]       = useState("All");
+  const [search, setSearch] = useState("");
+  const [dept, setDept] = useState("All Specializations");
+  const [gender, setGender] = useState("All");
   const [availability, setAvailability] = useState("All");
-  const [sort,         setSort]         = useState("rating");
-  const [maxFee,       setMaxFee]       = useState(250);
+  const [sort, setSort] = useState("rating");
+  const [maxFee, setMaxFee] = useState(250);
+
+  const searchedDoctors = useSearch(doctorsData, search, ["name", "specialization", "department"]);
 
   const filtered = useMemo(() => {
-    let list = [...doctorsData];
+    let list = [...searchedDoctors];
 
-    if (search) {
-      const q = search.toLowerCase();
-      list = list.filter(d =>
-        d.name.toLowerCase().includes(q) ||
-        d.specialization.toLowerCase().includes(q) ||
-        d.hospital.toLowerCase().includes(q)
-      );
-    }
     if (dept !== "All Specializations") list = list.filter(d => d.specialization === dept);
-    if (gender !== "All")               list = list.filter(d => d.gender === gender);
-    if (availability === "Today")       list = list.filter(d => d.availableToday);
+    if (gender !== "All") list = list.filter(d => d.gender === gender);
+    if (availability === "Today") list = list.filter(d => d.availableToday);
     list = list.filter(d => d.fee <= maxFee);
 
-    if (sort === "rating")     list.sort((a, b) => b.rating - a.rating);
+    if (sort === "rating") list.sort((a, b) => b.rating - a.rating);
     if (sort === "experience") list.sort((a, b) => b.experience - a.experience);
-    if (sort === "fee_asc")    list.sort((a, b) => a.fee - b.fee);
+    if (sort === "fee_asc") list.sort((a, b) => a.fee - b.fee);
 
     return list;
-  }, [search, dept, gender, availability, sort, maxFee]);
+  }, [searchedDoctors, dept, gender, availability, sort, maxFee]);
 
   return (
-    <DashboardLayout>
+    <>
       <div className="doctors-page">
 
         {/* ── Hero ──────────────────────────────────────────── */}
@@ -290,7 +284,7 @@ const Doctors = () => {
         </div>
 
       </div>
-    </DashboardLayout>
+    </>
   );
 };
 

@@ -17,8 +17,8 @@ import {
   EnvironmentOutlined,
 } from "@ant-design/icons";
 import { motion } from "framer-motion";
-import DashboardLayout from "../../../layouts/DashboardLayout/DashboardLayout";
 import medicalRecordsData from "../../../data/medicalRecordsData";
+import useSearch from "../../../hooks/useSearch";
 import "./MedicalRecords.css";
 
 const { Option } = Select;
@@ -33,59 +33,72 @@ const fadeUp = {
 
 const TYPE_ICONS = {
   Consultation: <MedicineBoxOutlined />,
-  "Lab Report":  <ExperimentOutlined />,
-  Prescription:  <FileTextOutlined />,
-  Imaging:       <CameraOutlined />,
-  Vaccination:   <SafetyCertificateOutlined />,
-  Emergency:     <AlertOutlined />,
+  "Lab Report": <ExperimentOutlined />,
+  Prescription: <FileTextOutlined />,
+  Imaging: <CameraOutlined />,
+  Vaccination: <SafetyCertificateOutlined />,
+  Emergency: <AlertOutlined />,
 };
 
 const TYPE_COLORS = {
-  Consultation: { color: "#0f8a8f",  bg: "rgba(15,138,143,0.08)"  },
-  "Lab Report":  { color: "#6366f1",  bg: "rgba(99,102,241,0.08)"  },
-  Prescription:  { color: "#f59e0b",  bg: "rgba(245,158,11,0.08)"  },
-  Imaging:       { color: "#8b5cf6",  bg: "rgba(139,92,246,0.08)"  },
-  Vaccination:   { color: "#10b981",  bg: "rgba(16,185,129,0.08)"  },
-  Emergency:     { color: "#ef4444",  bg: "rgba(239,68,68,0.08)"   },
+  Consultation: { color: "#0f8a8f", bg: "rgba(15,138,143,0.08)" },
+  "Lab Report": { color: "#6366f1", bg: "rgba(99,102,241,0.08)" },
+  Prescription: { color: "#f59e0b", bg: "rgba(245,158,11,0.08)" },
+  Imaging: { color: "#8b5cf6", bg: "rgba(139,92,246,0.08)" },
+  Vaccination: { color: "#10b981", bg: "rgba(16,185,129,0.08)" },
+  Emergency: { color: "#ef4444", bg: "rgba(239,68,68,0.08)" },
 };
 
 const STATUS_CONFIG = {
-  Completed: { color: "#10b981", bg: "rgba(16,185,129,0.08)"  },
-  Active:    { color: "#0f8a8f", bg: "rgba(15,138,143,0.08)"  },
-  Pending:   { color: "#f59e0b", bg: "rgba(245,158,11,0.08)"  },
+  Completed: { color: "#10b981", bg: "rgba(16,185,129,0.08)" },
+  Active: { color: "#0f8a8f", bg: "rgba(15,138,143,0.08)" },
+  Pending: { color: "#f59e0b", bg: "rgba(245,158,11,0.08)" },
 };
 
 const RECORD_TYPES = ["All Types", "Consultation", "Lab Report", "Prescription", "Imaging", "Vaccination", "Emergency"];
-const STATUSES     = ["All Statuses", "Completed", "Active", "Pending"];
+const STATUSES = ["All Statuses", "Completed", "Active", "Pending"];
 
 const MedicalRecords = () => {
-  const [search,     setSearch]     = useState("");
+  const [search, setSearch] = useState("");
   const [typeFilter, setTypeFilter] = useState("All Types");
-  const [statusFilter, setStatus]   = useState("All Statuses");
+  const [statusFilter, setStatus] = useState("All Statuses");
+
+  const augmentedRecords = useMemo(() => {
+    return medicalRecordsData.map(r => ({
+      ...r,
+      patient: r.id === "MR-2026-003" ? "Emily Doe" : "John Doe",
+      department: r.specialization === "Cardiologist" ? "Cardiology" :
+                  r.specialization === "Neurologist" ? "Neurology" :
+                  r.specialization === "Pediatrician" ? "Pediatrics" :
+                  r.specialization === "Orthopedic Surgeon" ? "Orthopedics" :
+                  r.specialization === "General Physician" ? "General Medicine" :
+                  r.specialization === "Gynecologist" ? "Gynecology" : "General Medicine"
+    }));
+  }, []);
+
+  const searchedRecords = useSearch(
+    augmentedRecords,
+    search,
+    ["patient", "id", "diagnosis", "doctor", "department", "type", "status"]
+  );
 
   const filtered = useMemo(() => {
-    return medicalRecordsData.filter((r) => {
-      const q = search.toLowerCase();
-      const matchSearch = !search ||
-        r.id.toLowerCase().includes(q) ||
-        r.diagnosis.toLowerCase().includes(q) ||
-        r.doctor.toLowerCase().includes(q) ||
-        r.hospital.toLowerCase().includes(q);
-      const matchType   = typeFilter   === "All Types"    || r.type   === typeFilter;
+    return searchedRecords.filter((r) => {
+      const matchType = typeFilter === "All Types" || r.type === typeFilter;
       const matchStatus = statusFilter === "All Statuses" || r.status === statusFilter;
-      return matchSearch && matchType && matchStatus;
+      return matchType && matchStatus;
     });
-  }, [search, typeFilter, statusFilter]);
+  }, [searchedRecords, typeFilter, statusFilter]);
 
   const stats = [
-    { label: "Total Records",      value: medicalRecordsData.length,                                        icon: <FileTextOutlined />,          color: "#0f8a8f"  },
-    { label: "Completed",          value: medicalRecordsData.filter(r => r.status === "Completed").length,  icon: <SafetyCertificateOutlined />,  color: "#10b981"  },
-    { label: "Active",             value: medicalRecordsData.filter(r => r.status === "Active").length,     icon: <HeartOutlined />,              color: "#6366f1"  },
-    { label: "Lab Reports",        value: medicalRecordsData.filter(r => r.type === "Lab Report").length,   icon: <ExperimentOutlined />,         color: "#f59e0b"  },
+    { label: "Total Records", value: medicalRecordsData.length, icon: <FileTextOutlined />, color: "#0f8a8f" },
+    { label: "Completed", value: medicalRecordsData.filter(r => r.status === "Completed").length, icon: <SafetyCertificateOutlined />, color: "#10b981" },
+    { label: "Active", value: medicalRecordsData.filter(r => r.status === "Active").length, icon: <HeartOutlined />, color: "#6366f1" },
+    { label: "Lab Reports", value: medicalRecordsData.filter(r => r.type === "Lab Report").length, icon: <ExperimentOutlined />, color: "#f59e0b" },
   ];
 
   return (
-    <DashboardLayout>
+    <>
       <div className="medical-records-page">
 
         {/* ── Hero ──────────────────────────────────────────── */}
@@ -150,7 +163,7 @@ const MedicalRecords = () => {
         ) : (
           <div className="mr-cards-grid">
             {filtered.map((record, i) => {
-              const typeStyle   = TYPE_COLORS[record.type]   || {};
+              const typeStyle = TYPE_COLORS[record.type] || {};
               const statusStyle = STATUS_CONFIG[record.status] || {};
               return (
                 <motion.div
@@ -207,7 +220,7 @@ const MedicalRecords = () => {
         )}
 
       </div>
-    </DashboardLayout>
+    </>
   );
 };
 

@@ -1,27 +1,36 @@
 import React, { useState } from "react";
-import { Card, Switch, Select, Button, Input, Divider, List, Tag, Table, Radio, Modal, message } from "antd";
+import {
+  Card,
+  Switch,
+  Select,
+  Button,
+  Input,
+  Divider,
+  Tag,
+  Table,
+  Radio,
+  Modal,
+  message,
+  Row,
+  Col,
+  Tooltip
+} from "antd";
 import {
   SettingOutlined,
   UserOutlined,
   MailOutlined,
   PhoneOutlined,
   LockOutlined,
-  SafetyCertificateOutlined,
   GlobalOutlined,
   DesktopOutlined,
   MobileOutlined,
   ExclamationCircleOutlined,
   DownloadOutlined,
-  HistoryOutlined,
   DeleteOutlined,
   LogoutOutlined,
-  EyeOutlined,
-  BellOutlined,
   BgColorsOutlined,
-  EyeInvisibleOutlined,
 } from "@ant-design/icons";
 import { motion } from "framer-motion";
-import DashboardLayout from "../../../layouts/DashboardLayout/DashboardLayout";
 import connectedDevicesData from "../../../data/connectedDevicesData";
 import loginHistoryData from "../../../data/loginHistoryData";
 import "./Settings.css";
@@ -203,7 +212,7 @@ const Settings = () => {
   ];
 
   return (
-    <DashboardLayout>
+    <>
       <motion.div
         className="settings-dash-container"
         variants={containerVariants}
@@ -226,7 +235,7 @@ const Settings = () => {
         <Row gutter={[24, 24]}>
           {/* LEFT COLUMN: Account, Privacy, Notifications, Appearance */}
           <Col xs={24} lg={13} className="settings-column-stack">
-            
+
             {/* Account Settings */}
             <motion.div variants={cardVariants}>
               <Card className="settings-card" title="Account Settings" bordered={false}>
@@ -434,8 +443,8 @@ const Settings = () => {
                 <div className="appearance-form-grid">
                   <div className="input-group full-width">
                     <span className="input-lbl"><BgColorsOutlined /> Theme Layout Mode</span>
-                    <Radio.Group 
-                      value={appearance.theme} 
+                    <Radio.Group
+                      value={appearance.theme}
                       onChange={(e) => handleAppChange("theme", e.target.value)}
                       className="custom-radio-theme-group"
                     >
@@ -502,7 +511,7 @@ const Settings = () => {
 
           {/* RIGHT COLUMN: Connected Devices, Login History, Danger Zone */}
           <Col xs={24} lg={11} className="settings-column-stack">
-            
+
             {/* Connected Devices */}
             <motion.div variants={cardVariants}>
               <Card className="settings-card" title="Connected Devices" bordered={false}>
@@ -525,9 +534,9 @@ const Settings = () => {
                       </div>
                       {!dev.current && (
                         <Tooltip title="Terminate Access">
-                          <Button 
-                            danger 
-                            icon={<LogoutOutlined />} 
+                          <Button
+                            danger
+                            icon={<LogoutOutlined />}
                             onClick={() => handleRemoveDevice(dev.id)}
                             className="btn-revoke-device"
                           />
@@ -562,8 +571,8 @@ const Settings = () => {
                       <h4>Logout From All Devices</h4>
                       <p>Immediately terminate all active login sessions on all external terminals.</p>
                     </div>
-                    <Button 
-                      danger 
+                    <Button
+                      danger
                       icon={<LogoutOutlined />}
                       onClick={() => showConfirmAction(
                         "Logout from all devices?",
@@ -581,8 +590,8 @@ const Settings = () => {
                       <h4>Deactivate Patient Account</h4>
                       <p>Temporarily deactivate portal access. Records will be preserved securely.</p>
                     </div>
-                    <Button 
-                      danger 
+                    <Button
+                      danger
                       onClick={() => showConfirmAction(
                         "Deactivate account?",
                         "Your account access will be temporarily suspended. You can reactivate by contacting PRANACORE support desk.",
@@ -599,9 +608,9 @@ const Settings = () => {
                       <h4>Permanently Delete Account</h4>
                       <p>Permanently remove account logs and clear database entries from the platform.</p>
                     </div>
-                    <Button 
-                      type="primary" 
-                      danger 
+                    <Button
+                      type="primary"
+                      danger
                       icon={<DeleteOutlined />}
                       onClick={() => showConfirmAction(
                         "PERMANENTLY DELETE ACCOUNT?",
@@ -620,7 +629,7 @@ const Settings = () => {
           </Col>
         </Row>
       </motion.div>
-    </DashboardLayout>
+    </>
   );
 };
 

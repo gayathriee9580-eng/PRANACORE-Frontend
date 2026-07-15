@@ -7,9 +7,6 @@ import {
   CartesianGrid,
   Tooltip,
   ResponsiveContainer,
-  defs,
-  linearGradient,
-  stop,
 } from "recharts";
 import { motion } from "framer-motion";
 import "./Charts.css";

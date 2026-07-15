@@ -16,9 +16,9 @@ import {
   DashboardOutlined,
 } from "@ant-design/icons";
 import { motion } from "framer-motion";
-import DashboardLayout from "../../../layouts/DashboardLayout/DashboardLayout";
 import paymentsData from "../../../data/paymentsData";
 import invoicesData from "../../../data/invoicesData";
+import useSearch from "../../../hooks/useSearch";
 import "./Payments.css";
 
 const { Option } = Select;
@@ -70,15 +70,15 @@ const Payments = () => {
     };
   }, []);
 
+  const searchedPayments = useSearch(
+    paymentsData,
+    search,
+    ["id", "patient", "invoiceId", "method", "status"]
+  );
+
   // Filtering logic
   const filteredPayments = useMemo(() => {
-    return paymentsData.filter((p) => {
-      const matchSearch =
-        p.id.toLowerCase().includes(search.toLowerCase()) ||
-        p.doctor.toLowerCase().includes(search.toLowerCase()) ||
-        p.department.toLowerCase().includes(search.toLowerCase()) ||
-        p.appointmentId.toLowerCase().includes(search.toLowerCase());
-
+    return searchedPayments.filter((p) => {
       const matchStatus = statusFilter === "All" || p.status === statusFilter;
       const matchMethod = methodFilter === "All" || p.methodType === methodFilter;
 
@@ -91,9 +91,9 @@ const Payments = () => {
         matchDate = formattedDate === formattedSelDate;
       }
 
-      return matchSearch && matchStatus && matchMethod && matchDate;
+      return matchStatus && matchMethod && matchDate;
     });
-  }, [search, statusFilter, methodFilter, dateFilter]);
+  }, [searchedPayments, statusFilter, methodFilter, dateFilter]);
 
   const columns = [
     {
@@ -191,7 +191,7 @@ const Payments = () => {
   ];
 
   return (
-    <DashboardLayout>
+    <>
       <motion.div
         className="payments-dash-container"
         variants={containerVariants}
@@ -309,7 +309,7 @@ const Payments = () => {
           />
         </motion.div>
       </motion.div>
-    </DashboardLayout>
+    </>
   );
 };
 

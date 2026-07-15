@@ -14,9 +14,10 @@ import {
   RiseOutlined,
 } from "@ant-design/icons";
 import { motion, AnimatePresence } from "framer-motion";
-import DashboardLayout from "../../../layouts/DashboardLayout/DashboardLayout";
 import departmentsData, { getDeptIcon } from "../../../data/departmentsData";
+import departmentServicesData from "../../../data/departmentServicesData";
 import doctorsData from "../../../data/doctorsData";
+import useSearch from "../../../hooks/useSearch";
 import DepartmentDetails from "./DepartmentDetails";
 import "./Departments.css";
 
@@ -39,6 +40,17 @@ const Departments = () => {
   const [sortBy, setSortBy] = useState("default");
   const [selectedDeptId, setSelectedDeptId] = useState(null);
 
+  // Augment departmentsData with HOD names from departmentServicesData
+  const augmentedDepartments = useMemo(() => {
+    return departmentsData.map(dept => ({
+      ...dept,
+      hodName: departmentServicesData[dept.name]?.hodName || "",
+      category: dept.category || ""
+    }));
+  }, []);
+
+  const searchedDepartments = useSearch(augmentedDepartments, search, ["name", "hodName", "category", "description"]);
+
   // Stats Card Calculations
   const stats = useMemo(() => {
     const totalDepts = departmentsData.length;
@@ -54,21 +66,17 @@ const Departments = () => {
 
   // Filter & Sort Logic
   const processedDepartments = useMemo(() => {
-    let result = departmentsData.filter(dept => {
-      const matchesSearch = 
-        dept.name.toLowerCase().includes(search.toLowerCase()) ||
-        dept.description.toLowerCase().includes(search.toLowerCase());
-      
-      const matchesCategory = 
-        selectedCategory === "All" || 
+    let result = searchedDepartments.filter(dept => {
+      const matchesCategory =
+        selectedCategory === "All" ||
         dept.name === selectedCategory;
 
-      const matchesAvailability = 
-        selectedAvailability === "All" || 
+      const matchesAvailability =
+        selectedAvailability === "All" ||
         (selectedAvailability === "Today" && dept.availability === "Available Today") ||
         (selectedAvailability === "Emergency" && dept.name === "Radiology"); // Radiology is marked as 24/7
 
-      return matchesSearch && matchesCategory && matchesAvailability;
+      return matchesCategory && matchesAvailability;
     });
 
     if (sortBy === "rating") {
@@ -82,7 +90,7 @@ const Departments = () => {
     }
 
     return result;
-  }, [search, selectedCategory, selectedAvailability, sortBy]);
+  }, [searchedDepartments, selectedCategory, selectedAvailability, sortBy]);
 
   if (selectedDeptId !== null) {
     return (
@@ -97,7 +105,7 @@ const Departments = () => {
   }
 
   return (
-    <DashboardLayout>
+    <>
       <motion.div
         className="departments-dash-container"
         variants={containerVariants}
@@ -294,7 +302,7 @@ const Departments = () => {
           </div>
         </motion.div>
       </motion.div>
-    </DashboardLayout>
+    </>
   );
 };
 

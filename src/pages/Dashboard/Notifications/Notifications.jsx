@@ -11,8 +11,8 @@ import {
   BellOutlined,
 } from "@ant-design/icons";
 import { motion, AnimatePresence } from "framer-motion";
-import DashboardLayout from "../../../layouts/DashboardLayout/DashboardLayout";
 import notificationsData from "../../../data/notificationsData";
+import useSearch from "../../../hooks/useSearch";
 import {
   notificationCategoriesData,
   priorityConfig,
@@ -112,16 +112,18 @@ const Notifications = () => {
     return true;
   };
 
+  // Search — runs across the stateful notifications list so mark-as-read / delete are reflected
+  const searchedNotifications = useSearch(
+    notifications,
+    search,
+    ["title", "description", "category", "priority", "type", "status"]
+  );
+
   // Filtered Notifications
   const filteredNotifications = useMemo(() => {
-    return notifications.filter(n => {
-      const matchesSearch =
-        n.title.toLowerCase().includes(search.toLowerCase()) ||
-        n.description.toLowerCase().includes(search.toLowerCase()) ||
-        (n.doctor && n.doctor.toLowerCase().includes(search.toLowerCase()));
-
+    return searchedNotifications.filter(n => {
       const matchesCategory = categoryFilter === "All" || n.category === categoryFilter;
-      
+
       const matchesStatus =
         statusFilter === "All" ||
         (statusFilter === "Unread" && n.status === "Unread") ||
@@ -129,9 +131,9 @@ const Notifications = () => {
 
       const matchesDate = isWithinDateFilter(n.timestamp || "", dateFilter);
 
-      return matchesSearch && matchesCategory && matchesStatus && matchesDate;
+      return matchesCategory && matchesStatus && matchesDate;
     });
-  }, [notifications, search, categoryFilter, statusFilter, dateFilter]);
+  }, [searchedNotifications, categoryFilter, statusFilter, dateFilter]);
 
   // If a notification is selected, render the details view
   if (selectedNotificationId !== null) {
@@ -148,7 +150,7 @@ const Notifications = () => {
   }
 
   return (
-    <DashboardLayout>
+    <>
       <motion.div
         className="notifications-dash-container"
         variants={containerVariants}
@@ -249,7 +251,7 @@ const Notifications = () => {
                 <Option key={opt.value} value={opt.value}>{opt.label}</Option>
               ))}
             </Select>
-            
+
             <Button
               type="primary"
               icon={<CheckOutlined />}
@@ -302,7 +304,7 @@ const Notifications = () => {
                       >
                         {/* Unread pulsing dot */}
                         {notif.status === "Unread" && (
-                          <motion.div 
+                          <motion.div
                             className="pulse-indicator"
                             variants={pulseVariants}
                             animate="animate"
@@ -375,7 +377,7 @@ const Notifications = () => {
           </motion.div>
         )}
       </motion.div>
-    </DashboardLayout>
+    </>
   );
 };
 

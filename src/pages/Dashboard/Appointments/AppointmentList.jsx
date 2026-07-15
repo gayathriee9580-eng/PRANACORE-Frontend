@@ -10,17 +10,17 @@ import {
   PlusOutlined,
 } from "@ant-design/icons";
 import { motion } from "framer-motion";
-import DashboardLayout from "../../../layouts/DashboardLayout/DashboardLayout";
 import appointmentsMockData from "../../../data/appointmentsMockData";
+import useSearch from "../../../hooks/useSearch";
 import "./AppointmentList.css";
 
 const { Option } = Select;
 
 const statusConfig = {
-  Confirmed: { color: "#0f8a8f",  bg: "rgba(15,138,143,0.08)" },
-  Completed: { color: "#10b981",  bg: "rgba(16,185,129,0.08)" },
-  Pending:   { color: "#f59e0b",  bg: "rgba(245,158,11,0.08)"  },
-  Cancelled: { color: "#ef4444",  bg: "rgba(239,68,68,0.08)"   },
+  Confirmed: { color: "#0f8a8f", bg: "rgba(15,138,143,0.08)" },
+  Completed: { color: "#10b981", bg: "rgba(16,185,129,0.08)" },
+  Pending: { color: "#f59e0b", bg: "rgba(245,158,11,0.08)" },
+  Cancelled: { color: "#ef4444", bg: "rgba(239,68,68,0.08)" },
 };
 
 const fadeUp = {
@@ -32,21 +32,23 @@ const fadeUp = {
 };
 
 const AppointmentList = () => {
-  const [search, setSearch]               = useState("");
-  const [statusFilter, setStatusFilter]   = useState("All");
-  const [deptFilter, setDeptFilter]       = useState("All");
+  const [search, setSearch] = useState("");
+  const [statusFilter, setStatusFilter] = useState("All");
+  const [deptFilter, setDeptFilter] = useState("All");
 
   const departments = ["All", ...new Set(appointmentsMockData.map(a => a.department))];
-  const statuses    = ["All", "Confirmed", "Completed", "Pending", "Cancelled"];
+  const statuses = ["All", "Confirmed", "Completed", "Pending", "Cancelled"];
 
-  const filtered = appointmentsMockData.filter((a) => {
-    const matchSearch = !search ||
-      a.doctor.toLowerCase().includes(search.toLowerCase()) ||
-      a.department.toLowerCase().includes(search.toLowerCase()) ||
-      a.id.toLowerCase().includes(search.toLowerCase());
+  const searchedAppointments = useSearch(
+    appointmentsMockData,
+    search,
+    ["patient", "doctor", "department", "id", "hospital", "status"]
+  );
+
+  const filtered = searchedAppointments.filter((a) => {
     const matchStatus = statusFilter === "All" || a.status === statusFilter;
-    const matchDept   = deptFilter   === "All" || a.department === deptFilter;
-    return matchSearch && matchStatus && matchDept;
+    const matchDept = deptFilter === "All" || a.department === deptFilter;
+    return matchStatus && matchDept;
   });
 
   const columns = [
@@ -126,7 +128,7 @@ const AppointmentList = () => {
   ];
 
   return (
-    <DashboardLayout>
+    <>
       <div className="appointment-list-page">
 
         {/* ── Page Header ─── */}
@@ -190,7 +192,7 @@ const AppointmentList = () => {
         </motion.div>
 
       </div>
-    </DashboardLayout>
+    </>
   );
 };
 
