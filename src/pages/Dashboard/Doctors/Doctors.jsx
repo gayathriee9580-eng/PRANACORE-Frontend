@@ -1,5 +1,5 @@
 import React, { useState, useMemo } from "react";
-import { Input, Select, Slider, Rate } from "antd";
+import { Input, Select, Slider, Rate, Pagination } from "antd";
 import {
   SearchOutlined,
   FilterOutlined,
@@ -18,6 +18,8 @@ import { useNavigate } from "react-router-dom";
 import doctorsData from "../../../data/doctorsData";
 import doctorSpecializationsData from "../../../data/doctorSpecializationsData";
 import useSearch from "../../../hooks/useSearch";
+import useFilter from "../../../hooks/useFilter";
+import usePagination from "../../../hooks/usePagination";
 import ErrorState from "../../../components/ErrorState";
 import "./Doctors.css";
 
@@ -50,12 +52,17 @@ const Doctors = () => {
 
   const searchedDoctors = useSearch(doctorsData, search, ["name", "specialization", "department"]);
 
-  const filtered = useMemo(() => {
-    let list = [...searchedDoctors];
+  const filters = useMemo(() => ({
+    specialization: dept === "All Specializations" ? undefined : dept,
+    gender: gender === "All" ? undefined : gender,
+    availableToday: availability === "Today" ? true : undefined,
+  }), [dept, gender, availability]);
 
-    if (dept !== "All Specializations") list = list.filter(d => d.specialization === dept);
-    if (gender !== "All") list = list.filter(d => d.gender === gender);
-    if (availability === "Today") list = list.filter(d => d.availableToday);
+  const filteredDoctors = useFilter(searchedDoctors, filters);
+
+  const filtered = useMemo(() => {
+    let list = [...filteredDoctors];
+
     list = list.filter(d => d.fee <= maxFee);
 
     if (sort === "rating") list.sort((a, b) => b.rating - a.rating);
@@ -63,7 +70,16 @@ const Doctors = () => {
     if (sort === "fee_asc") list.sort((a, b) => a.fee - b.fee);
 
     return list;
-  }, [searchedDoctors, dept, gender, availability, sort, maxFee]);
+  }, [filteredDoctors, sort, maxFee]);
+
+  const {
+    paginatedData,
+    currentPage,
+    totalPages,
+    setPage,
+    pageSize,
+    setPageSize,
+  } = usePagination(filtered, 8);
 
   return (
     <>
@@ -206,7 +222,7 @@ const Doctors = () => {
                   </div>
                 ) : (
                   <div className="doctors-grid">
-                    {filtered.map((doctor, i) => (
+                    {paginatedData.map((doctor, i) => (
                       <motion.div
                         key={doctor.id}
                         className="doctor-card"
@@ -276,6 +292,21 @@ const Doctors = () => {
                         </div>
                       </motion.div>
                     ))}
+                  </div>
+                )}
+
+                {/* Pagination */}
+                {filtered.length > 0 && (
+                  <div style={{ display: "flex", justifyContent: "center", marginTop: "32px" }}>
+                    <Pagination
+                      current={currentPage}
+                      total={filtered.length}
+                      pageSize={pageSize}
+                      showSizeChanger
+                      pageSizeOptions={[8, 12, 16, 24]}
+                      onChange={(page) => setPage(page)}
+                      onShowSizeChange={(_, size) => setPageSize(size)}
+                    />
                   </div>
                 )}
               </>

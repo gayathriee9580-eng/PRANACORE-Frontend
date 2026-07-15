@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Table, Input, Select, DatePicker, Tag, Avatar, Tooltip } from "antd";
+import { Table, Input, Select, DatePicker, Tag, Avatar, Tooltip, Pagination } from "antd";
 import {
   SearchOutlined,
   UserOutlined,
@@ -12,6 +12,8 @@ import {
 import { motion } from "framer-motion";
 import appointmentsMockData from "../../../data/appointmentsMockData";
 import useSearch from "../../../hooks/useSearch";
+import useFilter from "../../../hooks/useFilter";
+import usePagination from "../../../hooks/usePagination";
 import "./AppointmentList.css";
 
 const { Option } = Select;
@@ -45,11 +47,18 @@ const AppointmentList = () => {
     ["patient", "doctor", "department", "id", "hospital", "status"]
   );
 
-  const filtered = searchedAppointments.filter((a) => {
-    const matchStatus = statusFilter === "All" || a.status === statusFilter;
-    const matchDept = deptFilter === "All" || a.department === deptFilter;
-    return matchStatus && matchDept;
+  const filtered = useFilter(searchedAppointments, {
+    status: statusFilter,
+    department: deptFilter,
   });
+
+  const {
+    paginatedData,
+    currentPage,
+    pageSize,
+    setPage,
+    setPageSize,
+  } = usePagination(filtered, 10);
 
   const columns = [
     {
@@ -182,13 +191,26 @@ const AppointmentList = () => {
             <span className="al-results-count">{filtered.length} appointment{filtered.length !== 1 ? "s" : ""} found</span>
           </div>
           <Table
-            dataSource={filtered}
+            dataSource={paginatedData}
             columns={columns}
-            pagination={{ pageSize: 8, showSizeChanger: false }}
+            pagination={false}
             className="al-table"
             scroll={{ x: 700 }}
             rowKey="key"
           />
+          {filtered.length > 0 && (
+            <div style={{ display: "flex", justifyContent: "center", marginTop: "24px" }}>
+              <Pagination
+                current={currentPage}
+                total={filtered.length}
+                pageSize={pageSize}
+                showSizeChanger
+                pageSizeOptions={[10, 20, 30, 50]}
+                onChange={(page) => setPage(page)}
+                onShowSizeChange={(_, size) => setPageSize(size)}
+              />
+            </div>
+          )}
         </motion.div>
 
       </div>

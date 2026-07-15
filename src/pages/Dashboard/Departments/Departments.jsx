@@ -18,6 +18,7 @@ import departmentsData, { getDeptIcon } from "../../../data/departmentsData";
 import departmentServicesData from "../../../data/departmentServicesData";
 import doctorsData from "../../../data/doctorsData";
 import useSearch from "../../../hooks/useSearch";
+import useFilter from "../../../hooks/useFilter";
 import DepartmentDetails from "./DepartmentDetails";
 import "./Departments.css";
 
@@ -42,14 +43,29 @@ const Departments = () => {
 
   // Augment departmentsData with HOD names from departmentServicesData
   const augmentedDepartments = useMemo(() => {
-    return departmentsData.map(dept => ({
-      ...dept,
-      hodName: departmentServicesData[dept.name]?.hodName || "",
-      category: dept.category || ""
-    }));
+    return departmentsData.map(dept => {
+      let availabilityVal = "Available Today";
+      if (dept.name === "Radiology") {
+        availabilityVal = "Emergency";
+      } else if (dept.availability === "Available Today") {
+        availabilityVal = "Today";
+      }
+      return {
+        ...dept,
+        hodName: departmentServicesData[dept.name]?.hodName || "",
+        category: dept.name,
+        availability: availabilityVal,
+        displayAvailability: dept.availability,
+      };
+    });
   }, []);
 
   const searchedDepartments = useSearch(augmentedDepartments, search, ["name", "hodName", "category", "description"]);
+
+  const filteredDepartments = useFilter(searchedDepartments, {
+    category: selectedCategory,
+    availability: selectedAvailability,
+  });
 
   // Stats Card Calculations
   const stats = useMemo(() => {
@@ -66,18 +82,7 @@ const Departments = () => {
 
   // Filter & Sort Logic
   const processedDepartments = useMemo(() => {
-    let result = searchedDepartments.filter(dept => {
-      const matchesCategory =
-        selectedCategory === "All" ||
-        dept.name === selectedCategory;
-
-      const matchesAvailability =
-        selectedAvailability === "All" ||
-        (selectedAvailability === "Today" && dept.availability === "Available Today") ||
-        (selectedAvailability === "Emergency" && dept.name === "Radiology"); // Radiology is marked as 24/7
-
-      return matchesCategory && matchesAvailability;
-    });
+    let result = [...filteredDepartments];
 
     if (sortBy === "rating") {
       result.sort((a, b) => b.rating - a.rating);
@@ -90,7 +95,7 @@ const Departments = () => {
     }
 
     return result;
-  }, [searchedDepartments, selectedCategory, selectedAvailability, sortBy]);
+  }, [filteredDepartments, sortBy]);
 
   if (selectedDeptId !== null) {
     return (
@@ -248,7 +253,7 @@ const Departments = () => {
                         {getDeptIcon(dept.iconKey)}
                       </div>
                       <Tag color="success" className="availability-tag">
-                        {dept.name === "Radiology" ? "Emergency 24/7" : dept.availability}
+                        {dept.name === "Radiology" ? "Emergency 24/7" : dept.displayAvailability}
                       </Tag>
                     </div>
 

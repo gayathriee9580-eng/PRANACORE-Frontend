@@ -12,6 +12,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import DashboardLayout from "../../../layouts/DashboardLayout/DashboardLayout";
 import invoicesData from "../../../data/invoicesData";
 import useSearch from "../../../hooks/useSearch";
+import useFilter from "../../../hooks/useFilter";
 import "./Invoices.css";
 
 const { Option } = Select;
@@ -46,21 +47,16 @@ const Invoices = () => {
     ["id", "patientName", "transactionId", "doctor", "department", "status"]
   );
 
-  // Filtering matching search & tab/select status
-  const filteredInvoices = useMemo(() => {
-    return searchedInvoices.filter((inv) => {
-      const tabStatus =
-        activeTab === "all" ||
-        (activeTab === "paid" && inv.status === "Paid") ||
-        (activeTab === "unpaid" && inv.status === "Unpaid") ||
-        (activeTab === "overdue" && inv.status === "Overdue");
+  // Convert tab value to proper-cased status; undefined means no tab filter
+  const invoiceStatus =
+    activeTab === "all"
+      ? undefined
+      : activeTab.charAt(0).toUpperCase() + activeTab.slice(1);
 
-      const selectStatus =
-        statusFilter === "All" || inv.status === statusFilter;
-
-      return tabStatus && selectStatus;
-    });
-  }, [searchedInvoices, activeTab, statusFilter]);
+  // Merge tab and dropdown: dropdown takes precedence when set
+  const filteredInvoices = useFilter(searchedInvoices, {
+    status: statusFilter === "All" ? invoiceStatus : statusFilter,
+  });
 
   return (
     <DashboardLayout>

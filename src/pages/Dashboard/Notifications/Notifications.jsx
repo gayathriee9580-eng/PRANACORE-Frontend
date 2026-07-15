@@ -13,6 +13,7 @@ import {
 import { motion, AnimatePresence } from "framer-motion";
 import notificationsData from "../../../data/notificationsData";
 import useSearch from "../../../hooks/useSearch";
+import useFilter from "../../../hooks/useFilter";
 import {
   notificationCategoriesData,
   priorityConfig,
@@ -119,21 +120,18 @@ const Notifications = () => {
     ["title", "description", "category", "priority", "type", "status"]
   );
 
-  // Filtered Notifications
+  // Equality-based filtering: category + status via useFilter
+  const useFilteredNotifications = useFilter(searchedNotifications, {
+    category: categoryFilter === "All" ? undefined : categoryFilter,
+    status: statusFilter === "All" ? undefined : statusFilter,
+  });
+
+  // Date filter requires custom timestamp comparison — kept manual
   const filteredNotifications = useMemo(() => {
-    return searchedNotifications.filter(n => {
-      const matchesCategory = categoryFilter === "All" || n.category === categoryFilter;
-
-      const matchesStatus =
-        statusFilter === "All" ||
-        (statusFilter === "Unread" && n.status === "Unread") ||
-        (statusFilter === "Read" && n.status === "Read");
-
-      const matchesDate = isWithinDateFilter(n.timestamp || "", dateFilter);
-
-      return matchesCategory && matchesStatus && matchesDate;
-    });
-  }, [searchedNotifications, categoryFilter, statusFilter, dateFilter]);
+    return useFilteredNotifications.filter(n =>
+      isWithinDateFilter(n.timestamp || "", dateFilter)
+    );
+  }, [useFilteredNotifications, dateFilter]);
 
   // If a notification is selected, render the details view
   if (selectedNotificationId !== null) {

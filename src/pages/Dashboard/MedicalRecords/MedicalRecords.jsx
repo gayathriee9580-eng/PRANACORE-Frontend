@@ -19,6 +19,7 @@ import {
 import { motion } from "framer-motion";
 import medicalRecordsData from "../../../data/medicalRecordsData";
 import useSearch from "../../../hooks/useSearch";
+import useFilter from "../../../hooks/useFilter";
 import "./MedicalRecords.css";
 
 const { Option } = Select;
@@ -68,11 +69,11 @@ const MedicalRecords = () => {
       ...r,
       patient: r.id === "MR-2026-003" ? "Emily Doe" : "John Doe",
       department: r.specialization === "Cardiologist" ? "Cardiology" :
-                  r.specialization === "Neurologist" ? "Neurology" :
-                  r.specialization === "Pediatrician" ? "Pediatrics" :
-                  r.specialization === "Orthopedic Surgeon" ? "Orthopedics" :
-                  r.specialization === "General Physician" ? "General Medicine" :
-                  r.specialization === "Gynecologist" ? "Gynecology" : "General Medicine"
+        r.specialization === "Neurologist" ? "Neurology" :
+          r.specialization === "Pediatrician" ? "Pediatrics" :
+            r.specialization === "Orthopedic Surgeon" ? "Orthopedics" :
+              r.specialization === "General Physician" ? "General Medicine" :
+                r.specialization === "Gynecologist" ? "Gynecology" : "General Medicine"
     }));
   }, []);
 
@@ -82,13 +83,10 @@ const MedicalRecords = () => {
     ["patient", "id", "diagnosis", "doctor", "department", "type", "status"]
   );
 
-  const filtered = useMemo(() => {
-    return searchedRecords.filter((r) => {
-      const matchType = typeFilter === "All Types" || r.type === typeFilter;
-      const matchStatus = statusFilter === "All Statuses" || r.status === statusFilter;
-      return matchType && matchStatus;
-    });
-  }, [searchedRecords, typeFilter, statusFilter]);
+  const filtered = useFilter(searchedRecords, {
+    type: typeFilter === "All Types" ? undefined : typeFilter,
+    status: statusFilter === "All Statuses" ? undefined : statusFilter,
+  });
 
   const stats = [
     { label: "Total Records", value: medicalRecordsData.length, icon: <FileTextOutlined />, color: "#0f8a8f" },

@@ -19,6 +19,7 @@ import { motion } from "framer-motion";
 import paymentsData from "../../../data/paymentsData";
 import invoicesData from "../../../data/invoicesData";
 import useSearch from "../../../hooks/useSearch";
+import useFilter from "../../../hooks/useFilter";
 import "./Payments.css";
 
 const { Option } = Select;
@@ -76,24 +77,22 @@ const Payments = () => {
     ["id", "patient", "invoiceId", "method", "status"]
   );
 
-  // Filtering logic
+  // Equality-based filtering: status + method via useFilter
+  const useFilteredPayments = useFilter(searchedPayments, {
+    status: statusFilter === "All" ? undefined : statusFilter,
+    methodType: methodFilter === "All" ? undefined : methodFilter,
+  });
+
+  // Date filter requires custom date comparison — kept manual
   const filteredPayments = useMemo(() => {
-    return searchedPayments.filter((p) => {
-      const matchStatus = statusFilter === "All" || p.status === statusFilter;
-      const matchMethod = methodFilter === "All" || p.methodType === methodFilter;
-
-      let matchDate = true;
-      if (dateFilter) {
-        const selectedDateStr = dateFilter.format("YYYY-MM-DD");
-        // Simple mock check
-        const formattedDate = new Date(p.date).toISOString().split("T")[0];
-        const formattedSelDate = new Date(selectedDateStr).toISOString().split("T")[0];
-        matchDate = formattedDate === formattedSelDate;
-      }
-
-      return matchStatus && matchMethod && matchDate;
+    if (!dateFilter) return useFilteredPayments;
+    const selectedDateStr = dateFilter.format("YYYY-MM-DD");
+    return useFilteredPayments.filter((p) => {
+      const formattedDate = new Date(p.date).toISOString().split("T")[0];
+      const formattedSelDate = new Date(selectedDateStr).toISOString().split("T")[0];
+      return formattedDate === formattedSelDate;
     });
-  }, [searchedPayments, statusFilter, methodFilter, dateFilter]);
+  }, [useFilteredPayments, dateFilter]);
 
   const columns = [
     {
