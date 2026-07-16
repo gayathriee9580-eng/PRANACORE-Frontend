@@ -1,0 +1,10 @@
+export { default as Dashboard } from './Dashboard/Dashboard';
+export { default as Patients } from './Patients/Patients';
+export { default as Doctors } from './Doctors/Doctors';
+export { default as Departments } from './Departments/Departments';
+export { default as Appointments } from './Appointments/Appointments';
+export { default as MedicalRecords } from './MedicalRecords/MedicalRecords';
+export { default as Payments } from './Payments/Payments';
+export { default as Pharmacy } from './Pharmacy/Pharmacy';
+export { default as Reports } from './Reports/Reports';
+export { default as Settings } from './Settings/Settings';

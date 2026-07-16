@@ -4,8 +4,10 @@ import LandingPage from "../pages/Landing/LandingPage";
 import ScrollToTop from "../components/ScrollToTop";
 
 // Authentication Pages
+import HospitalLogin from "../pages/Auth/HospitalLogin/HospitalLogin";
 import Login from "../pages/Authentication/Login/Login";
 import Signup from "../pages/Authentication/Signup/Signup";
+import StaffLogin from "../pages/Authentication/StaffLogin/StaffLogin";
 import ForgotPassword from "../pages/Authentication/ForgotPassword/ForgotPassword";
 import OTPVerification from "../pages/Authentication/OTPVerification/OTPVerification";
 import ResetPassword from "../pages/Authentication/ResetPassword/ResetPassword";
@@ -35,6 +37,34 @@ import Profile from "../pages/Dashboard/Profile/Profile";
 import EditProfile from "../pages/Dashboard/Profile/EditProfile";
 import Settings from "../pages/Dashboard/Settings/Settings";
 
+// Admin Pages
+import {
+  Dashboard as AdminDashboard,
+  Patients as AdminPatients,
+  Doctors as AdminDoctors,
+  Departments as AdminDepartments,
+  Appointments as AdminAppointments,
+  MedicalRecords as AdminMedicalRecords,
+  Payments as AdminPayments,
+  Pharmacy as AdminPharmacy,
+  Reports as AdminReports,
+  Settings as AdminSettings
+} from "../pages/Admin";
+
+// Doctor Pages
+import {
+  Dashboard as DoctorDashboard,
+  Patients as DoctorPatients,
+  Appointments as DoctorAppointments,
+  MedicalRecords as DoctorMedicalRecords,
+  Prescriptions as DoctorPrescriptions,
+  LabReports as DoctorLabReports,
+  Schedule as DoctorSchedule,
+  Notifications as DoctorNotifications,
+  Profile as DoctorProfile,
+  Settings as DoctorSettings
+} from "../pages/Doctor";
+
 // Route Guards
 import ProtectedRoute from "./ProtectedRoute";
 import PublicRoute from "./PublicRoute";
@@ -58,6 +88,22 @@ const router = createBrowserRouter([
           {
             index: true,
             element: <LandingPage />,
+          },
+          {
+            path: "staff-login",
+            element: (
+              <PublicRoute>
+                <StaffLogin />
+              </PublicRoute>
+            ),
+          },
+          {
+            path: "hospital-login",
+            element: (
+              <PublicRoute>
+                <HospitalLogin />
+              </PublicRoute>
+            ),
           },
           {
             path: "login",
@@ -242,6 +288,48 @@ const router = createBrowserRouter([
             element: <Settings />,
           },
         ],
+      },
+      {
+        path: "/admin",
+        element: (
+          <ProtectedRoute>
+            <Outlet />
+          </ProtectedRoute>
+        ),
+        children: [
+          { index: true, element: <Navigate to="dashboard" replace /> },
+          { path: "dashboard", element: <AdminDashboard /> },
+          { path: "patients", element: <AdminPatients /> },
+          { path: "doctors", element: <AdminDoctors /> },
+          { path: "departments", element: <AdminDepartments /> },
+          { path: "appointments", element: <AdminAppointments /> },
+          { path: "medical-records", element: <AdminMedicalRecords /> },
+          { path: "payments", element: <AdminPayments /> },
+          { path: "pharmacy", element: <AdminPharmacy /> },
+          { path: "reports", element: <AdminReports /> },
+          { path: "settings", element: <AdminSettings /> },
+        ]
+      },
+      {
+        path: "/doctor",
+        element: (
+          <ProtectedRoute>
+            <Outlet />
+          </ProtectedRoute>
+        ),
+        children: [
+          { index: true, element: <Navigate to="dashboard" replace /> },
+          { path: "dashboard", element: <DoctorDashboard /> },
+          { path: "patients", element: <DoctorPatients /> },
+          { path: "appointments", element: <DoctorAppointments /> },
+          { path: "medical-records", element: <DoctorMedicalRecords /> },
+          { path: "prescriptions", element: <DoctorPrescriptions /> },
+          { path: "lab-reports", element: <DoctorLabReports /> },
+          { path: "schedule", element: <DoctorSchedule /> },
+          { path: "notifications", element: <DoctorNotifications /> },
+          { path: "profile", element: <DoctorProfile /> },
+          { path: "settings", element: <DoctorSettings /> },
+        ]
       },
       {
         path: "*",

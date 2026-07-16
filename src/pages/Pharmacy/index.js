@@ -1,0 +1,11 @@
+export { default as Dashboard } from './Dashboard/Dashboard';
+export { default as Medicines } from './Medicines/Medicines';
+export { default as Prescriptions } from './Prescriptions/Prescriptions';
+export { default as Orders } from './Orders/Orders';
+export { default as Inventory } from './Inventory/Inventory';
+export { default as Suppliers } from './Suppliers/Suppliers';
+export { default as Payments } from './Payments/Payments';
+export { default as Reports } from './Reports/Reports';
+export { default as Notifications } from './Notifications/Notifications';
+export { default as Profile } from './Profile/Profile';
+export { default as Settings } from './Settings/Settings';

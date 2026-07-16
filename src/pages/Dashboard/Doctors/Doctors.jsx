@@ -19,6 +19,7 @@ import doctorsData from "../../../data/doctorsData";
 import doctorSpecializationsData from "../../../data/doctorSpecializationsData";
 import useSearch from "../../../hooks/useSearch";
 import useFilter from "../../../hooks/useFilter";
+import useSort from "../../../hooks/useSort";
 import usePagination from "../../../hooks/usePagination";
 import ErrorState from "../../../components/ErrorState";
 import "./Doctors.css";
@@ -60,17 +61,21 @@ const Doctors = () => {
 
   const filteredDoctors = useFilter(searchedDoctors, filters);
 
-  const filtered = useMemo(() => {
-    let list = [...filteredDoctors];
+  const feeFilteredDoctors = useMemo(
+    () => filteredDoctors.filter(d => d.fee <= maxFee),
+    [filteredDoctors, maxFee]
+  );
 
-    list = list.filter(d => d.fee <= maxFee);
+  const sortConfig = useMemo(() => {
+    switch (sort) {
+      case "rating": return { key: "rating", direction: "desc" };
+      case "experience": return { key: "experience", direction: "desc" };
+      case "fee_asc": return { key: "fee", direction: "asc" };
+      default: return null;
+    }
+  }, [sort]);
 
-    if (sort === "rating") list.sort((a, b) => b.rating - a.rating);
-    if (sort === "experience") list.sort((a, b) => b.experience - a.experience);
-    if (sort === "fee_asc") list.sort((a, b) => a.fee - b.fee);
-
-    return list;
-  }, [filteredDoctors, sort, maxFee]);
+  const sortedDoctors = useSort(feeFilteredDoctors, sortConfig);
 
   const {
     paginatedData,
@@ -79,7 +84,7 @@ const Doctors = () => {
     setPage,
     pageSize,
     setPageSize,
-  } = usePagination(filtered, 8);
+  } = usePagination(sortedDoctors, 8);
 
   return (
     <>
@@ -204,7 +209,7 @@ const Doctors = () => {
                   transition={{ duration: 0.4, delay: 0.15 }}
                 >
                   <span className="results-count">
-                    <TeamOutlined /> {filtered.length} doctor{filtered.length !== 1 ? "s" : ""} found
+                    <TeamOutlined /> {sortedDoctors.length} doctor{sortedDoctors.length !== 1 ? "s" : ""} found
                   </span>
                   <div className="sort-row">
                     <SortAscendingOutlined />
@@ -215,7 +220,7 @@ const Doctors = () => {
                 </motion.div>
 
                 {/* Doctor Cards Grid */}
-                {filtered.length === 0 ? (
+                {sortedDoctors.length === 0 ? (
                   <div className="no-results">
                     <UserOutlined className="no-results-icon" />
                     <p>No doctors match your filters. Try adjusting your search.</p>
@@ -296,11 +301,11 @@ const Doctors = () => {
                 )}
 
                 {/* Pagination */}
-                {filtered.length > 0 && (
+                {sortedDoctors.length > 0 && (
                   <div style={{ display: "flex", justifyContent: "center", marginTop: "32px" }}>
                     <Pagination
                       current={currentPage}
-                      total={filtered.length}
+                      total={sortedDoctors.length}
                       pageSize={pageSize}
                       showSizeChanger
                       pageSizeOptions={[8, 12, 16, 24]}

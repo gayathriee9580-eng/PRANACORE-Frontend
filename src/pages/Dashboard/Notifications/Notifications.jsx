@@ -14,6 +14,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import notificationsData from "../../../data/notificationsData";
 import useSearch from "../../../hooks/useSearch";
 import useFilter from "../../../hooks/useFilter";
+import useSort from "../../../hooks/useSort";
 import {
   notificationCategoriesData,
   priorityConfig,
@@ -60,6 +61,15 @@ const Notifications = () => {
   const [statusFilter, setStatusFilter] = useState("All");
   const [dateFilter, setDateFilter] = useState("All");
   const [selectedNotificationId, setSelectedNotificationId] = useState(null);
+  const [sort, setSort] = useState("newest");
+
+  const SORT_OPTIONS = [
+    { value: "newest", label: "Newest" },
+    { value: "oldest", label: "Oldest" },
+    { value: "priority", label: "Priority" },
+    { value: "category", label: "Category" },
+    { value: "status", label: "Status" },
+  ];
 
   // Mark all as read
   const handleMarkAllRead = () => {
@@ -132,6 +142,19 @@ const Notifications = () => {
       isWithinDateFilter(n.timestamp || "", dateFilter)
     );
   }, [useFilteredNotifications, dateFilter]);
+
+  const sortConfig = useMemo(() => {
+    switch (sort) {
+      case "newest": return { key: "timestamp", direction: "desc" };
+      case "oldest": return { key: "timestamp", direction: "asc" };
+      case "priority": return { key: "priority", direction: "asc" };
+      case "category": return { key: "category", direction: "asc" };
+      case "status": return { key: "status", direction: "asc" };
+      default: return null;
+    }
+  }, [sort]);
+
+  const sortedNotifications = useSort(filteredNotifications, sortConfig);
 
   // If a notification is selected, render the details view
   if (selectedNotificationId !== null) {
@@ -249,6 +272,15 @@ const Notifications = () => {
                 <Option key={opt.value} value={opt.value}>{opt.label}</Option>
               ))}
             </Select>
+            <Select
+              value={sort}
+              onChange={setSort}
+              className="notif-select"
+            >
+              {SORT_OPTIONS.map(o => (
+                <Option key={o.value} value={o.value}>{o.label}</Option>
+              ))}
+            </Select>
 
             <Button
               type="primary"
@@ -279,13 +311,13 @@ const Notifications = () => {
         ) : (
           <motion.div className="notifications-list-wrapper" variants={cardVariants}>
             <div className="list-meta-summary">
-              <span>Showing {filteredNotifications.length} notification{filteredNotifications.length !== 1 ? "s" : ""}</span>
+              <span>Showing {sortedNotifications.length} notification{sortedNotifications.length !== 1 ? "s" : ""}</span>
             </div>
 
             <div className="notifications-cards-grid">
               <AnimatePresence>
-                {filteredNotifications.length > 0 ? (
-                  filteredNotifications.map((notif) => {
+                {sortedNotifications.length > 0 ? (
+                  sortedNotifications.map((notif) => {
                     const colors = categoryColorMap[notif.category] || { color: "#64748b", bg: "rgba(100,116,139,0.08)" };
                     const priorityColors = priorityConfig[notif.priority] || { color: "#64748b", bg: "rgba(100,116,139,0.08)" };
                     const IconComponent = notif.icon || BellOutlined;

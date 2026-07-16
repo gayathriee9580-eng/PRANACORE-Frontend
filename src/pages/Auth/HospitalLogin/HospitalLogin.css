@@ -1,0 +1,159 @@
+.hospital-portal-container {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 4rem 2rem;
+    background: var(--bg-color, #f8f9fa);
+}
+
+.hospital-portal-header {
+    text-align: center;
+    margin-bottom: 4rem;
+}
+
+.hospital-portal-title {
+    font-size: 3.5rem;
+    font-weight: 700;
+    color: var(--text-color, #1a1a1a);
+    margin-bottom: 1rem;
+}
+
+.hospital-portal-subtitle {
+    font-size: 1.25rem;
+    color: var(--text-secondary, #666);
+}
+
+.portal-cards-grid {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 1.5rem;
+    max-width: 1400px;
+    width: 100%;
+}
+
+.portal-card {
+    background: rgba(255, 255, 255, 0.85);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border: 1px solid rgba(255, 255, 255, 0.4);
+    border-radius: 20px;
+    padding: 2.5rem 1.5rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    cursor: pointer;
+    transition: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.04);
+    position: relative;
+    overflow: hidden;
+}
+
+.portal-card:hover,
+.portal-card:focus-visible {
+    transform: translateY(-8px);
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+    outline: none;
+    background: rgba(255, 255, 255, 1);
+    border-color: var(--primary-color, #2b6cb0);
+}
+
+.portal-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 4px;
+    background: var(--primary-color, #2b6cb0);
+    transform: scaleX(0);
+    transition: transform 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
+    transform-origin: center;
+}
+
+.portal-card:hover::before,
+.portal-card:focus-visible::before {
+    transform: scaleX(1);
+}
+
+.portal-card-icon {
+    font-size: 3.5rem;
+    margin-bottom: 1.5rem;
+    height: 90px;
+    width: 90px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: rgba(43, 108, 176, 0.05);
+    border-radius: 50%;
+    transition: all 0.3s ease;
+}
+
+.portal-card:hover .portal-card-icon {
+    background: rgba(43, 108, 176, 0.1);
+    transform: scale(1.05);
+}
+
+.portal-emoji {
+    font-style: normal;
+}
+
+.portal-card-title {
+    font-size: 1.25rem;
+    font-weight: 700;
+    margin-bottom: 0.75rem;
+    color: var(--text-color, #1a1a1a);
+}
+
+.portal-card-desc {
+    font-size: 0.95rem;
+    color: var(--text-secondary, #666);
+    margin-bottom: 2rem;
+    flex-grow: 1;
+    line-height: 1.5;
+}
+
+.portal-card-action {
+    margin-top: auto;
+    font-size: 1.25rem;
+    color: var(--primary-color, #2b6cb0);
+    opacity: 0;
+    transform: translateY(10px);
+    transition: all 0.3s ease;
+}
+
+.portal-card:hover .portal-card-action,
+.portal-card:focus-visible .portal-card-action {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* Responsive Ruleses as Required by PRANACORE Prompt */
+@media (max-width: 1400px) {
+    .portal-cards-grid {
+        grid-template-columns: repeat(3, 1fr);
+    }
+}
+
+@media (max-width: 1024px) {
+
+    /* Tablet / Two Column Responsive Grid */
+    .portal-cards-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media (max-width: 768px) {
+
+    /* Mobile Single Column Grid */
+    .portal-cards-grid {
+        grid-template-columns: 1fr;
+        padding: 0 1rem;
+    }
+
+    .hospital-portal-title {
+        font-size: 2.5rem;
+    }
+}

@@ -1,5 +1,5 @@
 import React, { useState, useMemo } from "react";
-import { Table, Input, Select, Tag, Button, Tooltip, DatePicker } from "antd";
+import { Table, Input, Select, Tag, Button, Tooltip, DatePicker, Pagination } from "antd";
 import {
   SearchOutlined,
   FilterOutlined,
@@ -20,6 +20,8 @@ import paymentsData from "../../../data/paymentsData";
 import invoicesData from "../../../data/invoicesData";
 import useSearch from "../../../hooks/useSearch";
 import useFilter from "../../../hooks/useFilter";
+import useSort from "../../../hooks/useSort";
+import usePagination from "../../../hooks/usePagination";
 import "./Payments.css";
 
 const { Option } = Select;
@@ -49,6 +51,16 @@ const Payments = () => {
   const [statusFilter, setStatusFilter] = useState("All");
   const [methodFilter, setMethodFilter] = useState("All");
   const [dateFilter, setDateFilter] = useState(null);
+  const [sort, setSort] = useState("newest");
+
+  const SORT_OPTIONS = [
+    { value: "newest", label: "Newest" },
+    { value: "oldest", label: "Oldest" },
+    { value: "amount_desc", label: "Amount: High–Low" },
+    { value: "amount_asc", label: "Amount: Low–High" },
+    { value: "patient", label: "Patient Name" },
+    { value: "status", label: "Status" },
+  ];
 
   // Stats calculation
   const stats = useMemo(() => {
@@ -93,6 +105,28 @@ const Payments = () => {
       return formattedDate === formattedSelDate;
     });
   }, [useFilteredPayments, dateFilter]);
+
+  const sortConfig = useMemo(() => {
+    switch (sort) {
+      case "newest": return { key: "date", direction: "desc" };
+      case "oldest": return { key: "date", direction: "asc" };
+      case "amount_desc": return { key: "grandTotal", direction: "desc" };
+      case "amount_asc": return { key: "grandTotal", direction: "asc" };
+      case "patient": return { key: "patient", direction: "asc" };
+      case "status": return { key: "status", direction: "asc" };
+      default: return null;
+    }
+  }, [sort]);
+
+  const sortedPayments = useSort(filteredPayments, sortConfig);
+
+  const {
+    paginatedData,
+    currentPage,
+    pageSize,
+    setPage,
+    setPageSize,
+  } = usePagination(sortedPayments, 10);
 
   const columns = [
     {
@@ -290,22 +324,42 @@ const Payments = () => {
               onChange={setDateFilter}
               allowClear
             />
+            <Select
+              value={sort}
+              onChange={setSort}
+              className="payments-select"
+            >
+              {SORT_OPTIONS.map(o => <Option key={o.value} value={o.value}>{o.label}</Option>)}
+            </Select>
           </div>
         </motion.div>
 
         {/* Main Payout Transactions Table */}
         <motion.div className="payments-table-card-wrap" variants={cardVariants}>
           <div className="table-meta-summary">
-            <span>Showing {filteredPayments.length} financial transaction{filteredPayments.length !== 1 ? "s" : ""}</span>
+            <span>Showing {sortedPayments.length} financial transaction{sortedPayments.length !== 1 ? "s" : ""}</span>
           </div>
           <Table
             columns={columns}
-            dataSource={filteredPayments}
-            pagination={{ pageSize: 6 }}
+            dataSource={paginatedData}
+            pagination={false}
             className="custom-financial-table"
             scroll={{ x: 1000 }}
             rowKey="id"
           />
+          {sortedPayments.length > 0 && (
+            <div className="payments-pagination">
+              <Pagination
+                current={currentPage}
+                total={sortedPayments.length}
+                pageSize={pageSize}
+                showSizeChanger
+                pageSizeOptions={[10, 20, 30, 50]}
+                onChange={(page) => setPage(page)}
+                onShowSizeChange={(_, size) => setPageSize(size)}
+              />
+            </div>
+          )}
         </motion.div>
       </motion.div>
     </>

@@ -1,0 +1,243 @@
+/* ── Staff Login — Role Selector Page ───────────────────────── */
+
+.sl-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    min-height: 100%;
+    padding: 48px 24px 40px;
+    font-family: 'Inter', sans-serif;
+}
+
+/* ── Header ──────────────────────────────────────────────────── */
+.sl-header {
+    text-align: center;
+    margin-bottom: 48px;
+    max-width: 560px;
+}
+
+.sl-eyebrow {
+    display: inline-block;
+    padding: 5px 14px;
+    background: rgba(15, 138, 143, 0.10);
+    color: #0f8a8f;
+    font-size: 13px;
+    font-weight: 600;
+    border-radius: 20px;
+    margin-bottom: 16px;
+    letter-spacing: 0.2px;
+}
+
+.sl-heading {
+    font-size: 32px;
+    font-weight: 800;
+    color: #1e293b;
+    letter-spacing: -0.8px;
+    margin-bottom: 10px;
+    line-height: 1.2;
+}
+
+.sl-subtitle {
+    font-size: 15px;
+    color: #64748b;
+    line-height: 1.6;
+}
+
+/* ── Cards Grid ──────────────────────────────────────────────── */
+.sl-grid {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 16px;
+    width: 100%;
+    max-width: 1100px;
+    margin-bottom: 40px;
+}
+
+/* ── Individual Card ─────────────────────────────────────────── */
+.sl-card {
+    background: rgba(255, 255, 255, 0.92);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    border: 1px solid rgba(226, 232, 240, 0.8);
+    border-radius: 20px;
+    box-shadow: 0 4px 20px rgba(15, 23, 42, 0.06), 0 1px 4px rgba(15, 23, 42, 0.04);
+    padding: 28px 20px;
+    cursor: pointer;
+    text-align: left;
+    transition: transform 0.22s cubic-bezier(0.4, 0, 0.2, 1),
+        box-shadow 0.22s cubic-bezier(0.4, 0, 0.2, 1),
+        border-color 0.22s ease;
+    /* Reset button styles */
+    display: block;
+    width: 100%;
+    font-family: 'Inter', sans-serif;
+    outline: none;
+    position: relative;
+    overflow: hidden;
+}
+
+.sl-card::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: var(--card-accent-bg);
+    opacity: 0;
+    transition: opacity 0.22s ease;
+    border-radius: 20px;
+}
+
+.sl-card:hover {
+    transform: translateY(-6px);
+    box-shadow: 0 16px 40px rgba(15, 23, 42, 0.12), 0 4px 12px rgba(15, 23, 42, 0.06);
+    border-color: var(--card-accent);
+}
+
+.sl-card:hover::before {
+    opacity: 1;
+}
+
+.sl-card:focus-visible {
+    outline: 2px solid var(--card-accent);
+    outline-offset: 3px;
+}
+
+.sl-card:active {
+    transform: translateY(-2px);
+}
+
+.sl-card-inner {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    position: relative;
+    z-index: 1;
+}
+
+/* ── Icon ────────────────────────────────────────────────────── */
+.sl-icon-wrapper {
+    width: 52px;
+    height: 52px;
+    border-radius: 14px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: transform 0.22s ease;
+}
+
+.sl-card:hover .sl-icon-wrapper {
+    transform: scale(1.08);
+}
+
+.sl-icon {
+    font-size: 26px;
+    line-height: 1;
+}
+
+/* ── Card Body ───────────────────────────────────────────────── */
+.sl-card-body {
+    flex: 1;
+}
+
+.sl-card-title {
+    font-size: 15px;
+    font-weight: 700;
+    margin-bottom: 6px;
+    line-height: 1.3;
+    letter-spacing: -0.2px;
+}
+
+.sl-card-desc {
+    font-size: 13px;
+    color: #64748b;
+    line-height: 1.55;
+    margin: 0;
+}
+
+/* ── Arrow ───────────────────────────────────────────────────── */
+.sl-card-arrow {
+    display: flex;
+    justify-content: flex-end;
+    font-size: 14px;
+    transition: transform 0.2s ease;
+}
+
+.sl-card:hover .sl-card-arrow {
+    transform: translateX(4px);
+}
+
+/* ── Footer ──────────────────────────────────────────────────── */
+.sl-footer-text {
+    font-size: 14px;
+    color: #64748b;
+    text-align: center;
+}
+
+.sl-footer-link {
+    background: none;
+    border: none;
+    outline: none;
+    cursor: pointer;
+    font-family: 'Inter', sans-serif;
+    font-size: 14px;
+    font-weight: 600;
+    color: #0f8a8f;
+    padding: 0;
+    transition: color 0.2s ease;
+}
+
+.sl-footer-link:hover {
+    color: #0b666a;
+}
+
+/* ── Responsive ──────────────────────────────────────────────── */
+
+/* Tablet: 2-column */
+@media (max-width: 1100px) {
+    .sl-grid {
+        grid-template-columns: repeat(3, 1fr);
+        max-width: 760px;
+    }
+}
+
+@media (max-width: 767px) {
+    .sl-container {
+        padding: 36px 16px 32px;
+    }
+
+    .sl-heading {
+        font-size: 26px;
+    }
+
+    .sl-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 12px;
+        max-width: 100%;
+    }
+
+    .sl-card {
+        padding: 22px 16px;
+    }
+}
+
+/* Mobile: single column */
+@media (max-width: 480px) {
+    .sl-grid {
+        grid-template-columns: 1fr;
+        gap: 10px;
+    }
+
+    .sl-card-inner {
+        flex-direction: row;
+        align-items: center;
+        gap: 14px;
+    }
+
+    .sl-card-body {
+        text-align: left;
+    }
+
+    .sl-card-arrow {
+        justify-content: center;
+        min-width: 24px;
+    }
+}

@@ -1,15 +1,34 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef, useCallback } from "react";
 import { Drawer, Button, Row, Col } from "antd";
-import { AlignRightOutlined, CloseOutlined, } from "@ant-design/icons";
-import { ArrowRightOutlined, LogoutOutlined } from "@ant-design/icons";
+import { AlignRightOutlined, CloseOutlined } from "@ant-design/icons";
+import { ArrowRightOutlined, LogoutOutlined, CaretDownOutlined } from "@ant-design/icons";
 import { useNavigate } from "react-router-dom";
 import "./Navbar.css";
+
+// Login dropdown — patient + staff separator
+const loginItems = [
+  { type: "patient", icon: "👤", label: "Patient Login" },
+  { type: "hospital", icon: "🏥", label: "Hospital Login", dividerBefore: true },
+];
+
+// Get Started dropdown — 3 items
+const getStartedItems = [
+  { type: "signup", icon: "👤", label: "Register as Patient" },
+  { type: "appointments", icon: "📅", label: "Book Appointment" },
+  { type: "doctors", icon: "🔍", label: "Find Doctors" },
+];
 
 const Navbar = () => {
   const navigate = useNavigate();
   const [isScrolled, setIsScrolled] = useState(false);
   const [drawerOpen, setDrawerOpen] = useState(false);
   const [activeItem, setActiveItem] = useState("Home");
+  const [loginDropdownOpen, setLoginDropdownOpen] = useState(false);
+  const [drawerLoginOpen, setDrawerLoginOpen] = useState(false);
+  const [getStartedDropdownOpen, setGetStartedDropdownOpen] = useState(false);
+  const [drawerGetStartedOpen, setDrawerGetStartedOpen] = useState(false);
+  const dropdownRef = useRef(null);
+  const getStartedRef = useRef(null);
   const token = localStorage.getItem("pranacore_token");
 
   useEffect(() => {
@@ -39,6 +58,56 @@ const Navbar = () => {
     localStorage.removeItem("pranacore_token");
     navigate("/login");
   };
+
+  const handleLoginRole = useCallback((type) => {
+    setLoginDropdownOpen(false);
+    setDrawerLoginOpen(false);
+    setDrawerOpen(false);
+    if (type === "hospital") {
+      navigate("/hospital-login");
+    } else {
+      navigate("/login", { state: { role: type } });
+    }
+  }, [navigate]);
+
+  const handleGetStarted = useCallback((type) => {
+    setGetStartedDropdownOpen(false);
+    setDrawerGetStartedOpen(false);
+    setDrawerOpen(false);
+    if (type === "signup") {
+      navigate("/signup");
+    } else if (type === "appointments") {
+      navigate("/appointments");
+    } else if (type === "doctors") {
+      navigate("/doctors");
+    }
+  }, [navigate]);
+
+  // Close dropdowns on outside click
+  useEffect(() => {
+    const handleClickOutside = (e) => {
+      if (dropdownRef.current && !dropdownRef.current.contains(e.target)) {
+        setLoginDropdownOpen(false);
+      }
+      if (getStartedRef.current && !getStartedRef.current.contains(e.target)) {
+        setGetStartedDropdownOpen(false);
+      }
+    };
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => document.removeEventListener("mousedown", handleClickOutside);
+  }, []);
+
+  // Close dropdowns on ESC
+  useEffect(() => {
+    const handleKeyDown = (e) => {
+      if (e.key === "Escape") {
+        setLoginDropdownOpen(false);
+        setGetStartedDropdownOpen(false);
+      }
+    };
+    document.addEventListener("keydown", handleKeyDown);
+    return () => document.removeEventListener("keydown", handleKeyDown);
+  }, []);
 
   const navItems = [
     { label: "Home", target: "#hero" },
@@ -120,10 +189,73 @@ const Navbar = () => {
                 </>
               ) : (
                 <>
-                  <Button type="text" className="btn-login" onClick={() => { localStorage.setItem("pranacore_token", "demo_token"); navigate("/dashboard"); }}>Login</Button>
-                  <Button type="primary" className="btn-get-started" onClick={() => navigate("/signup")}>
-                    Get Started <ArrowRightOutlined />
-                  </Button>
+                  {/* Login Dropdown */}
+                  <div
+                    className="login-dropdown-wrapper"
+                    ref={dropdownRef}
+                    onMouseEnter={() => setLoginDropdownOpen(true)}
+                    onMouseLeave={() => setLoginDropdownOpen(false)}
+                  >
+                    <button
+                      className="btn-login-trigger"
+                      aria-haspopup="true"
+                      aria-expanded={loginDropdownOpen}
+                      onClick={() => setLoginDropdownOpen((v) => !v)}
+                    >
+                      Login <CaretDownOutlined className={`login-caret ${loginDropdownOpen ? "open" : ""}`} />
+                    </button>
+
+                    {loginDropdownOpen && (
+                      <div className="login-dropdown-menu" role="menu">
+                        {loginItems.map(({ type, icon, label, dividerBefore }) => (
+                          <React.Fragment key={type}>
+                            {dividerBefore && <div className="gs-divider" />}
+                            <button
+                              className="login-dropdown-item"
+                              role="menuitem"
+                              onClick={() => handleLoginRole(type)}
+                            >
+                              <span className="login-role-icon">{icon}</span>
+                              <span className="login-role-label">{label}</span>
+                            </button>
+                          </React.Fragment>
+                        ))}
+                      </div>
+                    )}
+                  </div>
+
+                  {/* Get Started Dropdown */}
+                  <div
+                    className="gs-dropdown-wrapper"
+                    ref={getStartedRef}
+                    onMouseEnter={() => setGetStartedDropdownOpen(true)}
+                    onMouseLeave={() => setGetStartedDropdownOpen(false)}
+                  >
+                    <button
+                      className="btn-get-started-trigger"
+                      aria-haspopup="true"
+                      aria-expanded={getStartedDropdownOpen}
+                      onClick={() => setGetStartedDropdownOpen((v) => !v)}
+                    >
+                      Get Started <CaretDownOutlined className={`login-caret ${getStartedDropdownOpen ? "open" : ""}`} />
+                    </button>
+
+                    {getStartedDropdownOpen && (
+                      <div className="gs-dropdown-menu" role="menu">
+                        {getStartedItems.map(({ type, icon, label }) => (
+                          <button
+                            key={type}
+                            className="login-dropdown-item"
+                            role="menuitem"
+                            onClick={() => handleGetStarted(type)}
+                          >
+                            <span className="login-role-icon">{icon}</span>
+                            <span className="login-role-label">{label}</span>
+                          </button>
+                        ))}
+                      </div>
+                    )}
+                  </div>
                 </>
               )}
             </div>
@@ -209,12 +341,57 @@ const Navbar = () => {
               </>
             ) : (
               <>
-                <Button type="text" className="drawer-btn-login" onClick={() => { setDrawerOpen(false); navigate("/login"); }} block>
-                  Login
-                </Button>
-                <Button type="primary" className="drawer-btn-get-started" onClick={() => { setDrawerOpen(false); navigate("/signup"); }} block>
-                  Get Started
-                </Button>
+                {/* Mobile Login Accordion */}
+                <button
+                  className="drawer-btn-login-trigger"
+                  aria-haspopup="true"
+                  aria-expanded={drawerLoginOpen}
+                  onClick={() => setDrawerLoginOpen((v) => !v)}
+                >
+                  Login <CaretDownOutlined className={`login-caret ${drawerLoginOpen ? "open" : ""}`} />
+                </button>
+
+                {drawerLoginOpen && (
+                  <div className="drawer-login-role-list">
+                    {loginItems.map(({ type, icon, label, dividerBefore }) => (
+                      <React.Fragment key={type}>
+                        {dividerBefore && <div className="gs-drawer-divider" />}
+                        <button
+                          className="drawer-login-role-item"
+                          onClick={() => handleLoginRole(type)}
+                        >
+                          <span className="login-role-icon">{icon}</span>
+                          <span className="login-role-label">{label}</span>
+                        </button>
+                      </React.Fragment>
+                    ))}
+                  </div>
+                )}
+
+                {/* Mobile Get Started Accordion */}
+                <button
+                  className="drawer-btn-gs-trigger"
+                  aria-haspopup="true"
+                  aria-expanded={drawerGetStartedOpen}
+                  onClick={() => setDrawerGetStartedOpen((v) => !v)}
+                >
+                  Get Started <CaretDownOutlined className={`login-caret ${drawerGetStartedOpen ? "open" : ""}`} />
+                </button>
+
+                {drawerGetStartedOpen && (
+                  <div className="drawer-login-role-list">
+                    {getStartedItems.map(({ type, icon, label }) => (
+                      <button
+                        key={type}
+                        className="drawer-login-role-item"
+                        onClick={() => handleGetStarted(type)}
+                      >
+                        <span className="login-role-icon">{icon}</span>
+                        <span className="login-role-label">{label}</span>
+                      </button>
+                    ))}
+                  </div>
+                )}
               </>
             )}
           </div>

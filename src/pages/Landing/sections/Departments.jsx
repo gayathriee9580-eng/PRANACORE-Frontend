@@ -1,14 +1,20 @@
-import React, { useRef } from "react";
+import React, { useRef, useMemo, useCallback } from "react";
 import { Row, Col } from "antd";
 import {
   TeamOutlined,
   HomeOutlined,
   CalendarOutlined,
   RightOutlined,
-  StarFilled
+  StarFilled,
+  LeftOutlined,
 } from "@ant-design/icons";
 import { motion, useInView } from "framer-motion";
 import { useNavigate } from "react-router-dom";
+import { Swiper, SwiperSlide } from "swiper/react";
+import { Navigation, Pagination, Autoplay } from "swiper/modules";
+import "swiper/css";
+import "swiper/css/navigation";
+import "swiper/css/pagination";
 import SectionHeader from "../../../components/SectionHeader";
 import PrimaryButton from "../../../components/PrimaryButton";
 import departmentsData from "../../../data/departmentsData";
@@ -18,8 +24,10 @@ const Departments = () => {
   const navigate = useNavigate();
   const sectionRef = useRef(null);
   const isSectionInView = useInView(sectionRef, { once: true, amount: 0.1 });
+  const prevRef = useRef(null);
+  const nextRef = useRef(null);
 
-  const highlights = [
+  const highlights = useMemo(() => [
     {
       id: 1,
       icon: <TeamOutlined aria-hidden="true" />,
@@ -38,7 +46,28 @@ const Departments = () => {
       title: "Easy Online Booking",
       text: "Select dates and confirm appointments within minutes."
     }
-  ];
+  ], []);
+
+  const swiperSettings = useMemo(() => ({
+    modules: [Navigation, Pagination, Autoplay],
+    loop: true,
+    autoplay: { delay: 5000, disableOnInteraction: false, pauseOnMouseEnter: true },
+    pagination: { clickable: true, dynamicBullets: false },
+    navigation: { prevEl: prevRef.current, nextEl: nextRef.current },
+    onBeforeInit: (swiper) => {
+      swiper.params.navigation.prevEl = prevRef.current;
+      swiper.params.navigation.nextEl = nextRef.current;
+    },
+    breakpoints: {
+      0: { slidesPerView: 1, spaceBetween: 16 },
+      768: { slidesPerView: 3, spaceBetween: 20 },
+      1024: { slidesPerView: 4, spaceBetween: 24 },
+      1280: { slidesPerView: 5, spaceBetween: 24 },
+    },
+    speed: 600,
+    grabCursor: true,
+    className: "dept-swiper",
+  }), []);
 
   const containerVariants = {
     hidden: { opacity: 0, y: 40 },
@@ -60,11 +89,7 @@ const Departments = () => {
     visible: {
       opacity: 1,
       y: 0,
-      transition: {
-        type: "spring",
-        stiffness: 85,
-        damping: 15
-      }
+      transition: { type: "spring", stiffness: 85, damping: 15 }
     }
   };
 
@@ -87,15 +112,25 @@ const Departments = () => {
           />
         </motion.div>
 
-        {/* Departments Grid */}
+        {/* Carousel Wrapper */}
         <motion.div
           variants={containerVariants}
           initial="hidden"
           animate={isSectionInView ? "visible" : "hidden"}
+          className="dept-carousel-wrapper"
         >
-          <Row gutter={[24, 24]} className="departments-grid-row">
+          {/* Prev Arrow */}
+          <button
+            ref={prevRef}
+            className="dept-nav-btn dept-nav-prev"
+            aria-label="Previous department"
+          >
+            <LeftOutlined />
+          </button>
+
+          <Swiper {...swiperSettings}>
             {departmentsData.map((dept) => (
-              <Col key={dept.id} xs={24} md={12} lg={8}>
+              <SwiperSlide key={dept.id}>
                 <motion.div
                   variants={cardVariants}
                   whileHover={{ y: -8 }}
@@ -137,9 +172,18 @@ const Departments = () => {
                     />
                   </article>
                 </motion.div>
-              </Col>
+              </SwiperSlide>
             ))}
-          </Row>
+          </Swiper>
+
+          {/* Next Arrow */}
+          <button
+            ref={nextRef}
+            className="dept-nav-btn dept-nav-next"
+            aria-label="Next department"
+          >
+            <RightOutlined />
+          </button>
         </motion.div>
 
         {/* Highlight Feature Strip */}

@@ -301,3 +301,100 @@
     padding: 36px 24px 24px 24px;
   }
 }
+
+/* ─── Carousel Wrapper ─────────────────────────────── */
+.dept-carousel-wrapper {
+  position: relative;
+  padding: 0 52px;
+  margin-top: 8px;
+}
+
+/* ─── Swiper Slide height fix ──────────────────────── */
+.dept-swiper {
+  width: 100%;
+  padding-bottom: 52px !important; /* space for pagination dots */
+}
+
+.dept-swiper .swiper-slide {
+  height: auto;
+}
+
+.dept-swiper .swiper-slide .dept-card-wrapper {
+  height: 100%;
+}
+
+/* ─── Pagination Dots ──────────────────────────────── */
+.dept-swiper .swiper-pagination-bullet {
+  width: 8px;
+  height: 8px;
+  background: rgba(15, 138, 143, 0.25);
+  opacity: 1;
+  transition: all 0.3s ease;
+}
+
+.dept-swiper .swiper-pagination-bullet-active {
+  background: #0f8a8f;
+  width: 22px;
+  border-radius: 4px;
+}
+
+/* ─── Navigation Buttons ───────────────────────────── */
+.dept-nav-btn {
+  position: absolute;
+  top: 50%;
+  transform: translateY(calc(-50% - 26px)); /* offset for pagination dots */
+  z-index: 10;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background: #ffffff;
+  border: 1px solid rgba(15, 138, 143, 0.18);
+  box-shadow: 0 4px 16px rgba(15, 23, 42, 0.08);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #0f8a8f;
+  font-size: 14px;
+  cursor: pointer;
+  transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.dept-nav-btn:hover {
+  background: #0f8a8f;
+  color: #ffffff;
+  box-shadow: 0 6px 20px rgba(15, 138, 143, 0.3);
+  border-color: #0f8a8f;
+  transform: translateY(calc(-50% - 26px)) scale(1.08);
+}
+
+.dept-nav-btn:focus-visible {
+  outline: 2px solid #0f8a8f;
+  outline-offset: 2px;
+}
+
+.dept-nav-btn.swiper-button-disabled {
+  opacity: 0.35;
+  cursor: not-allowed;
+  pointer-events: none;
+}
+
+.dept-nav-prev {
+  left: 0;
+}
+
+.dept-nav-next {
+  right: 0;
+}
+
+/* ─── Responsive Carousel Padding ─────────────────── */
+@media (max-width: 767px) {
+  .dept-carousel-wrapper {
+    padding: 0 40px;
+  }
+
+  .dept-nav-btn {
+    width: 34px;
+    height: 34px;
+    font-size: 12px;
+  }
+}

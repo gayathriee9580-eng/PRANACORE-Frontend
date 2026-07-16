@@ -1,5 +1,5 @@
 import React, { useState, useMemo } from "react";
-import { Input, Select, Tag, Button, Tabs, Tooltip } from "antd";
+import { Input, Select, Tag, Button, Tabs, Tooltip, Pagination } from "antd";
 import {
   SearchOutlined,
   FilterOutlined,
@@ -13,6 +13,8 @@ import DashboardLayout from "../../../layouts/DashboardLayout/DashboardLayout";
 import invoicesData from "../../../data/invoicesData";
 import useSearch from "../../../hooks/useSearch";
 import useFilter from "../../../hooks/useFilter";
+import useSort from "../../../hooks/useSort";
+import usePagination from "../../../hooks/usePagination";
 import "./Invoices.css";
 
 const { Option } = Select;
@@ -40,6 +42,17 @@ const Invoices = () => {
   const [activeTab, setActiveTab] = useState("all");
   const [search, setSearch] = useState("");
   const [statusFilter, setStatusFilter] = useState("All");
+  const [sort, setSort] = useState("newest");
+
+  const SORT_OPTIONS = [
+    { value: "newest", label: "Newest" },
+    { value: "oldest", label: "Oldest" },
+    { value: "id", label: "Invoice ID" },
+    { value: "patient", label: "Patient Name" },
+    { value: "amount_desc", label: "Amount: High–Low" },
+    { value: "amount_asc", label: "Amount: Low–High" },
+    { value: "status", label: "Status" },
+  ];
 
   const searchedInvoices = useSearch(
     invoicesData,
@@ -57,6 +70,29 @@ const Invoices = () => {
   const filteredInvoices = useFilter(searchedInvoices, {
     status: statusFilter === "All" ? invoiceStatus : statusFilter,
   });
+
+  const sortConfig = useMemo(() => {
+    switch (sort) {
+      case "newest": return { key: "date", direction: "desc" };
+      case "oldest": return { key: "date", direction: "asc" };
+      case "id": return { key: "id", direction: "asc" };
+      case "patient": return { key: "patientName", direction: "asc" };
+      case "amount_desc": return { key: "grandTotal", direction: "desc" };
+      case "amount_asc": return { key: "grandTotal", direction: "asc" };
+      case "status": return { key: "status", direction: "asc" };
+      default: return null;
+    }
+  }, [sort]);
+
+  const sortedInvoices = useSort(filteredInvoices, sortConfig);
+
+  const {
+    paginatedData,
+    currentPage,
+    pageSize,
+    setPage,
+    setPageSize,
+  } = usePagination(sortedInvoices, 9);
 
   return (
     <DashboardLayout>
@@ -107,12 +143,19 @@ const Invoices = () => {
               <Option value="Unpaid">Unpaid</Option>
               <Option value="Overdue">Overdue</Option>
             </Select>
+            <Select
+              value={sort}
+              onChange={setSort}
+              className="status-dropdown"
+            >
+              {SORT_OPTIONS.map(o => <Option key={o.value} value={o.value}>{o.label}</Option>)}
+            </Select>
           </div>
         </div>
 
         {/* Invoices Cards Grid */}
         <AnimatePresence mode="wait">
-          {filteredInvoices.length === 0 ? (
+          {sortedInvoices.length === 0 ? (
             <motion.div
               className="no-invoices-alert"
               initial={{ opacity: 0 }}
@@ -128,7 +171,7 @@ const Invoices = () => {
               initial="hidden"
               animate="visible"
             >
-              {filteredInvoices.map((inv) => {
+              {paginatedData.map((inv) => {
                 const config = statusColors[inv.status] || {};
                 return (
                   <motion.div
@@ -198,6 +241,20 @@ const Invoices = () => {
             </motion.div>
           )}
         </AnimatePresence>
+
+        {sortedInvoices.length > 0 && (
+          <div style={{ display: "flex", justifyContent: "center", marginTop: "32px", paddingBottom: "24px" }}>
+            <Pagination
+              current={currentPage}
+              total={sortedInvoices.length}
+              pageSize={pageSize}
+              showSizeChanger
+              pageSizeOptions={[9, 12, 18, 24]}
+              onChange={(page) => setPage(page)}
+              onShowSizeChange={(_, size) => setPageSize(size)}
+            />
+          </div>
+        )}
       </motion.div>
     </DashboardLayout>
   );

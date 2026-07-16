@@ -1,16 +1,18 @@
 import React, { useState } from "react";
-import { 
-  AppstoreOutlined, 
-  CalendarOutlined, 
-  TeamOutlined, 
-  MedicineBoxOutlined, 
-  FolderOpenOutlined, 
-  CreditCardOutlined, 
-  BellOutlined, 
-  UserOutlined, 
-  SettingOutlined, 
+import {
+  AppstoreOutlined,
+  CalendarOutlined,
+  TeamOutlined,
+  MedicineBoxOutlined,
+  FolderOpenOutlined,
+  CreditCardOutlined,
+  BellOutlined,
+  UserOutlined,
+  SettingOutlined,
   LogoutOutlined,
-  CloseOutlined
+  CloseOutlined,
+  ExperimentOutlined,
+  BarChartOutlined
 } from "@ant-design/icons";
 import { motion } from "framer-motion";
 import { Drawer, Modal } from "antd";
@@ -20,6 +22,7 @@ import { useToast } from "../../context/ToastContext";
 import "./Sidebar.css";
 
 const menuItems = [
+  { isSection: true, label: "Main Navigation" },
   { icon: <AppstoreOutlined />, label: "Dashboard", path: "/dashboard" },
   { icon: <CalendarOutlined />, label: "Appointments", path: "/dashboard/appointments" },
   { icon: <TeamOutlined />, label: "Doctors", path: "/dashboard/doctors" },
@@ -29,6 +32,28 @@ const menuItems = [
   { icon: <BellOutlined />, label: "Notifications", path: "/dashboard/notifications" },
   { icon: <UserOutlined />, label: "Profile", path: "/dashboard/profile" },
   { icon: <SettingOutlined />, label: "Settings", path: "/dashboard/settings" },
+  { isSection: true, label: "Admin" },
+  { icon: <AppstoreOutlined />, label: "Dashboard", path: "/admin/dashboard" },
+  { icon: <UserOutlined />, label: "Patients", path: "/admin/patients" },
+  { icon: <TeamOutlined />, label: "Doctors", path: "/admin/doctors" },
+  { icon: <MedicineBoxOutlined />, label: "Departments", path: "/admin/departments" },
+  { icon: <CalendarOutlined />, label: "Appointments", path: "/admin/appointments" },
+  { icon: <FolderOpenOutlined />, label: "Medical Records", path: "/admin/medical-records" },
+  { icon: <CreditCardOutlined />, label: "Payments", path: "/admin/payments" },
+  { icon: <ExperimentOutlined />, label: "Pharmacy", path: "/admin/pharmacy" },
+  { icon: <BarChartOutlined />, label: "Reports", path: "/admin/reports" },
+  { icon: <SettingOutlined />, label: "Settings", path: "/admin/settings" },
+  { isSection: true, label: "Doctor" },
+  { icon: <AppstoreOutlined />, label: "Dashboard", path: "/doctor/dashboard" },
+  { icon: <UserOutlined />, label: "Patients", path: "/doctor/patients" },
+  { icon: <CalendarOutlined />, label: "Appointments", path: "/doctor/appointments" },
+  { icon: <FolderOpenOutlined />, label: "Medical Records", path: "/doctor/medical-records" },
+  { icon: <MedicineBoxOutlined />, label: "Prescriptions", path: "/doctor/prescriptions" },
+  { icon: <ExperimentOutlined />, label: "Lab Reports", path: "/doctor/lab-reports" },
+  { icon: <CalendarOutlined />, label: "Schedule", path: "/doctor/schedule" },
+  { icon: <BellOutlined />, label: "Notifications", path: "/doctor/notifications" },
+  { icon: <UserOutlined />, label: "Profile", path: "/doctor/profile" },
+  { icon: <SettingOutlined />, label: "Settings", path: "/doctor/settings" },
 ];
 
 const SidebarContent = ({ collapsed, onClose, isMobile }) => {
@@ -64,7 +89,7 @@ const SidebarContent = ({ collapsed, onClose, isMobile }) => {
           {!collapsed && "CORE"}
         </div>
         {!collapsed && <div className="brand-tagline">Healthcare Platform</div>}
-        
+
         {isMobile && (
           <button className="mobile-close-btn" onClick={onClose}>
             <CloseOutlined />
@@ -75,10 +100,29 @@ const SidebarContent = ({ collapsed, onClose, isMobile }) => {
       {/* Menu Items */}
       <div className="sidebar-menu">
         {menuItems.map((item, index) => {
+          if (item.isSection) {
+            return (
+              <div
+                key={`section-${index}`}
+                className="sidebar-section-title"
+                style={{
+                  color: "var(--text-tertiary, #94a3b8)",
+                  fontSize: "0.75rem",
+                  textTransform: "uppercase",
+                  letterSpacing: "0.1em",
+                  padding: collapsed ? "12px 0" : "16px 24px 8px 24px",
+                  fontWeight: 600,
+                  textAlign: collapsed ? "center" : "left"
+                }}
+              >
+                {!collapsed ? item.label : "•••"}
+              </div>
+            );
+          }
           const active = isPathActive(item.path);
           return (
-            <div 
-              key={index} 
+            <div
+              key={index}
               className={`menu-item ${active ? 'active' : ''}`}
               title={collapsed ? item.label : ""}
               onClick={() => handleNavigation(item.path)}
@@ -93,8 +137,8 @@ const SidebarContent = ({ collapsed, onClose, isMobile }) => {
 
       {/* Logout */}
       <div className="sidebar-footer">
-        <div 
-          className="menu-item logout" 
+        <div
+          className="menu-item logout"
           title={collapsed ? "Logout" : ""}
           onClick={handleLogout}
           style={{ cursor: "pointer" }}
@@ -139,7 +183,7 @@ const Sidebar = ({ collapsed, isMobile, mobileVisible, onClose }) => {
   }
 
   return (
-    <motion.aside 
+    <motion.aside
       className={`dashboard-sidebar ${collapsed ? 'collapsed' : ''}`}
       initial={{ x: -280 }}
       animate={{ x: 0 }}

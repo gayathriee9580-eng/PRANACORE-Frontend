@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useMemo } from "react";
 import { Table, Input, Select, DatePicker, Tag, Avatar, Tooltip, Pagination } from "antd";
 import {
   SearchOutlined,
@@ -13,6 +13,7 @@ import { motion } from "framer-motion";
 import appointmentsMockData from "../../../data/appointmentsMockData";
 import useSearch from "../../../hooks/useSearch";
 import useFilter from "../../../hooks/useFilter";
+import useSort from "../../../hooks/useSort";
 import usePagination from "../../../hooks/usePagination";
 import "./AppointmentList.css";
 
@@ -37,6 +38,15 @@ const AppointmentList = () => {
   const [search, setSearch] = useState("");
   const [statusFilter, setStatusFilter] = useState("All");
   const [deptFilter, setDeptFilter] = useState("All");
+  const [sort, setSort] = useState("newest");
+
+  const SORT_OPTIONS = [
+    { value: "newest", label: "Newest" },
+    { value: "oldest", label: "Oldest" },
+    { value: "patient", label: "Patient Name" },
+    { value: "doctor", label: "Doctor Name" },
+    { value: "status", label: "Status" },
+  ];
 
   const departments = ["All", ...new Set(appointmentsMockData.map(a => a.department))];
   const statuses = ["All", "Confirmed", "Completed", "Pending", "Cancelled"];
@@ -52,13 +62,26 @@ const AppointmentList = () => {
     department: deptFilter,
   });
 
+  const sortConfig = useMemo(() => {
+    switch (sort) {
+      case "newest": return { key: "date", direction: "desc" };
+      case "oldest": return { key: "date", direction: "asc" };
+      case "patient": return { key: "patient", direction: "asc" };
+      case "doctor": return { key: "doctor", direction: "asc" };
+      case "status": return { key: "status", direction: "asc" };
+      default: return null;
+    }
+  }, [sort]);
+
+  const sortedAppointments = useSort(filtered, sortConfig);
+
   const {
     paginatedData,
     currentPage,
     pageSize,
     setPage,
     setPageSize,
-  } = usePagination(filtered, 10);
+  } = usePagination(sortedAppointments, 10);
 
   const columns = [
     {
@@ -182,13 +205,21 @@ const AppointmentList = () => {
             >
               {departments.map((d) => <Option key={d} value={d}>{d === "All" ? "All Departments" : d}</Option>)}
             </Select>
+            <Select
+              className="al-select"
+              value={sort}
+              onChange={setSort}
+              suffixIcon={null}
+            >
+              {SORT_OPTIONS.map((o) => <Option key={o.value} value={o.value}>{o.label}</Option>)}
+            </Select>
           </div>
         </motion.div>
 
         {/* ── Table ─── */}
         <motion.div className="al-table-card" custom={2} variants={fadeUp} initial="hidden" animate="visible">
           <div className="al-table-header">
-            <span className="al-results-count">{filtered.length} appointment{filtered.length !== 1 ? "s" : ""} found</span>
+            <span className="al-results-count">{sortedAppointments.length} appointment{sortedAppointments.length !== 1 ? "s" : ""} found</span>
           </div>
           <Table
             dataSource={paginatedData}
@@ -198,11 +229,11 @@ const AppointmentList = () => {
             scroll={{ x: 700 }}
             rowKey="key"
           />
-          {filtered.length > 0 && (
+          {sortedAppointments.length > 0 && (
             <div style={{ display: "flex", justifyContent: "center", marginTop: "24px" }}>
               <Pagination
                 current={currentPage}
-                total={filtered.length}
+                total={sortedAppointments.length}
                 pageSize={pageSize}
                 showSizeChanger
                 pageSizeOptions={[10, 20, 30, 50]}

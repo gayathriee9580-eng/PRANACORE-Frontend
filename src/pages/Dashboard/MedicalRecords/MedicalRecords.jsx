@@ -1,5 +1,5 @@
 import React, { useState, useMemo } from "react";
-import { Input, Select } from "antd";
+import { Input, Select, Pagination } from "antd";
 import {
   SearchOutlined,
   FilterOutlined,
@@ -20,6 +20,8 @@ import { motion } from "framer-motion";
 import medicalRecordsData from "../../../data/medicalRecordsData";
 import useSearch from "../../../hooks/useSearch";
 import useFilter from "../../../hooks/useFilter";
+import useSort from "../../../hooks/useSort";
+import usePagination from "../../../hooks/usePagination";
 import "./MedicalRecords.css";
 
 const { Option } = Select;
@@ -63,6 +65,15 @@ const MedicalRecords = () => {
   const [search, setSearch] = useState("");
   const [typeFilter, setTypeFilter] = useState("All Types");
   const [statusFilter, setStatus] = useState("All Statuses");
+  const [sort, setSort] = useState("newest");
+
+  const SORT_OPTIONS = [
+    { value: "newest", label: "Newest" },
+    { value: "oldest", label: "Oldest" },
+    { value: "doctor", label: "Doctor" },
+    { value: "patient", label: "Patient" },
+    { value: "status", label: "Status" },
+  ];
 
   const augmentedRecords = useMemo(() => {
     return medicalRecordsData.map(r => ({
@@ -87,6 +98,27 @@ const MedicalRecords = () => {
     type: typeFilter === "All Types" ? undefined : typeFilter,
     status: statusFilter === "All Statuses" ? undefined : statusFilter,
   });
+
+  const sortConfig = useMemo(() => {
+    switch (sort) {
+      case "newest": return { key: "date", direction: "desc" };
+      case "oldest": return { key: "date", direction: "asc" };
+      case "doctor": return { key: "doctor", direction: "asc" };
+      case "patient": return { key: "patient", direction: "asc" };
+      case "status": return { key: "status", direction: "asc" };
+      default: return null;
+    }
+  }, [sort]);
+
+  const sortedRecords = useSort(filtered, sortConfig);
+
+  const {
+    paginatedData,
+    currentPage,
+    pageSize,
+    setPage,
+    setPageSize,
+  } = usePagination(sortedRecords, 8);
 
   const stats = [
     { label: "Total Records", value: medicalRecordsData.length, icon: <FileTextOutlined />, color: "#0f8a8f" },
@@ -148,19 +180,22 @@ const MedicalRecords = () => {
             <Select className="mr-select" value={statusFilter} onChange={setStatus}>
               {STATUSES.map(s => <Option key={s} value={s}>{s}</Option>)}
             </Select>
+            <Select className="mr-select" value={sort} onChange={setSort}>
+              {SORT_OPTIONS.map(o => <Option key={o.value} value={o.value}>{o.label}</Option>)}
+            </Select>
           </div>
-          <span className="mr-results-count">{filtered.length} record{filtered.length !== 1 ? "s" : ""}</span>
+          <span className="mr-results-count">{sortedRecords.length} record{sortedRecords.length !== 1 ? "s" : ""}</span>
         </motion.div>
 
         {/* ── Record Cards ──────────────────────────────────── */}
-        {filtered.length === 0 ? (
+        {sortedRecords.length === 0 ? (
           <div className="mr-empty">
             <FileTextOutlined className="mr-empty-icon" />
             <p>No records match your search. Try different filters.</p>
           </div>
         ) : (
           <div className="mr-cards-grid">
-            {filtered.map((record, i) => {
+            {paginatedData.map((record, i) => {
               const typeStyle = TYPE_COLORS[record.type] || {};
               const statusStyle = STATUS_CONFIG[record.status] || {};
               return (
@@ -214,6 +249,21 @@ const MedicalRecords = () => {
                 </motion.div>
               );
             })}
+          </div>
+        )}
+
+        {/* ── Pagination ────────────────────────────────────── */}
+        {sortedRecords.length > 0 && (
+          <div className="mr-pagination">
+            <Pagination
+              current={currentPage}
+              total={sortedRecords.length}
+              pageSize={pageSize}
+              showSizeChanger
+              pageSizeOptions={[8, 12, 16, 24]}
+              onChange={(page) => setPage(page)}
+              onShowSizeChange={(_, size) => setPageSize(size)}
+            />
           </div>
         )}
 

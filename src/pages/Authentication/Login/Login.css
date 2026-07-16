@@ -266,17 +266,60 @@
   .login-card {
     padding: 32px 24px;
   }
-  
+
   .login-title {
     font-size: 24px;
   }
-  
+
   .btn-login-submit,
   .btn-google-login {
     width: 100%;
   }
-  
+
   .login-input {
     width: 100%;
   }
+}
+
+/* ── Role Badge ─────────────────────────────────────────────── */
+.role-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 5px 14px;
+  border-radius: 999px;
+  font-size: 13px;
+  font-weight: 600;
+  margin-top: 14px;
+  letter-spacing: 0.2px;
+  transition: opacity 0.3s ease;
+}
+
+.role-badge-icon {
+  font-size: 15px;
+  line-height: 1;
+}
+
+.role-badge-label {
+  line-height: 1.4;
+}
+
+/* ── Switch Role button ─────────────────────────────────────── */
+.switch-role-btn {
+  display: inline-block;
+  margin-top: 12px;
+  background: none;
+  border: none;
+  outline: none;
+  cursor: pointer;
+  font-family: 'Inter', sans-serif;
+  font-size: 13px;
+  font-weight: 500;
+  color: #94a3b8;
+  transition: color 0.2s ease;
+  padding: 0;
+}
+
+.switch-role-btn:hover {
+  color: #0f8a8f;
 }
